@@ -1,0 +1,17 @@
+# HU-03 
+
+**Rol:** Supervisor de producción
+
+**Historia de usuario:**  
+Como supervisor de producción, quiero registrar las unidades rechazadas en cada turno, para hacer seguimiento a los resultados de calidad del proceso productivo.
+
+**Prioridad:** Alta
+
+**Story Points:** 2
+
+## Criterios de aceptación
+
+1. El supervisor puede ingresar la cantidad de unidades rechazadas.
+2. El registro queda asociado al turno correspondiente.
+3. La información queda almacenada para su posterior consulta.
+4. El supervisor puede verificar que el registro fue guardado correctamente.
