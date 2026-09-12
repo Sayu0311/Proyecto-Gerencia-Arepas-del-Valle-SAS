@@ -1,0 +1,18 @@
+# HU-01 
+
+**Rol:** Supervisor de producción
+
+**Historia de usuario:**  
+Como supervisor de producción, quiero registrar los tiempos y causas de paro del proceso, para hacer seguimiento a las interrupciones que afectan el desempeño de la producción.
+
+**Prioridad:** Alta
+
+**Story Points:** 3
+
+## Criterios de aceptación
+
+1. El supervisor puede registrar un paro correspondiente a un turno.
+2. El supervisor puede indicar la causa del paro.
+3. El supervisor puede registrar la duración del paro.
+4. El paro queda asociado al turno correspondiente.
+5. El supervisor puede verificar que la información del paro fue almacenada correctamente.
