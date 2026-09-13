@@ -1,0 +1,17 @@
+# HU-09 
+
+**Rol:** Gerente
+
+**Historia de usuario:**  
+Como gerente, quiero visualizar la cantidad de unidades rechazadas, para identificar comportamientos que puedan afectar el cumplimiento de los estándares de calidad.
+
+**Prioridad:** Alta
+
+**Story Points:** 3
+
+## Criterios de aceptación
+
+1. El gerente puede consultar la cantidad de unidades rechazadas.
+2. La información corresponde a los registros realizados por los supervisores.
+3. Los rechazos pueden consultarse según el período seleccionado.
+4. La información se presenta de manera que permita identificar variaciones en los rechazos.

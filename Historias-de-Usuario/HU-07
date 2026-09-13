@@ -1,0 +1,17 @@
+# HU-07 
+
+**Rol:** Gerente
+
+**Historia de usuario:**  
+Como gerente, quiero comparar los resultados obtenidos con las metas de producción establecidas, para identificar desviaciones y tomar acciones oportunamente.
+
+**Prioridad:** Alta
+
+**Story Points:** 5
+
+## Criterios de aceptación
+
+1. El gerente puede consultar la meta de producción correspondiente al período.
+2. El gerente puede visualizar el resultado real de producción.
+3. La información permite identificar la diferencia entre la meta y el resultado obtenido.
+4. El resultado facilita la identificación de desviaciones respecto a la meta.

@@ -1,0 +1,18 @@
+# HU-05 
+
+**Rol:** Gerente
+
+**Historia de usuario:**  
+Como gerente, quiero visualizar los principales indicadores de producción en un tablero, para conocer oportunamente el desempeño de la planta y apoyar la toma de decisiones.
+
+**Prioridad:** Muy alta
+
+**Story Points:** 8
+
+## Criterios de aceptación
+
+1. El tablero debe mostrar los principales indicadores de producción definidos para el proyecto.
+2. Cada indicador debe presentar información correspondiente a los datos registrados.
+3. Los indicadores deben estar organizados de manera clara para facilitar su interpretación.
+4. El tablero debe permitir al gerente identificar el comportamiento general de la producción.
+5. La información mostrada debe corresponder a los registros almacenados.

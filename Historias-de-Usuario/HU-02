@@ -1,0 +1,17 @@
+# HU-02 
+
+**Rol:** Supervisor de producción
+
+**Historia de usuario:**  
+Como supervisor de producción, quiero registrar las unidades producidas en cada turno, para mantener actualizada la información del volumen de producción.
+
+**Prioridad:** Alta
+
+**Story Points:** 2
+
+## Criterios de aceptación
+
+1. El supervisor puede ingresar la cantidad de unidades producidas.
+2. El registro queda asociado al turno correspondiente.
+3. El sistema conserva la información registrada.
+4. El supervisor puede verificar que la cantidad fue registrada correctamente.
