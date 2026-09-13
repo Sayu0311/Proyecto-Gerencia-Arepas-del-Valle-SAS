@@ -1,0 +1,17 @@
+# HU-06 
+
+**Rol:** Gerente
+
+**Historia de usuario:**  
+Como gerente, quiero consultar los indicadores por período y turno, para analizar cómo ha variado el desempeño de la producción.
+
+**Prioridad:** Alta
+
+**Story Points:** 5
+
+## Criterios de aceptación
+
+1. El gerente puede seleccionar un período de consulta.
+2. El gerente puede consultar la información correspondiente a diferentes turnos.
+3. Los indicadores mostrados corresponden al período y turno seleccionado.
+4. La información se muestra de acuerdo con los filtros seleccionados para facilitar el análisis del desempeño de la producción.
