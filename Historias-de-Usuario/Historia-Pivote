@@ -1,0 +1,14 @@
+# Historia pivote
+
+Tomamos la **HISTORIA DE USUARIO-06** como historia pivote y le asignamos **5 Story Points**, por representar una funcionalidad de complejidad intermedia.
+
+A partir de ella comparamos el esfuerzo relativo de las demás historias utilizando la escala de Fibonacci.
+
+## Escala de referencia
+
+- **2 STORY POINTS:** funcionalidad mucho más sencilla que la historia pivote.
+- **3 STORY POINTS:** funcionalidad de menor esfuerzo que la historia pivote.
+- **5 STORY POINTS:** funcionalidad de esfuerzo similar a la historia pivote.
+- **8 STORY POINTS:** funcionalidad considerablemente mayor que la historia pivote.
+
+La estimación se realiza de manera relativa, considerando la complejidad, el esfuerzo y el alcance de cada historia frente a la historia pivote.
