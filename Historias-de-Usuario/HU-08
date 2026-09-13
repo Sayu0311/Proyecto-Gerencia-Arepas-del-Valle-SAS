@@ -1,0 +1,17 @@
+# HU-08 
+
+**Rol:** Gerente
+
+**Historia de usuario:**  
+Como gerente, quiero visualizar las principales causas y tiempos de paro, para identificar las situaciones que afectan la continuidad del proceso productivo y priorizar acciones de mejora.
+
+**Prioridad:** Alta
+
+**Story Points:** 5
+
+## Criterios de aceptación
+
+1. El gerente puede consultar los tiempos de paro registrados.
+2. La información permite identificar las principales causas de paro.
+3. Los datos se presentan de forma que facilite la comparación entre las causas y tiempos registrados.
+4. La información permite identificar cuáles situaciones tienen mayor impacto sobre la continuidad del proceso.
