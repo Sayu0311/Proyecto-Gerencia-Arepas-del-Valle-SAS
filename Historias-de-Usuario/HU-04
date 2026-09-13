@@ -1,0 +1,17 @@
+# HU-04 
+
+**Rol:** Supervisor de producción
+
+**Historia de usuario:**  
+Como supervisor de producción, quiero consultar la información registrada de cada turno, para verificar los datos reportados y detectar posibles inconsistencias.
+
+**Prioridad:** Alta
+
+**Story Points:** 3
+
+## Criterios de aceptación
+
+1. El supervisor puede consultar la información registrada de cada turno.
+2. La información se muestra identificando el turno correspondiente.
+3. La consulta muestra los datos registrados de producción, rechazos y paros.
+4. La información presentada corresponde a los registros almacenados.
