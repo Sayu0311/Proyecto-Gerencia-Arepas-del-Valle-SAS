@@ -1,0 +1,15 @@
+## Orden del Backlog
+
+El backlog se organiza del 1 al 9 considerando las dependencias entre las historias de usuario. Primero se priorizan los registros de información necesarios para generar posteriormente consultas, indicadores y análisis.
+
+| Orden | Historia de usuario | Justificación |
+|---|---|---|
+| 1 | HU-02 – Registrar unidades producidas | Es el dato base de producción real. |
+| 2 | HU-03 – Registrar unidades rechazadas | Alimenta los datos de calidad. |
+| 3 | HU-01 – Registrar tiempos y causas de paro | Alimenta el análisis de interrupciones. |
+| 4 | HU-09 – Registrar metas de producción | Define la referencia necesaria para comparar resultados. |
+| 5 | HU-04 – Consultar información por turno | Permite verificar los datos registrados antes de analizarlos. |
+| 6 | HU-05 – Consultar indicadores por período y turno | Integra los datos registrados para visualizar el desempeño. |
+| 7 | HU-06 – Comparar resultados con metas | Depende de la producción real de HU-02 y de las metas de HU-09. |
+| 8 | HU-07 – Visualizar causas y tiempos de paro | Depende de los registros de HU-01 para analizar las interrupciones. |
+| 9 | HU-08 – Visualizar unidades rechazadas | Depende de los registros de HU-03 para el análisis de calidad. |
