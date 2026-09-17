@@ -3,15 +3,19 @@
 **Rol:** Gerente
 
 **Historia de usuario:**  
-Como gerente, quiero consultar los indicadores por período y turno, para analizar cómo ha variado el desempeño de la producción.
+Como gerente, quiero comparar los resultados obtenidos con las metas de producción establecidas, para identificar desviaciones y tomar acciones oportunamente.
 
 **Prioridad:** Alta
-
+ 
 **Story Points:** 5
 
 ## Criterios de aceptación
 
-1. El gerente puede seleccionar un período de consulta.
-2. El gerente puede consultar la información correspondiente a diferentes turnos.
-3. Los indicadores mostrados corresponden al período y turno seleccionado.
-4. La información se muestra de acuerdo con los filtros seleccionados para facilitar el análisis del desempeño de la producción.
+1.	El gerente puede seleccionar el período que desea analizar.
+2.	El sistema muestra la meta de producción registrada para el período seleccionado.
+3.	El sistema muestra la producción real registrada para el mismo período.
+4.	El sistema calcula y muestra la diferencia entre la producción real y la meta establecida.
+5.	El sistema permite identificar si la producción está por debajo, igual o por encima de la meta.
+6.	Si el período seleccionado no tiene una meta registrada, el sistema informa que no existe una meta disponible para realizar la comparación.
+7.	La comparación utiliza únicamente los datos correspondientes al mismo período.
+8.	El sistema no permite presentar una comparación como válida cuando falta alguno de los dos valores necesarios: meta o producción real.

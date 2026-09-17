@@ -11,7 +11,11 @@ Como supervisor de producción, quiero consultar la información registrada de c
 
 ## Criterios de aceptación
 
-1. El supervisor puede consultar la información registrada de cada turno.
-2. La información se muestra identificando el turno correspondiente.
-3. La consulta muestra los datos registrados de producción, rechazos y paros.
-4. La información presentada corresponde a los registros almacenados.
+1.	El supervisor puede seleccionar el turno que desea consultar.
+2.	El sistema muestra la información correspondiente al turno seleccionado.
+3.	La consulta presenta las unidades producidas, unidades rechazadas y tiempos de paro registrados.
+4.	La información mostrada corresponde únicamente a los registros almacenados para el turno seleccionado.
+5.	El supervisor puede identificar la causa y duración de los paros registrados para el turno.
+6.	Si el turno seleccionado no tiene información registrada, el sistema muestra un mensaje indicando que no existen datos disponibles, en lugar de mostrar información de otro turno.
+7.	La consulta permite identificar posibles inconsistencias, como información faltante o registros que no correspondan al turno seleccionado.
+8.	La información consultada se mantiene consistente con los datos almacenados en el sistema.

@@ -3,7 +3,7 @@
 **Rol:** Gerente
 
 **Historia de usuario:**  
-Como gerente, quiero visualizar la cantidad de unidades rechazadas, para identificar comportamientos que puedan afectar el cumplimiento de los estándares de calidad.
+Como gerente, quiero registrar las metas de producción de cada período de trabajo, para establecer el valor de referencia con el cual se evaluará el cumplimiento de la producción.
 
 **Prioridad:** Alta
 
@@ -11,7 +11,11 @@ Como gerente, quiero visualizar la cantidad de unidades rechazadas, para identif
 
 ## Criterios de aceptación
 
-1. El gerente puede consultar la cantidad de unidades rechazadas.
-2. La información corresponde a los registros realizados por los supervisores.
-3. Los rechazos pueden consultarse según el período seleccionado.
-4. La información se presenta de manera que permita identificar variaciones en los rechazos.
+1.	El gerente puede seleccionar el período al cual corresponde la meta.
+2.	El gerente puede ingresar la cantidad de unidades establecida como meta.
+3.	La meta debe corresponder a un número entero mayor que cero.
+4.	El sistema no permite guardar la meta si el período o la cantidad están vacíos.
+5.	El sistema no permite registrar valores negativos, cero o valores que no correspondan a una cantidad válida de unidades.
+6.	El sistema informa al gerente si ya existe una meta registrada para el período seleccionado y evita crear un registro duplicado.
+7.	Una vez guardada, la meta queda asociada al período correspondiente.
+8.	El gerente puede consultar posteriormente el valor de la meta registrada.

@@ -3,15 +3,19 @@
 **Rol:** Gerente
 
 **Historia de usuario:**  
-Como gerente, quiero visualizar las principales causas y tiempos de paro, para identificar las situaciones que afectan la continuidad del proceso productivo y priorizar acciones de mejora.
+Como gerente, quiero visualizar la cantidad de unidades rechazadas, para identificar comportamientos que puedan afectar el cumplimiento de los estándares de calidad.
 
 **Prioridad:** Alta
 
-**Story Points:** 5
+**Story Points:** 3
 
 ## Criterios de aceptación
 
-1. El gerente puede consultar los tiempos de paro registrados.
-2. La información permite identificar las principales causas de paro.
-3. Los datos se presentan de forma que facilite la comparación entre las causas y tiempos registrados.
-4. La información permite identificar cuáles situaciones tienen mayor impacto sobre la continuidad del proceso.
+1.	El gerente puede seleccionar el período que desea consultar.
+2.	El sistema muestra el total de unidades rechazadas correspondientes al período seleccionado.
+3.	El indicador utiliza los registros de unidades rechazadas realizados por los supervisores.
+4.	El gerente puede consultar la cantidad de unidades rechazadas correspondiente a diferentes períodos.
+5.	La información mostrada corresponde únicamente al período seleccionado.
+6.	Si no existen registros de unidades rechazadas para el período seleccionado, el sistema informa que no hay datos disponibles.
+7.	El sistema no permite que los registros de unidades rechazadas utilizados para el indicador contengan cantidades negativas.
+8.	El indicador se actualiza cuando existen nuevos registros de unidades rechazadas correspondientes al período consultado.

@@ -3,16 +3,19 @@
 **Rol:** Gerente
 
 **Historia de usuario:**  
-Como gerente, quiero visualizar los principales indicadores de producción en un tablero, para conocer oportunamente el desempeño de la planta y apoyar la toma de decisiones.
+Como gerente, quiero consultar los indicadores por período y turno, para analizar cómo ha variado el desempeño de la producción.
 
-**Prioridad:** Muy alta
+**Prioridad:** alta
 
-**Story Points:** 8
+**Story Points:** 5
 
 ## Criterios de aceptación
 
-1. El tablero debe mostrar los principales indicadores de producción definidos para el proyecto.
-2. Cada indicador debe presentar información correspondiente a los datos registrados.
-3. Los indicadores deben estar organizados de manera clara para facilitar su interpretación.
-4. El tablero debe permitir al gerente identificar el comportamiento general de la producción.
-5. La información mostrada debe corresponder a los registros almacenados.
+1.	El gerente puede seleccionar el período que desea consultar.
+2.	El gerente puede seleccionar un turno específico o consultar los datos correspondientes a los turnos disponibles dentro del período seleccionado.
+3.	Los indicadores mostrados corresponden exclusivamente al período y turno seleccionados.
+4.	La consulta permite visualizar, como mínimo, la producción real, unidades rechazadas y tiempos de paro registrados.
+5.	El sistema actualiza los indicadores cuando el gerente modifica los filtros de período o turno.
+6.	Si no existen registros para los filtros seleccionados, el sistema muestra un mensaje indicando que no hay datos disponibles.
+7.	El sistema no muestra información correspondiente a períodos o turnos diferentes a los seleccionados.
+8.	La información presentada mantiene correspondencia con los registros almacenados.
