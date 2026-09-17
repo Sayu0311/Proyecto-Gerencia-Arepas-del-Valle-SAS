@@ -11,7 +11,11 @@ Como supervisor de producción, quiero registrar las unidades rechazadas en cada
 
 ## Criterios de aceptación
 
-1. El supervisor puede ingresar la cantidad de unidades rechazadas.
-2. El registro queda asociado al turno correspondiente.
-3. La información queda almacenada para su posterior consulta.
-4. El supervisor puede verificar que el registro fue guardado correctamente.
+1.	El supervisor puede seleccionar el turno correspondiente al registro.
+2.	El supervisor puede ingresar la cantidad de unidades rechazadas.
+3.	La cantidad de unidades rechazadas debe ser un número entero igual o mayor que cero.
+4.	El sistema no permite guardar el registro si el turno o la cantidad de unidades rechazadas están vacíos.
+5.	El sistema no permite registrar cantidades negativas ni valores que no correspondan a una cantidad válida de unidades.
+6.	La cantidad de unidades rechazadas no puede ser superior a la cantidad de unidades producidas registrada para el mismo turno.
+7.	El sistema evita registrar más de un reporte de rechazos para el mismo turno, o informa al supervisor si ya existe un registro.
+8.	Una vez guardado, el supervisor puede verificar que la cantidad de unidades rechazadas quedó asociada al turno correspondiente.
