@@ -3,7 +3,7 @@
 **Rol:** Gerente
 
 **Historia de usuario:**  
-Como gerente, quiero comparar los resultados obtenidos con las metas de producción establecidas, para identificar desviaciones y tomar acciones oportunamente.
+Como gerente, quiero visualizar las principales causas y tiempos de paro, para identificar las situaciones que afectan la continuidad del proceso productivo y priorizar acciones de mejora.
 
 **Prioridad:** Alta
 
@@ -11,7 +11,11 @@ Como gerente, quiero comparar los resultados obtenidos con las metas de producci
 
 ## Criterios de aceptación
 
-1. El gerente puede consultar la meta de producción correspondiente al período.
-2. El gerente puede visualizar el resultado real de producción.
-3. La información permite identificar la diferencia entre la meta y el resultado obtenido.
-4. El resultado facilita la identificación de desviaciones respecto a la meta.
+1.	El gerente puede seleccionar el período que desea consultar.
+2.	El sistema muestra el tiempo acumulado de paro del período seleccionado, expresado en minutos.
+3.	El sistema muestra las causas de paro registradas durante el período.
+4.	El sistema muestra el tiempo acumulado asociado a cada causa.
+5.	La información permite comparar las diferentes causas según el tiempo de paro acumulado.
+6.	El sistema permite identificar las causas que representan los mayores tiempos de interrupción.
+7.	Si no existen registros de paro para el período seleccionado, el sistema informa que no hay datos disponibles.
+8.	Los tiempos y causas mostrados corresponden únicamente a los registros almacenados para el período seleccionado.
