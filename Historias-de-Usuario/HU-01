@@ -11,8 +11,11 @@ Como supervisor de producción, quiero registrar los tiempos y causas de paro de
 
 ## Criterios de aceptación
 
-1. El supervisor puede registrar un paro correspondiente a un turno.
-2. El supervisor puede indicar la causa del paro.
-3. El supervisor puede registrar la duración del paro.
-4. El paro queda asociado al turno correspondiente.
-5. El supervisor puede verificar que la información del paro fue almacenada correctamente.
+1.	El supervisor puede seleccionar el turno al que corresponde el paro.
+2.	El supervisor puede registrar la hora de inicio y la hora de finalización del paro.
+3.	El sistema calcula y muestra la duración del paro en minutos antes de guardar el registro.
+4.	El supervisor debe seleccionar una causa de paro de una lista previamente definida por el sistema.
+5.	El sistema no permite guardar el registro si falta el turno, la causa, la hora de inicio o la hora de finalización.
+6.	El sistema no permite guardar un registro cuando la hora de finalización es anterior a la hora de inicio.
+7.	El sistema no permite registrar una duración negativa ni un paro que exceda la duración del turno, salvo que el sistema contemple explícitamente paros que continúen entre turnos.
+8.	Una vez guardado, el supervisor puede verificar el turno, causa, horas y duración registrados.
