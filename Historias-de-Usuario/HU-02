@@ -11,7 +11,11 @@ Como supervisor de producción, quiero registrar las unidades producidas en cada
 
 ## Criterios de aceptación
 
-1. El supervisor puede ingresar la cantidad de unidades producidas.
-2. El registro queda asociado al turno correspondiente.
-3. El sistema conserva la información registrada.
-4. El supervisor puede verificar que la cantidad fue registrada correctamente.
+1.	La cantidad de unidades producidas debe ser un número entero mayor que cero. 
+2.	El registro debe estar asociado a un único turno de producción. 
+3.	No se debe permitir guardar el registro si no se ha seleccionado el turno correspondiente. 
+4.	No se debe permitir guardar el registro cuando la cantidad de unidades producidas esté vacía o contenga valores no numéricos. 
+5.	Para un mismo turno, el registro de unidades producidas debe poder identificarse de manera única, evitando duplicar el mismo registro. 
+6.	Una vez guardado el registro, la cantidad de unidades producidas debe mantenerse sin modificaciones hasta que un usuario autorizado la actualice. 
+7.	Al consultar un turno, la cantidad de unidades producidas registrada debe corresponder exactamente con el valor almacenado. 
+8.	La información registrada debe quedar disponible para su posterior consulta y utilización en los indicadores de producción.
