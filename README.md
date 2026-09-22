@@ -78,3 +78,273 @@ Para establecer la relación entre el proyecto y las iniciativas estratégicas d
 | **Portafolio** | **Portafolio de Modernización Operacional y Transformación Digital** | Conjunto consolidado de iniciativas de inversión y cambio tecnológico que soportan la visión competitiva de Arepas del Valle S.A.S. | Provee el patrocinio estratégico, alineando el desarrollo del software con los fondos de inversión en modernización industrial. |
 | **Programa** | **Programa de Digitalización y Eficiencia de Procesos Productivos** | Agrupación coordinada de proyectos de software, hardware y mejora de procesos orientados a optimizar la manufactura de alimentos. | Es el contenedor directo del proyecto. El software de tableros provee la capa de visualización e inteligencia de datos que retroalimentará a los demás proyectos del programa. |
 | **Proyecto** | **Desarrollo de una aplicación web de Dashboard para el monitoreo de indicadores del proceso de producción de arepas.** | Es el esfuerzo temporal que está siendo ejecutado por el equipo de 3 desarrolladores bajo metodología SCRUM (es el proyecto propio). | Es el entregable tecnológico tangible: dashboard interactivo para capturar datos y monitorear la planta. |
+
+
+# 4. Elección y clasificación del proyecto
+
+## 4.1 Tipo de proyecto
+
+El proyecto corresponde a un **desarrollo de software a la medida y transformación digital**. Consiste en diseñar y construir una aplicación web para capturar, procesar y visualizar indicadores operativos de la planta de Arepas del Valle S.A.S., como:
+
+- Producción.
+- Tiempos de paro.
+- Mermas.
+- Eficiencia global de los equipos (OEE).
+
+La solución no modifica físicamente las máquinas ni el producto, sino que digitaliza el flujo de información para facilitar la toma de decisiones gerenciales. El desarrollo será gestionado y versionado mediante **Git y GitHub**.
+
+## 4.2 Ciclo de vida: metodología Scrum
+
+Se utilizará una metodología ágil basada en **Scrum**, dividida en dos Sprints de dos semanas cada uno. Esta estructura permite entregar valor rápidamente, recibir retroalimentación y controlar el alcance del proyecto.
+
+### Sprint 1: Producto Mínimo Viable (MVP)
+
+**Objetivo:** Digitalizar el registro de producción y paradas, permitiendo visualizar el cumplimiento del turno en tiempo real.
+
+**Funcionalidades principales:**
+
+- Configuración del entorno y la base de datos relacional.
+- Formulario web para registrar:
+  - Kilos de masa.
+  - Paquetes de 5 y 10 unidades.
+  - Producción por hora y turno.
+- Registro de paradas de máquinas y sus causas.
+- Dashboard con comparación entre producción real y meta.
+- Visualización del tiempo muerto y acumulado.
+
+**Entregable:** Prototipo funcional de la aplicación web, con base de datos, repositorio Git y tablero operativo.
+
+### Sprint 2: Analítica e indicadores
+
+**Objetivo:** Incorporar el análisis de mermas, el cálculo de OEE y los reportes gerenciales.
+
+**Funcionalidades principales:**
+
+- Módulo de control de mermas e indicadores de calidad.
+- Registro de masa residual y unidades no conformes.
+- Cálculo automático del OEE:
+  - Disponibilidad.
+  - Rendimiento.
+  - Calidad.
+- Dashboard gerencial con filtros por fecha, turno y línea.
+- Exportación de reportes ejecutivos.
+- Pruebas integrales de la aplicación.
+- Autenticación por roles y documentación técnica.
+
+**Entregable:** Versión final de la solución web con dashboards operativos y gerenciales, módulo de sostenibilidad y control de acceso.
+
+## 4.3 Relación con el ODS 12
+
+El proyecto se relaciona con el **Objetivo de Desarrollo Sostenible 12: Producción y Consumo Responsable**, porque busca mejorar el uso de los recursos empleados en la producción de arepas.
+
+La aplicación permitirá:
+
+- Centralizar la información de producción, calidad, paradas y mermas.
+- Identificar pérdidas y desperdicios de manera oportuna.
+- Controlar el uso de materias primas como harina de maíz, agua y aceite.
+- Hacer seguimiento al consumo de recursos energéticos, como el gas utilizado en el horno.
+- Generar alertas sobre desviaciones operativas.
+- Crear reportes de balance de masa para reducir el desperdicio de alimentos.
+
+Estas acciones contribuyen especialmente al seguimiento y reducción de desperdicios relacionados con la meta 12.5 del ODS 12.
+
+## 4.4 Responsabilidad Social Empresarial (RSE)
+
+El proyecto aporta a la responsabilidad social empresarial mediante:
+
+- **Eficiencia de recursos:** seguimiento de desperdicios y oportunidades de mejora.
+- **Sostenibilidad ambiental:** reducción de residuos orgánicos generados por mermas.
+- **Bienestar laboral:** disminución de tareas repetitivas y del diligenciamiento manual de planillas.
+- **Transparencia:** disponibilidad de información operativa para el personal y la gerencia.
+- **Toma de decisiones basada en datos:** fortalecimiento de la colaboración entre las áreas operativas y administrativas.
+
+---
+
+# 5. Estudio de prefactibilidad y factibilidad mediante Business Case
+
+El estudio de factibilidad evalúa la viabilidad técnica, económica, operativa, legal y social de la aplicación web para el monitoreo de indicadores de producción.
+
+## 5.1 Viabilidad técnica
+
+### Tecnologías seleccionadas
+
+El proyecto utilizará tecnologías de código abierto para evitar la dependencia de soluciones comerciales cerradas y permitir un desarrollo propio.
+
+| Componente | Tecnología |
+|---|---|
+| Lenguaje de programación | Python 3.11 |
+| Interfaz y analítica | Streamlit |
+| Base de datos local | SQLite |
+| Base de datos multiusuario | PostgreSQL |
+| Control de versiones | Git y GitHub |
+| Metodología | Scrum |
+
+### Localización del proyecto
+
+- **Macrolocalización:** Planta industrial de Arepas del Valle S.A.S., ubicada en el Valle de Aburrá, Antioquia.
+- **Microlocalización:** Oficinas de supervisión de producción y dispositivos de consulta ubicados en las áreas operativas, como empaque y cuarto frío.
+
+### Restricciones técnicas
+
+La aplicación se limita a la captura, procesamiento y monitoreo de información en tiempo real. No interviene físicamente ni modifica la maquinaria de producción, como marmitas, troqueladoras u hornos continuos.
+
+## 5.2 Viabilidad económica
+
+La viabilidad económica compara la inversión necesaria para desarrollar la aplicación con los ahorros y beneficios esperados en la planta.
+
+### Presupuesto de inversión inicial
+
+| Concepto | Costo estimado |
+|---|---:|
+| Desarrollo de la aplicación | $3.500.000 COP |
+| Base de datos y almacenamiento | $500.000 COP |
+| Diseño del dashboard | $700.000 COP |
+| Pruebas e implementación | $500.000 COP |
+| Capacitación | $300.000 COP |
+| Mantenimiento inicial | $500.000 COP |
+| **Total estimado** | **$6.000.000 COP** |
+
+Los valores corresponden a una estimación académica para el estudio de prefactibilidad.
+
+### Fuente de financiación
+
+La inversión se plantea a través del presupuesto del Programa de Transformación y Mejora de Procesos Productivos de Arepas del Valle S.A.S.
+
+### Retorno económico preliminar
+
+| Beneficio | Estimación mensual |
+|---|---:|
+| Ahorro de tiempo de supervisión | $750.000 COP |
+| Disminución de mermas de masa | $1.900.000 COP |
+| **Beneficio mensual estimado** | **$2.650.000 COP** |
+
+Con base en estas estimaciones, la inversión inicial de $6.000.000 COP podría recuperarse aproximadamente en **2,3 meses**.
+
+## 5.3 Viabilidad operativa
+
+El proyecto será desarrollado por un equipo de tres estudiantes, organizado mediante roles de Scrum.
+
+| Integrante | Rol | Responsabilidades |
+|---|---|---|
+| Sayuri | Scrum Master | Facilitar las ceremonias Scrum, eliminar impedimentos, controlar los tiempos y hacer seguimiento al trabajo en GitHub Projects. |
+| Andrea | Developer | Diseñar la arquitectura, desarrollar la aplicación en Python y Streamlit, configurar la base de datos y administrar el repositorio GitHub. |
+| Esteban | QA | Validar los criterios de aceptación, realizar pruebas de datos, verificar la Definition of Done y evaluar la usabilidad de los dashboards. |
+
+### Operación en planta
+
+- Los supervisores registrarán los datos de producción, lotes y paradas.
+- La gerencia consultará los dashboards y los indicadores consolidados.
+- El registro se diseñará mediante listas desplegables para facilitar el uso.
+- Se estima que el registro de cada lote tome menos de 40 segundos.
+- No será necesario contratar personal adicional.
+- Se contempla capacitación para supervisores y operarios.
+
+## 5.4 Viabilidad legal
+
+El proyecto debe garantizar el manejo adecuado, almacenamiento y protección de la información utilizada por la aplicación.
+
+### Protección de datos
+
+Se tendrá en cuenta la **Ley 1581 de 2012 de Colombia**, mediante:
+
+- Uso de identificadores internos de turno.
+- Evitar la recolección innecesaria de datos personales.
+- Definición de perfiles de acceso.
+- Protección de la información almacenada.
+
+### Propiedad intelectual y licenciamiento
+
+- El software será desarrollado desde cero.
+- Se utilizarán librerías de código abierto con licencias permisivas, como MIT y Apache 2.0.
+- El desarrollo contará con evidencia y control de versiones en GitHub.
+- Se respetarán los derechos de autor y las condiciones académicas del proyecto.
+
+### Control de acceso
+
+Se establecerán perfiles diferenciados:
+
+- **Operador:** registro de información operativa.
+- **Supervisor:** consulta y seguimiento de la información de producción.
+- **Administrador:** gestión general del sistema y los permisos.
+
+Estos perfiles permitirán mantener la trazabilidad y prevenir modificaciones no autorizadas.
+
+## 5.5 Viabilidad social
+
+### Mapa de interesados
+
+- **Beneficiarios principales:**
+  - Supervisores de turno, porque se reduce el diligenciamiento manual.
+  - Gerencia, porque obtiene información actualizada del rendimiento de la planta.
+
+- **Posible resistencia:**
+  - Operarios de planta que podrían percibir la digitalización como un mecanismo de vigilancia o temer que los errores queden expuestos.
+
+- **Responsable de la decisión:**
+  - Gerente de Operaciones, como patrocinador del proyecto.
+
+### Plan de relacionamiento y mitigación
+
+La aplicación se presentará como una herramienta de apoyo y mejora operativa, no como un mecanismo de control punitivo.
+
+Se buscará:
+
+- Evitar reprocesos.
+- Justificar paradas que no dependan del operario.
+- Identificar problemas relacionados con presión de gas o falta de materia prima.
+- Realizar pruebas piloto participativas con operarios líderes durante el Sprint 1.
+- Promover la aceptación de la herramienta mediante la participación del personal.
+
+## 5.6 Análisis de construir o comprar
+
+Se compararon tres alternativas:
+
+1. No hacer nada y mantener el proceso actual.
+2. Comprar un software comercial.
+3. Construir una aplicación propia con Scrum, Python, Streamlit y GitHub.
+
+| Criterio | No hacer nada | Comprar software | Construir aplicación propia |
+|---|---|---|---|
+| Descripción | Planillas de papel y transcripción a Excel. | Software industrial comercial. | Aplicación web a la medida. |
+| Inversión inicial | $0 COP, pero con pérdidas operativas. | Superior a $25.000.000 COP. | Aproximadamente $6.000.000 COP. |
+| Costos recurrentes | Pérdidas por mermas e ineficiencias. | Suscripciones y soporte anual. | Bajos, con posibilidad de alojamiento local. |
+| Adaptación al proceso | Baja; no calcula automáticamente los tiempos muertos. | Puede ser rígida y exigir cambios en los procesos. | Adaptada a las etapas del proceso de producción. |
+| Disponibilidad de datos | Entre 8 y 12 horas después del turno. | En tiempo real después de una integración prolongada. | En tiempo real, en menos de 2 minutos después del registro. |
+| Cumplimiento académico | No resuelve el problema de ingeniería. | No cumple con el desarrollo propio requerido. | Cumple mediante código abierto y evidencia en GitHub. |
+| Decisión | Descartada. | Descartada. | Seleccionada. |
+
+### Alternativa seleccionada
+
+Se selecciona la construcción de una **aplicación web propia**, debido a que:
+
+- Se adapta a las necesidades específicas de la planta.
+- Tiene una inversión inicial moderada.
+- Permite controlar el código y las versiones en GitHub.
+- Facilita la incorporación de indicadores personalizados.
+- Cumple con las condiciones académicas del proyecto.
+- Permite consultar los datos en tiempo real.
+
+## 5.7 Estimación de beneficios
+
+Los beneficios se establecen comparando la situación actual con las metas esperadas después de implementar la aplicación.
+
+| Beneficio | Situación actual | Meta con la aplicación | Indicador |
+|---|---|---|---|
+| Ahorro de tiempo administrativo | 1,5 horas diarias por turno para transcribir datos. | Menos de 15 minutos de captura por turno. | Reducción de al menos el 80 % del tiempo de digitación y consolidación. |
+| Disponibilidad de información | Datos disponibles entre 8 y 12 horas después de la jornada. | Dashboard visible durante el turno. | Datos disponibles en menos de 2 minutos después del evento. |
+| Reducción de mermas | Merma estimada entre el 4,5 % y el 5 %. | Meta de merma igual o inferior al 2,5 %. | Porcentaje de merma sobre la masa preparada. |
+| Identificación de paradas | Paradas sin clasificación ni medición precisa. | Registro de causas mecánicas, eléctricas y operativas. | Minutos de inactividad y causas asignadas. |
+| Apoyo a decisiones gerenciales | Decisiones basadas en datos del día anterior. | Decisiones durante el turno con cálculo de OEE. | Frecuencia de consulta del dashboard. |
+
+Estas metas son estimaciones de prefactibilidad y deberán validarse durante el desarrollo, las pruebas y la implementación del proyecto.
+
+## 5.8 Criterios de éxito
+
+| Criterio | Indicador | Resultado esperado |
+|---|---|---|
+| Funcionamiento de la aplicación | Funcionalidades del Product Backlog implementadas. | 100 % de las funcionalidades del alcance operativas. |
+| Disponibilidad de indicadores | Indicadores de producción, paros, mermas y OEE. | Indicadores disponibles y dinámicos. |
+| Registro de información | Registros de producción ingresados correctamente. | Al menos 95 % de registros sin errores de validación. |
+| Uso de la aplicación | Usuarios capacitados y con acceso. | 100 % de los usuarios previstos capacitados. |
+| Reducción del tiempo de consolidación | Comparación del procesamiento antes y después. | Reducción mínima del 30 %. |
+| Satisfacción de los usuarios | Encuesta de satisfacción y facilidad de uso. | Al menos 80 % de valoración positiva. |
