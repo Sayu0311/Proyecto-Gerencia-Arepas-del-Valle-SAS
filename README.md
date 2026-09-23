@@ -348,3 +348,203 @@ Estas metas son estimaciones de prefactibilidad y deberán validarse durante el 
 | Uso de la aplicación | Usuarios capacitados y con acceso. | 100 % de los usuarios previstos capacitados. |
 | Reducción del tiempo de consolidación | Comparación del procesamiento antes y después. | Reducción mínima del 30 %. |
 | Satisfacción de los usuarios | Encuesta de satisfacción y facilidad de uso. | Al menos 80 % de valoración positiva. |
+
+# 8. GESTIÓN DEL PROYECTO BAJO EL MARCO DE TRABAJO SCRUM
+
+Para el desarrollo de la aplicación web de monitoreo del proceso productivo de Arepas del Valle S.A.S. se adopta el marco de trabajo Scrum bajo un ciclo de vida adaptativo, definido en dos Sprints de dos semanas cada uno.
+
+El Sprint 1 corresponde a la construcción del Producto Mínimo Viable (MVP), orientado a la captura y visualización de información operativa. El Sprint 2 incorpora las funcionalidades analíticas y gerenciales necesarias para la versión final.
+
+Git y GitHub serán utilizados para el control de versiones, seguimiento del trabajo y trazabilidad de los avances realizados durante cada Sprint.
+
+## 8.1 Equipo Scrum
+
+El proyecto será ejecutado por un equipo de tres estudiantes:
+
+| Integrante | Responsabilidad Scrum | Funciones principales |
+|---|---|---|
+| **Sayuri** | Scrum Master | Facilitar la aplicación de Scrum, coordinar Sprint Planning, Sprint Review y Retrospective, apoyar la solución de impedimentos y realizar seguimiento en GitHub Projects. |
+| **Andrea** | Developer | Diseñar y construir la solución web, desarrollar la aplicación en Python/Streamlit, configurar la base de datos, integrar funcionalidades y administrar ramas y commits. |
+| **Esteban** | QA / Aseguramiento de la calidad | Validar criterios de aceptación, realizar pruebas funcionales y de integridad de datos, verificar la Definition of Done y evaluar la usabilidad de los tableros. |
+
+El **Product Owner** corresponde al profesor de la asignatura, quien actúa como referente para la validación y retroalimentación del producto. No forma parte del equipo ejecutor de tres estudiantes.
+
+## 8.2 Product Backlog priorizado
+
+El Product Backlog contiene las funcionalidades que serán desarrolladas para cumplir la visión del producto. Las historias HU-01 a HU-08 se distribuyen entre los dos Sprints según su prioridad y dependencia funcional.
+
+| Prioridad | Historia | Descripción | Sprint |
+|---:|---|---|---:|
+| 1 | **HU-01** | Configuración del entorno y base de datos relacional | 1 |
+| 2 | **HU-02** | Formulario web para el registro operativo de producción | 1 |
+| 3 | **HU-03** | Registro de paradas de máquinas y causas | 1 |
+| 4 | **HU-04** | Dashboard operativo de producción, cumplimiento y tiempos de paro | 1 |
+| 5 | **HU-05** | Registro y control de mermas e indicadores de calidad | 2 |
+| 6 | **HU-06** | Cálculo automatizado del OEE | 2 |
+| 7 | **HU-07** | Dashboard ejecutivo/gerencial con filtros | 2 |
+| 8 | **HU-08** | Exportación de reportes y pruebas integrales | 2 |
+
+La prioridad responde a una lógica de dependencia: primero se desarrolla la infraestructura y captura de información y posteriormente los indicadores, análisis gerencial y reportes.
+
+## 8.3 Estimación del trabajo
+
+La estimación inicial se realizará mediante **puntos de historia**, utilizando una escala relativa tipo Fibonacci. Los Developers podrán ajustar las estimaciones durante la Sprint Planning de acuerdo con la complejidad, incertidumbre y dependencias.
+
+| Historia | Estimación inicial | Sprint |
+|---|---:|---:|
+| HU-01 | 3 puntos | 1 |
+| HU-02 | 5 puntos | 1 |
+| HU-03 | 5 puntos | 1 |
+| HU-04 | 13 puntos | 1 |
+| HU-05 | 5 puntos | 2 |
+| HU-06 | 13 puntos | 2 |
+| HU-07 | 5 puntos | 2 |
+| HU-08 | 8 puntos | 2 |
+
+Durante la ejecución también se registrará el esfuerzo estimado y el esfuerzo real para evaluar la precisión de la planificación y generar aprendizaje para los siguientes Sprints.
+
+## 8.4 Sprint 1 – Construcción del MVP
+
+### Meta del Sprint
+
+Construir un MVP funcional que permita digitalizar el registro de producción y paradas, almacenar la información en una base de datos y visualizar el comportamiento operativo mediante un dashboard.
+
+### Sprint Backlog
+
+| Historia | Actividades principales |
+|---|---|
+| **HU-01** | Configurar repositorio y entorno, establecer dependencias, crear estructura inicial, diseñar modelo relacional y configurar conexión con la base de datos. |
+| **HU-02** | Diseñar formulario de registro, incorporar turno, producción, kilogramos de masa y paquetes producidos, establecer validaciones, conectar con la base de datos y realizar pruebas. |
+| **HU-03** | Diseñar formulario de paradas, definir catálogo de causas, registrar inicio, finalización y duración, almacenar información y validar registros. |
+| **HU-04** | Construir dashboard operativo con producción real frente a meta, tiempo muerto y tiempo acumulado, integrando los datos almacenados. |
+
+**Actividades transversales:** integración del código, pruebas funcionales, revisión de criterios de aceptación, control de versiones y documentación.
+
+### Plan de trabajo del Sprint 1
+
+| Periodo | Actividades | Resultado esperado |
+|---|---|---|
+| **Semana 1** | Sprint Planning, configuración del entorno y base de datos, desarrollo de HU-01 y avance de HU-02 y HU-03. | Infraestructura funcional y formularios iniciales. |
+| **Semana 2** | Finalización de HU-02 y HU-03, desarrollo de HU-04, integración, pruebas, revisión y retrospectiva. | MVP funcional v0.5. |
+
+### Incremento esperado
+
+Al finalizar el Sprint 1 se espera disponer del **Incremento 1 – Prototipo v0.5**, compuesto por:
+
+- Aplicación web operativa.
+- Base de datos transaccional.
+- Dashboard de monitoreo de planta.
+- Repositorio Git con trazabilidad de cambios.
+
+El tablero permitirá consultar información de producción y paradas utilizando datos disponibles para las pruebas.
+
+## 8.5 Sprint 2 – Analítica y versión final
+
+### Meta del Sprint
+
+Incorporar el control de mermas, indicadores de calidad y OEE, funcionalidades de análisis gerencial y generación de reportes, junto con las pruebas necesarias para disponer de la versión final.
+
+### Sprint Backlog
+
+| Historia | Actividades principales |
+|---|---|
+| **HU-05** | Diseñar módulo de mermas, registrar masa residual y unidades no conformes, establecer cálculos y porcentajes e integrar los datos al dashboard. |
+| **HU-06** | Diseño de cálculo, calcular disponibilidad, rendimiento y calidad, consolidar el OEE y validar las fórmulas con datos de prueba. |
+| **HU-07** | Construir dashboard ejecutivo con filtros por fecha, turno y línea, mostrando producción, paros, mermas y OEE. |
+| **HU-08** | Implementar exportación de reportes, realizar pruebas integrales, corregir errores, comprobar criterios de aceptación y preparar la versión final. |
+
+**Actividades transversales:** integrar autenticación y control de acceso, consolidar código, realizar pruebas finales, validar la Definition of Done y preparar la entrega.
+
+La autenticación por roles será un requisito transversal de la versión **v1.0**. Los perfiles previstos son:
+
+- Operador
+- Supervisor
+- Administrador
+
+### Plan de trabajo del Sprint 2
+
+| Periodo | Actividades | Resultado esperado |
+|---|---|---|
+| **Semana 3** | Sprint Planning, desarrollo de HU-05 y HU-06, integración de cálculos y pruebas iniciales. | Módulos de mermas y OEE funcionales. |
+| **Semana 4** | Desarrollo de HU-07 y HU-08, integración final, pruebas integrales, revisión y retrospectiva. | Versión final v1.0. |
+
+### Incremento esperado
+
+El segundo incremento corresponde a la **versión final v1.0**, que integrará:
+
+- Captura de información.
+- Control de paradas.
+- Control de mermas.
+- Indicadores OEE.
+- Dashboard operativo.
+- Dashboard gerencial.
+- Exportación de reportes.
+- Control de acceso.
+- Documentación técnica.
+
+## 8.6 Definition of Done
+
+Una historia de usuario se considerará terminada cuando cumpla simultáneamente con los siguientes criterios:
+
+1. La funcionalidad está desarrollada e integrada al proyecto.
+2. Cumple todos los criterios de aceptación de la historia.
+3. Se realizaron las pruebas funcionales correspondientes.
+4. Los datos se almacenan y procesan correctamente.
+5. No existen errores críticos que impidan utilizar la funcionalidad.
+6. Fue revisada por el responsable de QA.
+7. El código está registrado en el repositorio mediante su respectivo commit.
+8. La documentación técnica necesaria fue actualizada.
+9. La tarjeta de GitHub Projects puede trasladarse al estado **Done**.
+
+Una historia que solamente tenga código desarrollado, pero no haya sido probada o validada, no se considerará terminada.
+
+## 8.7 Eventos Scrum considerados en el proyecto
+
+| Evento | Aplicación en el proyecto |
+|---|---|
+| **Sprint Planning** | Al inicio de cada Sprint se establecerá la meta, se seleccionarán las historias y se definirá el plan de trabajo. |
+| **Sprint Review** | Al finalizar cada Sprint se presentará el incremento desarrollado y se recibirá retroalimentación. |
+| **Sprint Retrospective** | Después de la Review, el equipo analizará el proceso, dificultades y acciones de mejora. |
+| **Daily Scrum** | Se realizará durante la ejecución de cada Sprint y su evidencia será registrada mediante grabaciones. |
+
+Las grabaciones de los Daily Scrum serán incorporadas al repositorio de GitHub como evidencia de seguimiento y ejecución.
+
+## 8.8 Tablero de seguimiento del proyecto
+
+El seguimiento visual se realizará mediante **GitHub Projects**.
+
+Flujo de estados:
+
+**Backlog → Por hacer → En desarrollo → En pruebas → Terminado**
+
+Cada tarjeta estará asociada a una historia de usuario y, cuando sea necesario, a las tareas técnicas requeridas.
+
+El tablero permitirá:
+
+- Visualizar el estado de cada historia.
+- Identificar trabajo pendiente.
+- Registrar responsables.
+- Asociar historias a un Sprint.
+- Realizar seguimiento a las pruebas.
+- Vincular cambios del código con el trabajo realizado.
+
+Las tarjetas utilizarán el identificador de la historia, por ejemplo: **HU-01, HU-02, HU-03**, etc.
+
+## 8.9 Estrategia de control de versiones en GitHub
+
+GitHub será utilizado como repositorio central del código fuente y documentación técnica.
+
+| Elemento | Uso |
+|---|---|
+| **main** | Versión estable del proyecto. |
+| **Ramas feature** | Desarrollo de funcionalidades asociadas a historias. |
+| **Commits** | Cada avance relevante estará asociado a una historia o tarea. |
+| **Pull Requests** | Integración de funcionalidades después de revisión y pruebas. |
+| **GitHub Projects** | Seguimiento del Product Backlog y Sprint Backlogs. |
+
+Ejemplos de ramas:
+
+```text
+feature/HU-02-registro-produccion
+feature/HU-03-registro-paradas
+feature/HU-06-calculo-oee
