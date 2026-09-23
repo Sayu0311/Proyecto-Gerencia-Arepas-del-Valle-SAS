@@ -542,9 +542,3 @@ GitHub será utilizado como repositorio central del código fuente y documentaci
 | **Pull Requests** | Integración de funcionalidades después de revisión y pruebas. |
 | **GitHub Projects** | Seguimiento del Product Backlog y Sprint Backlogs. |
 
-Ejemplos de ramas:
-
-```text
-feature/HU-02-registro-produccion
-feature/HU-03-registro-paradas
-feature/HU-06-calculo-oee
