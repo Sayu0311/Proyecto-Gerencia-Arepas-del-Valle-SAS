@@ -542,3 +542,270 @@ GitHub será utilizado como repositorio central del código fuente y documentaci
 | **Pull Requests** | Integración de funcionalidades después de revisión y pruebas. |
 | **GitHub Projects** | Seguimiento del Product Backlog y Sprint Backlogs. |
 
+# 9. ARQUITECTURA DE LA SOLUCIÓN, PROTOTIPO V0 Y FICHAS TÉCNICAS DE LOS INDICADORES
+
+## 9.1 Arquitectura de la solución
+
+La solución propuesta corresponde a una aplicación web orientada a la captura, almacenamiento, procesamiento y visualización de información del proceso productivo de **Arepas del Valle S.A.S.**
+
+La arquitectura se plantea en cuatro componentes principales:
+
+### 1. Capa de presentación
+
+Corresponde a la interfaz web desarrollada en **Streamlit**, desde la cual los usuarios podrán registrar información y consultar los indicadores.
+
+Los principales usuarios de la aplicación serán los **supervisores de producción y la gerencia**, de acuerdo con la visión del producto definida previamente.
+
+### 2. Capa de lógica y procesamiento
+
+Será desarrollada en **Python 3.11** y tendrá como función validar los registros recibidos, procesar la información y calcular los indicadores establecidos para el proyecto.
+
+En esta capa se implementarán las reglas de negocio relacionadas con:
+
+* Producción real frente a meta.
+* Tiempos de paro.
+* Mermas.
+* Indicadores de calidad.
+* Disponibilidad, rendimiento y calidad.
+* OEE.
+* Filtros para análisis de información.
+
+### 3. Capa de datos
+
+La solución utilizará una **base de datos relacional**.
+
+Durante el desarrollo se utilizará **SQLite** para facilitar el trabajo local, mientras que **PostgreSQL** se contempla para escenarios de concurrencia multiusuario en una implementación dentro de la planta. Esta selección tecnológica ya se encuentra contemplada dentro de la viabilidad técnica del proyecto.
+
+La estructura de datos deberá almacenar, como mínimo, la información relacionada con:
+
+| Entidad        | Información principal                                  |
+| -------------- | ------------------------------------------------------ |
+| **Turnos**     | Fecha, turno y línea de producción                     |
+| **Producción** | Kilogramos de masa, paquetes producidos y meta         |
+| **Paradas**    | Hora de inicio, hora de finalización, duración y causa |
+| **Mermas**     | Masa residual, unidades no conformes y motivo          |
+| **Usuarios**   | Perfil y permisos de acceso para la versión final      |
+
+### 4. Control de versiones
+
+**Git y GitHub** serán utilizados para controlar el desarrollo, mantener el historial de cambios y relacionar las funcionalidades implementadas con cada Sprint.
+
+### Flujo general de la solución
+
+El funcionamiento de la arquitectura seguirá el siguiente flujo:
+
+**Usuario de planta → Interfaz web → Validación de datos → Base de datos → Procesamiento de indicadores → Dashboard → Toma de decisiones**
+
+El supervisor registra la información correspondiente al proceso; la aplicación valida los datos y los almacena; posteriormente, la lógica de negocio procesa la información para generar los indicadores y mostrarlos en los tableros correspondientes.
+
+La solución **no tendrá interacción directa con la maquinaria ni modificará físicamente el proceso productivo**. Su función será digitalizar y procesar el flujo de información generado por la operación.
+
+---
+
+## 9.2 Prototipo v0 de la aplicación
+
+El prototipo v0 representa la estructura funcional inicial que será desarrollada durante los Sprints y permite visualizar la interacción principal entre los usuarios y la aplicación.
+
+### Vista 1. Registro de producción
+
+La primera pantalla permitirá al usuario registrar la información de cada turno o lote:
+
+* Fecha.
+* Turno.
+* Línea.
+* Kilogramos de masa procesada.
+* Paquetes de 5 unidades.
+* Paquetes de 10 unidades.
+* Meta de producción.
+
+El formulario contará con validaciones para evitar registros incompletos o inconsistentes.
+
+### Vista 2. Registro de paradas
+
+Esta vista permitirá registrar las interrupciones del proceso:
+
+* Fecha.
+* Turno.
+* Línea.
+* Causa de la parada.
+* Hora de inicio.
+* Hora de finalización.
+* Duración calculada.
+
+Las causas serán clasificadas de manera que posteriormente puedan analizarse por frecuencia y tiempo acumulado.
+
+### Vista 3. Dashboard operativo
+
+El primer dashboard permitirá al supervisor visualizar:
+
+* Producción real.
+* Meta de producción.
+* Porcentaje de cumplimiento.
+* Tiempo total de paro.
+* Tiempo de paro acumulado.
+* Comportamiento de la producción durante el turno.
+
+Esta vista constituye la **principal entrega del Sprint 1**.
+
+### Vista 4. Dashboard de mermas y calidad
+
+Durante el Sprint 2 se incorporará una vista destinada a:
+
+* Kilogramos de masa residual.
+* Unidades no conformes.
+* Porcentaje de merma.
+* Comportamiento de la merma a través del tiempo.
+* Principales causas de pérdida.
+
+### Vista 5. Dashboard de OEE
+
+La segunda etapa también incorporará:
+
+* Disponibilidad.
+* Rendimiento.
+* Calidad.
+* OEE general.
+* Comparación entre periodos.
+* Filtros por fecha, turno y línea.
+
+### Vista 6. Dashboard gerencial y reportes
+
+La versión final contará con una vista ejecutiva que consolide los principales indicadores y permita su consulta mediante filtros.
+
+Adicionalmente, se incorporará la funcionalidad de **exportación de reportes** para facilitar el análisis y la toma de decisiones gerenciales.
+
+### Evolución del prototipo
+
+El prototipo se desarrollará de manera incremental:
+
+**v0.1 → Estructura y formularios básicos**
+
+**v0.5 → MVP operativo con registro, base de datos y dashboard de planta**
+
+**v1.0 → Solución integral con mermas, OEE, dashboard gerencial, reportes y control de acceso**
+
+Esta evolución coincide con los incrementos definidos para los dos Sprints del proyecto.
+
+---
+
+## 9.3 Fichas técnicas de los indicadores
+
+Para garantizar que los indicadores sean consistentes y puedan ser interpretados de la misma manera por los usuarios de la aplicación, cada indicador tendrá una ficha técnica.
+
+### 9.3.1 Indicador de cumplimiento de producción
+
+| Campo               | Definición                                                                                                        |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| **Nombre**          | Cumplimiento de producción                                                                                        |
+| **Objetivo**        | Medir el grado de cumplimiento de la producción obtenida frente a la meta establecida para el turno.              |
+| **Fórmula**         | Producción real / Producción meta × 100                                                                           |
+| **Unidad**          | Porcentaje (%)                                                                                                    |
+| **Fuente de datos** | Registro operativo de producción                                                                                  |
+| **Frecuencia**      | Por turno y acumulado diario                                                                                      |
+| **Responsable**     | Supervisor de producción                                                                                          |
+| **Visualización**   | Tarjeta KPI y gráfico de tendencia                                                                                |
+| **Meta**            | Meta de producción establecida para cada turno                                                                    |
+| **Interpretación**  | Valores cercanos o superiores al 100 % indican cumplimiento de la meta; valores inferiores evidencian desviación. |
+
+---
+
+### 9.3.2 Indicador de tiempo de paro
+
+| Campo               | Definición                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Nombre**          | Tiempo total de paro                                                                                                                       |
+| **Objetivo**        | Cuantificar el tiempo durante el cual la línea permanece inactiva y facilitar la identificación de las principales causas de interrupción. |
+| **Fórmula**         | Σ duración de las paradas registradas                                                                                                      |
+| **Unidad**          | Minutos                                                                                                                                    |
+| **Fuente de datos** | Módulo de registro de paradas                                                                                                              |
+| **Frecuencia**      | Por turno, día y periodo seleccionado                                                                                                      |
+| **Responsable**     | Supervisor de producción                                                                                                                   |
+| **Visualización**   | Tarjeta KPI, gráfico temporal y Pareto por causa                                                                                           |
+| **Meta**            | Minimizar el tiempo de inactividad de acuerdo con las condiciones operativas de la planta                                                  |
+| **Interpretación**  | Un aumento del tiempo de paro indica pérdida de disponibilidad y requiere análisis de las causas predominantes.                            |
+
+---
+
+### 9.3.3 Indicador de merma
+
+| Campo               | Definición                                                                                                 |
+| ------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **Nombre**          | Porcentaje de merma de masa                                                                                |
+| **Objetivo**        | Identificar la proporción de masa que se pierde durante el proceso respecto a la cantidad total preparada. |
+| **Fórmula**         | Kilogramos de masa residual / Kilogramos de masa preparada × 100                                           |
+| **Unidad**          | Porcentaje (%)                                                                                             |
+| **Fuente de datos** | Módulo de control de mermas                                                                                |
+| **Frecuencia**      | Por lote, turno y periodo                                                                                  |
+| **Responsable**     | Supervisor de producción                                                                                   |
+| **Visualización**   | Tarjeta KPI y gráfico de tendencia                                                                         |
+| **Meta**            | Merma ≤ 2,5 %, de acuerdo con la meta establecida en el Business Case                                      |
+| **Interpretación**  | Valores superiores a la meta indican una desviación que debe analizarse según su causa.                    |
+
+El proyecto también registrará las **unidades no conformes** como variable complementaria de calidad, permitiendo analizar pérdidas asociadas a productos quemados, rotos o rechazados. Esta funcionalidad se encuentra contemplada dentro de **HU-05**.
+
+---
+
+### 9.3.4 Indicador OEE
+
+| Campo               | Definición                                                                                                                                             |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Nombre**          | OEE – Eficiencia Global del Equipo                                                                                                                     |
+| **Objetivo**        | Integrar en un solo indicador las dimensiones de disponibilidad, rendimiento y calidad del proceso productivo.                                         |
+| **Fórmula**         | OEE = Disponibilidad × Rendimiento × Calidad                                                                                                           |
+| **Unidad**          | Porcentaje (%)                                                                                                                                         |
+| **Fuente de datos** | Registros de producción, paradas y unidades no conformes                                                                                               |
+| **Frecuencia**      | Por turno, día y periodo seleccionado                                                                                                                  |
+| **Responsable**     | Supervisor / Gerencia de Operaciones                                                                                                                   |
+| **Visualización**   | Tarjeta KPI, tendencia temporal y desglose por componente                                                                                              |
+| **Meta**            | Meta de desempeño definida para el proceso                                                                                                             |
+| **Interpretación**  | El valor del OEE refleja el desempeño combinado del proceso y permite identificar cuál de sus componentes presenta la principal oportunidad de mejora. |
+
+---
+
+### 9.3.5 Subindicadores del OEE
+
+Para permitir que el OEE pueda ser interpretado correctamente, la aplicación mostrará sus tres componentes:
+
+| Indicador          | Concepto                                                                                                        | Relación de cálculo                                               |
+| ------------------ | --------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| **Disponibilidad** | Representa la proporción del tiempo planificado en que el proceso estuvo disponible para producir.              | Tiempo de operación / Tiempo planificado × 100                    |
+| **Rendimiento**    | Representa el nivel de producción alcanzado con respecto a la capacidad teórica durante el tiempo de operación. | Producción real / Producción teórica para el tiempo operado × 100 |
+| **Calidad**        | Representa la proporción de unidades producidas que cumplen con los requisitos de calidad.                      | Unidades buenas / Unidades totales × 100                          |
+
+El motor analítico de estos indicadores se implementará durante el **Sprint 2** a través de **HU-06**.
+
+---
+
+## 9.4 Relación entre arquitectura, prototipo e indicadores
+
+La solución se diseña de forma integrada para que cada elemento técnico responda directamente al problema identificado en el proceso productivo.
+
+El funcionamiento esperado será:
+
+```text
+Registro de producción y paradas
+                ↓
+Almacenamiento en base de datos
+                ↓
+Procesamiento y cálculo
+                ↓
+Indicadores de producción, paros, mermas y OEE
+                ↓
+Dashboard operativo y gerencial
+                ↓
+Información para la toma de decisiones
+```
+
+De esta manera, la arquitectura propuesta permite transformar los registros manuales y dispersos en información estructurada y visual.
+
+El prototipo representa la interfaz mediante la cual los datos serán capturados y consultados, mientras que las fichas técnicas establecen las reglas para calcular e interpretar los indicadores.
+
+La solución estará orientada a:
+
+* Reducir la demora actual de disponibilidad de información.
+* Mejorar la trazabilidad de los registros.
+* Facilitar la detección de desviaciones de producción.
+* Facilitar la detección de paros.
+* Facilitar la detección de mermas.
+
+Estos objetivos ya fueron establecidos en el diagnóstico y **Business Case** del proyecto.
