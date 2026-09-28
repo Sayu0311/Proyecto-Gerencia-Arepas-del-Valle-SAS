@@ -33,7 +33,7 @@ Actualmente, el registro de las principales variables del proceso productivo de 
 
 Esta situación genera:
 
-- **Retraso en la disponibilidad de la información:** La gerencia y los supervisores reciben los datos de producción entre 4 y 12 horas después de finalizar el turno, lo que limita su disponibilidad oportuna para la toma de decisiones.
+- **Retraso en la disponibilidad de la información:** La gerencia y los supervisores reciben los datos de producción entre 8 y 12 horas después de finalizar el turno, lo que limita su disponibilidad oportuna para la toma de decisiones.
 - **Baja trazabilidad y capacidad de reacción:** La actualización de la información no permite identificar oportunamente desviaciones durante el proceso, como fallas en la dosificación de la masa, descalibración de los equipos de precocción o paradas mecánicas.
 - **Detección tardía de mermas:** Las unidades quemadas, rotas o que presentan pérdidas durante el proceso pueden identificarse con retraso, dificultando el control de las mermas y generando mayores pérdidas de materia prima y producto terminado.
 
@@ -235,7 +235,7 @@ El proyecto será desarrollado por un equipo de tres estudiantes, organizado med
 - Los supervisores registrarán los datos de producción, lotes y paradas.
 - La gerencia consultará los dashboards y los indicadores consolidados.
 - El registro se diseñará mediante listas desplegables para facilitar el uso.
-- Se estima que el registro de cada lote tome menos de 40 segundos.
+- Se estima que el registro de cada lote tome menos de 40 segundos. Este tiempo corresponde al ingreso de un registro individual y no al tiempo total de captura y consolidación de la información durante el turno.
 - No será necesario contratar personal adicional.
 - Se contempla capacitación para supervisores y operarios.
 
@@ -330,7 +330,7 @@ Los beneficios se establecen comparando la situación actual con las metas esper
 
 | Beneficio | Situación actual | Meta con la aplicación | Indicador |
 |---|---|---|---|
-| Ahorro de tiempo administrativo | 1,5 horas diarias por turno para transcribir datos. | Menos de 15 minutos de captura por turno. | Reducción de al menos el 80 % del tiempo de digitación y consolidación. |
+| Ahorro de tiempo administrativo | 1,5 horas diarias por turno para transcribir datos. | Menos de 15 minutos de captura por turno. | Reducción de al menos el 80 % del tiempo destinado a digitación y consolidación de los registros. |
 | Disponibilidad de información | Datos disponibles entre 8 y 12 horas después de la jornada. | Dashboard visible durante el turno. | Datos disponibles en menos de 2 minutos después del evento. |
 | Reducción de mermas | Merma estimada entre el 4,5 % y el 5 %. | Meta de merma igual o inferior al 2,5 %. | Porcentaje de merma sobre la masa preparada. |
 | Identificación de paradas | Paradas sin clasificación ni medición precisa. | Registro de causas mecánicas, eléctricas y operativas. | Minutos de inactividad y causas asignadas. |
@@ -346,7 +346,7 @@ Estas metas son estimaciones de prefactibilidad y deberán validarse durante el 
 | Disponibilidad de indicadores | Indicadores de producción, paros, mermas y OEE. | Indicadores disponibles y dinámicos. |
 | Registro de información | Registros de producción ingresados correctamente. | Al menos 95 % de registros sin errores de validación. |
 | Uso de la aplicación | Usuarios capacitados y con acceso. | 100 % de los usuarios previstos capacitados. |
-| Reducción del tiempo de consolidación | Comparación del procesamiento antes y después. | Reducción mínima del 30 %. |
+| Reducción del tiempo de consolidación | Comparación del tiempo total de procesamiento y consolidación antes y después de la implementación. | Reducción mínima del 30 % del tiempo total de consolidación. |
 | Satisfacción de los usuarios | Encuesta de satisfacción y facilidad de uso. | Al menos 80 % de valoración positiva. |
 
 # 8. GESTIÓN DEL PROYECTO BAJO EL MARCO DE TRABAJO SCRUM
@@ -391,17 +391,45 @@ La estimación de las demás historias se realiza de manera relativa utilizando 
 
 Las estimaciones vigentes son las registradas directamente en cada historia de usuario.
 
-## 8.4 Sprint 1
+## 8.4 Sprint 1: Producto Mínimo Viable (MVP)
 
-El Sprint 1 corresponde al primer incremento de desarrollo del proyecto.
+El Sprint 1 corresponde al primer incremento del proyecto y está orientado a la construcción del Producto Mínimo Viable (MVP).
 
-Las historias que deberán planificarse para este Sprint se determinarán de acuerdo con el orden del Product Backlog, sus dependencias y la capacidad real del equipo.
+**Objetivo:** Digitalizar el registro de producción y paradas, permitiendo visualizar el cumplimiento del turno en tiempo real.
 
-## 8.5 Sprint 2
+**Funcionalidades principales:**
 
-El Sprint 2 corresponde al segundo incremento de desarrollo del proyecto y continuará el trabajo pendiente del Product Backlog.
+- Configuración del entorno y la base de datos relacional.
+- Formulario web para registrar:
+  - Kilos de masa.
+  - Paquetes de 5 y 10 unidades.
+  - Producción por hora y turno.
+- Registro de paradas de máquinas y sus causas.
+- Dashboard con comparación entre producción real y meta.
+- Visualización del tiempo muerto y acumulado.
 
-Su alcance se establecerá después de revisar el resultado del Sprint 1 y la capacidad disponible del equipo.
+**Entregable:** Prototipo funcional de la aplicación web, con base de datos, repositorio Git y tablero operativo.
+
+## 8.5 Sprint 2: Analítica e indicadores
+
+El Sprint 2 corresponde al segundo incremento del proyecto y está orientado a incorporar las capacidades de analítica e indicadores definidas para la versión final.
+
+**Objetivo:** Incorporar el análisis de mermas, el cálculo de OEE y los reportes gerenciales.
+
+**Funcionalidades principales:**
+
+- Módulo de control de mermas e indicadores de calidad.
+- Registro de masa residual y unidades no conformes.
+- Cálculo automático del OEE:
+  - Disponibilidad.
+  - Rendimiento.
+  - Calidad.
+- Dashboard gerencial con filtros por fecha, turno y línea.
+- Exportación de reportes ejecutivos.
+- Pruebas integrales de la aplicación.
+- Autenticación por roles y documentación técnica.
+
+**Entregable:** Versión final de la solución web con dashboards operativos y gerenciales, módulo de sostenibilidad y control de acceso.
 
 ## 8.6 Definition of Done
 
@@ -431,11 +459,11 @@ Durante el desarrollo se consideran los siguientes eventos:
 
 El seguimiento del trabajo se realizará mediante GitHub Projects.
 
-Las historias de usuario se gestionarán mediante estados que permitan visualizar su avance:
+El tablero permitirá visualizar el estado de las historias de usuario y realizar seguimiento a su avance durante el desarrollo del proyecto.
 
-**Backlog → Por hacer → En desarrollo → En pruebas → Terminado**
+Las nueve historias de usuario vigentes estarán registradas en el tablero y su estado se actualizará conforme avance el trabajo.
 
-Cada elemento del tablero estará asociado a una de las nueve historias de usuario vigentes.
+El tablero constituye una evidencia del seguimiento del Product Backlog y de la gestión del trabajo mediante Scrum.
 
 ## 8.9 Estrategia de control de versiones
 
