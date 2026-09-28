@@ -95,7 +95,7 @@ La solución no modifica físicamente las máquinas ni el producto, sino que dig
 
 ## 4.2 Ciclo de vida: metodología Scrum
 
-Se utilizará una metodología ágil basada en **Scrum**, dividida en dos Sprints de dos semanas cada uno. Esta estructura permite entregar valor rápidamente, recibir retroalimentación y controlar el alcance del proyecto.
+Se utilizará una metodología ágil basada en **Scrum**, organizada en dos Sprints relacionados con las fechas de entrega del proyecto.
 
 ### Sprint 1: Producto Mínimo Viable (MVP)
 
@@ -393,6 +393,8 @@ Las estimaciones vigentes son las registradas directamente en cada historia de u
 
 ## 8.4 Sprint 1: Producto Mínimo Viable (MVP)
 
+**Periodo:** Inicio del proyecto hasta el 29/09/2026.
+
 El Sprint 1 corresponde al primer incremento del proyecto y está orientado a la construcción del Producto Mínimo Viable (MVP).
 
 **Objetivo:** Digitalizar el registro de producción y paradas, permitiendo visualizar el cumplimiento del turno en tiempo real.
@@ -411,6 +413,8 @@ El Sprint 1 corresponde al primer incremento del proyecto y está orientado a la
 **Entregable:** Prototipo funcional de la aplicación web, con base de datos, repositorio Git y tablero operativo.
 
 ## 8.5 Sprint 2: Analítica e indicadores
+
+**Fecha de cierre:** 30/10/2026, correspondiente a la segunda entrega del proyecto.
 
 El Sprint 2 corresponde al segundo incremento del proyecto y está orientado a incorporar las capacidades de analítica e indicadores definidas para la versión final.
 
@@ -676,7 +680,7 @@ Para garantizar que los indicadores sean consistentes y puedan ser interpretados
 | **Meta**            | Merma ≤ 2,5 %, de acuerdo con la meta establecida en el Business Case                                      |
 | **Interpretación**  | Valores superiores a la meta indican una desviación que debe analizarse según su causa.                    |
 
-El proyecto también registrará las **unidades no conformes** como variable complementaria de calidad, permitiendo analizar pérdidas asociadas a productos quemados, rotos o rechazados. Esta funcionalidad se encuentra contemplada dentro de **HU-05**.
+El proyecto también registrará las **unidades no conformes** como variable complementaria de calidad, permitiendo analizar pérdidas asociadas a productos quemados, rotos o rechazados. La consulta de unidades rechazadas por período está respaldada por **HU-08**. El registro y análisis de masa residual se mantiene como una funcionalidad contemplada en el alcance del Sprint 2.
 
 ---
 
@@ -707,7 +711,7 @@ Para permitir que el OEE pueda ser interpretado correctamente, la aplicación mo
 | **Rendimiento**    | Representa el nivel de producción alcanzado con respecto a la capacidad teórica durante el tiempo de operación. | Producción real / Producción teórica para el tiempo operado × 100 |
 | **Calidad**        | Representa la proporción de unidades producidas que cumplen con los requisitos de calidad.                      | Unidades buenas / Unidades totales × 100                          |
 
-El motor analítico de estos indicadores se implementará durante el **Sprint 2** a través de **HU-06**.
+El motor analítico de estos indicadores se implementará durante el **Sprint 2**, de acuerdo con el alcance definido para este incremento del proyecto.
 
 ---
 
