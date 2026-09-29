@@ -49,44 +49,38 @@ El producto está dirigido principalmente a los **Supervisores de Producción y 
 | Área de empaque | Arepas enfriadas y material de empaque | Empaque, sellado y rotulado | Arepas empacadas | Almacenamiento y distribución |
 | Almacenamiento | Arepas empacadas | Almacenamiento refrigerado | Producto terminado | Supermercados, tiendas y distribuidores |
 
-# 2. DESCRIPCIÓN DETALLADA DE LA ESTRATEGIA CORPORATIVA Y A CUÁL OBJETIVO APORTA LA APLICACIÓN
+# 2. ESTRATEGIA CORPORATIVA Y CONTRIBUCIÓN DEL PROYECTO
 
-## 2.1 Estrategia Corporativa
+## 2.1 Estrategia corporativa
 
-La estrategia corporativa de Arepas del Valle S.A.S. está orientada hacia la excelencia operacional y la digitalización progresiva de sus procesos productivos, con el propósito de mejorar la eficiencia, garantizar la calidad e inocuidad del producto y apoyar la toma de decisiones basada en datos.
+Arepas del Valle S.A.S. orienta su estrategia hacia la **excelencia operacional y la digitalización progresiva de sus procesos productivos**, buscando mejorar la eficiencia, la calidad y la toma de decisiones basada en datos.
 
-En este marco, la empresa busca aplicar principios de Lean Manufacturing para identificar y reducir desperdicios (mudas), tiempos de paro y pérdidas de materia prima o producto. La digitalización de la información de planta permite centralizar las variables críticas del proceso y facilitar el seguimiento de indicadores de producción, calidad y paros, contribuyendo al control de las operaciones y a la optimización de los costos de manufactura.
+El proyecto contribuye a esta estrategia mediante la centralización de información de producción, calidad y tiempos de paro. Esto facilita el seguimiento de las variables del proceso y permite identificar oportunidades de mejora y reducción de desperdicios, en línea con principios de **Lean Manufacturing**.
 
-## 2.2 Contribución a los Objetivos de Desarrollo Sostenible (ODS)
+## 2.2 Contribución a los ODS
 
-El proyecto se articula con el ODS 12: Producción y Consumo Responsables, contribuyendo principalmente a dos de sus metas:
+El proyecto se relaciona con el **ODS 12: Producción y Consumo Responsables**, principalmente mediante:
 
-- **Meta 12.5 – Reducción de la generación de desechos:** La aplicación permite registrar y visualizar las mermas generadas durante las diferentes etapas del proceso productivo, como unidades quemadas, rotas o rechazadas. Esta información facilita la identificación de las principales fuentes de desperdicio y apoya la toma de acciones para reducir las pérdidas de materia prima y producto.
-- **Meta 12.2 – Uso eficiente y sostenible de los recursos:** El seguimiento de variables de producción, mermas y tiempos de operación permite identificar oportunidades para mejorar el aprovechamiento de recursos como el maíz, el agua y la energía, favoreciendo una producción más eficiente.
+- **Meta 12.5:** el registro de unidades quemadas, rotas o rechazadas permite identificar fuentes de desperdicio y apoyar acciones para reducir las mermas.
+- **Meta 12.2:** el seguimiento de producción, mermas y tiempos de operación permite identificar oportunidades para mejorar el aprovechamiento de recursos como materia prima, agua y energía.
 
-# 3. DEFINIR EL PORTAFOLIO, PROGRAMAS Y PROYECTOS, Y UBICAR ALLÍ EL PROYECTO PROPIO
+# 3. PORTAFOLIO, PROGRAMA Y PROYECTO
 
-Para establecer la relación entre el proyecto y las iniciativas estratégicas de Arepas del Valle S.A.S., se presenta a continuación la estructura jerárquica que vincula el portafolio, el programa y el proyecto desarrollado bajo el enfoque Scrum:
+El proyecto se ubica dentro de una estructura jerárquica de iniciativas de modernización y digitalización de los procesos productivos de Arepas del Valle S.A.S.:
 
-| Nivel | Nombre propuesto | ¿Qué representa en el caso? | ¿Qué relación tiene con nuestro proyecto? |
-|---|---|---|---|
-| **Portafolio** | **Portafolio de Modernización Operacional y Transformación Digital** | Conjunto consolidado de iniciativas de inversión y cambio tecnológico que soportan la visión competitiva de Arepas del Valle S.A.S. | Provee el patrocinio estratégico, alineando el desarrollo del software con los fondos de inversión en modernización industrial. |
-| **Programa** | **Programa de Digitalización y Eficiencia de Procesos Productivos** | Agrupación coordinada de proyectos de software, hardware y mejora de procesos orientados a optimizar la manufactura de alimentos. | Es el contenedor directo del proyecto. El software de tableros provee la capa de visualización e inteligencia de datos que retroalimentará a los demás proyectos del programa. |
-| **Proyecto** | **Desarrollo de una aplicación web de Dashboard para el monitoreo de indicadores del proceso de producción de arepas.** | Es el esfuerzo temporal que está siendo ejecutado por el equipo de 3 desarrolladores bajo metodología SCRUM (es el proyecto propio). | Es el entregable tecnológico tangible: dashboard interactivo para capturar datos y monitorear la planta. |
+| Nivel | Nombre propuesto | Relación con el proyecto |
+|---|---|---|
+| **Portafolio** | **Portafolio de Modernización Operacional y Transformación Digital** | Orienta las iniciativas relacionadas con la modernización y transformación digital de la empresa. |
+| **Programa** | **Programa de Digitalización y Eficiencia de Procesos Productivos** | Agrupa iniciativas orientadas a mejorar y digitalizar los procesos productivos. |
+| **Proyecto** | **Desarrollo de una aplicación web de Dashboard para el monitoreo de indicadores del proceso de producción de arepas** | Es el proyecto desarrollado por el equipo y tiene como objetivo centralizar el registro y seguimiento de información de producción, calidad y tiempos de paro. |
 
-
-# 4. Elección y clasificación del proyecto
+# 4. ELECCIÓN Y CLASIFICACIÓN DEL PROYECTO
 
 ## 4.1 Tipo de proyecto
 
-El proyecto corresponde a un **desarrollo de software a la medida y transformación digital**. Consiste en diseñar y construir una aplicación web para capturar, procesar y visualizar indicadores operativos de la planta de Arepas del Valle S.A.S., como:
+El proyecto corresponde a un **desarrollo de software a la medida y transformación digital**. Consiste en construir una aplicación web para registrar, procesar y visualizar información operativa de la planta, relacionada con producción, tiempos de paro, mermas e indicadores.
 
-- Producción.
-- Tiempos de paro.
-- Mermas.
-- Eficiencia global de los equipos (OEE).
-
-La solución no modifica físicamente las máquinas ni el producto, sino que digitaliza el flujo de información para facilitar la toma de decisiones gerenciales. El desarrollo será gestionado y versionado mediante **Git y GitHub**.
+La solución digitaliza el flujo de información sin modificar físicamente las máquinas ni el producto. El desarrollo será gestionado y versionado mediante **Git y GitHub**.
 
 ## 4.2 Ciclo de vida: metodología Scrum
 
@@ -130,82 +124,44 @@ Se utilizará una metodología ágil basada en **Scrum**, organizada en dos Spri
 
 ## 4.3 Relación con el ODS 12
 
-El proyecto se relaciona con el **Objetivo de Desarrollo Sostenible 12: Producción y Consumo Responsable**, porque busca mejorar el uso de los recursos empleados en la producción de arepas.
+El proyecto se relaciona con el **ODS 12: Producción y Consumo Responsables**, principalmente mediante el seguimiento de producción, calidad, paradas y mermas.
 
-La aplicación permitirá:
-
-- Centralizar la información de producción, calidad, paradas y mermas.
-- Identificar pérdidas y desperdicios de manera oportuna.
-- Controlar el uso de materias primas como harina de maíz, agua y aceite.
-- Hacer seguimiento al consumo de recursos energéticos, como el gas utilizado en el horno.
-- Generar alertas sobre desviaciones operativas.
-- Crear reportes de balance de masa para reducir el desperdicio de alimentos.
-
-Estas acciones contribuyen especialmente al seguimiento y reducción de desperdicios relacionados con la meta 12.5 del ODS 12.
+La digitalización de estos datos permite identificar pérdidas y oportunidades de mejora en el uso de materias primas y otros recursos, contribuyendo especialmente a la **meta 12.5**, relacionada con la reducción de la generación de desechos.
 
 ## 4.4 Responsabilidad Social Empresarial (RSE)
 
 El proyecto aporta a la responsabilidad social empresarial mediante:
 
 - **Eficiencia de recursos:** seguimiento de desperdicios y oportunidades de mejora.
-- **Sostenibilidad ambiental:** reducción de residuos orgánicos generados por mermas.
-- **Bienestar laboral:** disminución de tareas repetitivas y del diligenciamiento manual de planillas.
-- **Transparencia:** disponibilidad de información operativa para el personal y la gerencia.
-- **Toma de decisiones basada en datos:** fortalecimiento de la colaboración entre las áreas operativas y administrativas.
+- **Sostenibilidad ambiental:** seguimiento de residuos asociados a las mermas.
+- **Bienestar laboral:** reducción de tareas repetitivas de registro manual.
+- **Transparencia:** disponibilidad organizada de información operativa.
+- **Toma de decisiones basada en datos:** apoyo a la gestión de las áreas operativas y administrativas.
 
----
+# 5. ESTUDIO DE PREFACTIBILIDAD Y FACTIBILIDAD
 
-# 5. Estudio de prefactibilidad y factibilidad mediante Business Case
-
-El estudio de factibilidad evalúa la viabilidad técnica, económica, operativa, legal y social de la aplicación web para el monitoreo de indicadores de producción.
+El estudio de factibilidad analiza la viabilidad técnica, económica, operativa, legal y social de la aplicación web para el monitoreo de información e indicadores del proceso productivo.
 
 ## 5.1 Viabilidad técnica
 
-### Tecnologías seleccionadas
-
-El proyecto utilizará tecnologías de código abierto para evitar la dependencia de soluciones comerciales cerradas y permitir un desarrollo propio.
+El proyecto utilizará tecnologías de código abierto:
 
 | Componente | Tecnología |
 |---|---|
-| Lenguaje de programación | Python 3.11 |
+| Lenguaje | Python 3.11 |
 | Interfaz y analítica | Streamlit |
 | Base de datos local | SQLite |
 | Base de datos multiusuario | PostgreSQL |
 | Control de versiones | Git y GitHub |
 | Metodología | Scrum |
 
-### Localización del proyecto
-
-- **Macrolocalización:** Planta industrial de Arepas del Valle S.A.S., ubicada en el Valle de Aburrá, Antioquia.
-- **Microlocalización:** Oficinas de supervisión de producción y dispositivos de consulta ubicados en las áreas operativas, como empaque y cuarto frío.
-
-### Restricciones técnicas
-
-La aplicación se limita a la captura, procesamiento y monitoreo de información en tiempo real. No interviene físicamente ni modifica la maquinaria de producción, como marmitas, troqueladoras u hornos continuos.
+La aplicación estará orientada a la captura, procesamiento y monitoreo de información. No intervendrá físicamente sobre la maquinaria de producción.
 
 ## 5.2 Viabilidad económica
 
-La viabilidad económica compara la inversión necesaria para desarrollar la aplicación con los ahorros y beneficios esperados en la planta.
+La inversión inicial estimada para el desarrollo del proyecto es de **$6.000.000 COP**, correspondiente a desarrollo, base de datos, diseño, pruebas, capacitación y mantenimiento inicial.
 
-### Presupuesto de inversión inicial
-
-| Concepto | Costo estimado |
-|---|---:|
-| Desarrollo de la aplicación | $3.500.000 COP |
-| Base de datos y almacenamiento | $500.000 COP |
-| Diseño del dashboard | $700.000 COP |
-| Pruebas e implementación | $500.000 COP |
-| Capacitación | $300.000 COP |
-| Mantenimiento inicial | $500.000 COP |
-| **Total estimado** | **$6.000.000 COP** |
-
-Los valores corresponden a una estimación académica para el estudio de prefactibilidad.
-
-### Fuente de financiación
-
-La inversión se plantea a través del presupuesto del Programa de Transformación y Mejora de Procesos Productivos de Arepas del Valle S.A.S.
-
-### Retorno económico preliminar
+Los beneficios económicos estimados son:
 
 | Beneficio | Estimación mensual |
 |---|---:|
@@ -213,140 +169,74 @@ La inversión se plantea a través del presupuesto del Programa de Transformaci�
 | Disminución de mermas de masa | $1.900.000 COP |
 | **Beneficio mensual estimado** | **$2.650.000 COP** |
 
-Con base en estas estimaciones, la inversión inicial de $6.000.000 COP podría recuperarse aproximadamente en **2,3 meses**.
+Con estas estimaciones, el período de recuperación preliminar de la inversión es de aproximadamente **2,3 meses**.
+
+> Los valores corresponden a estimaciones académicas de prefactibilidad y deberán validarse durante el desarrollo y las pruebas del proyecto.
 
 ## 5.3 Viabilidad operativa
 
-El proyecto será desarrollado por un equipo de tres estudiantes, organizado mediante roles de Scrum.
+El proyecto será desarrollado mediante roles Scrum:
 
-| Integrante | Rol | Responsabilidades |
-|---|---|---|
-| Sayuri | Scrum Master | Facilitar las ceremonias Scrum, eliminar impedimentos, controlar los tiempos y hacer seguimiento al trabajo en GitHub Projects. |
-| Andrea | Developer | Diseñar la arquitectura, desarrollar la aplicación en Python y Streamlit, configurar la base de datos y administrar el repositorio GitHub. |
-| Esteban | QA | Validar los criterios de aceptación, realizar pruebas de datos, verificar la Definition of Done y evaluar la usabilidad de los dashboards. |
+| Integrante | Rol |
+|---|---|
+| Sayuri | Scrum Master |
+| Andrea | Developer |
+| Esteban | QA |
 
-### Operación en planta
+Los supervisores registrarán la información operativa y la gerencia consultará los datos e indicadores mediante la aplicación.
 
-- Los supervisores registrarán los datos de producción, lotes y paradas.
-- La gerencia consultará los dashboards y los indicadores consolidados.
-- El registro se diseñará mediante listas desplegables para facilitar el uso.
-- Se estima que el registro de cada lote tome menos de 40 segundos. Este tiempo corresponde al ingreso de un registro individual y no al tiempo total de captura y consolidación de la información durante el turno.
-- No será necesario contratar personal adicional.
-- Se contempla capacitación para supervisores y operarios.
+El registro de un dato individual se estima en menos de **40 segundos**. Este tiempo corresponde al ingreso de un registro y no al tiempo total de captura y consolidación del turno.
 
 ## 5.4 Viabilidad legal
 
-El proyecto debe garantizar el manejo adecuado, almacenamiento y protección de la información utilizada por la aplicación.
+El proyecto tendrá en cuenta la **Ley 1581 de 2012 de Colombia** para el manejo de información personal y establecerá perfiles de acceso según las funciones de los usuarios.
 
-### Protección de datos
-
-Se tendrá en cuenta la **Ley 1581 de 2012 de Colombia**, mediante:
-
-- Uso de identificadores internos de turno.
-- Evitar la recolección innecesaria de datos personales.
-- Definición de perfiles de acceso.
-- Protección de la información almacenada.
-
-### Propiedad intelectual y licenciamiento
-
-- El software será desarrollado desde cero.
-- Se utilizarán librerías de código abierto con licencias permisivas, como MIT y Apache 2.0.
-- El desarrollo contará con evidencia y control de versiones en GitHub.
-- Se respetarán los derechos de autor y las condiciones académicas del proyecto.
-
-### Control de acceso
-
-Se establecerán perfiles diferenciados:
-
-- **Operador:** registro de información operativa.
-- **Supervisor:** consulta y seguimiento de la información de producción.
-- **Administrador:** gestión general del sistema y los permisos.
-
-Estos perfiles permitirán mantener la trazabilidad y prevenir modificaciones no autorizadas.
+El software será desarrollado por el equipo y se utilizarán tecnologías y librerías de código abierto, respetando sus respectivas condiciones de licencia.
 
 ## 5.5 Viabilidad social
 
-### Mapa de interesados
+El proyecto busca reducir tareas repetitivas de registro manual y facilitar el acceso a información operativa para supervisores y gerencia.
 
-- **Beneficiarios principales:**
-  - Supervisores de turno, porque se reduce el diligenciamiento manual.
-  - Gerencia, porque obtiene información actualizada del rendimiento de la planta.
-
-- **Posible resistencia:**
-  - Operarios de planta que podrían percibir la digitalización como un mecanismo de vigilancia o temer que los errores queden expuestos.
-
-- **Responsable de la decisión:**
-  - Gerente de Operaciones, como patrocinador del proyecto.
-
-### Plan de relacionamiento y mitigación
-
-La aplicación se presentará como una herramienta de apoyo y mejora operativa, no como un mecanismo de control punitivo.
-
-Se buscará:
-
-- Evitar reprocesos.
-- Justificar paradas que no dependan del operario.
-- Identificar problemas relacionados con presión de gas o falta de materia prima.
-- Realizar pruebas piloto participativas con operarios líderes durante el Sprint 1.
-- Promover la aceptación de la herramienta mediante la participación del personal.
+Se contempla la participación del personal durante las pruebas y capacitación, con el propósito de facilitar la adopción de la herramienta y presentar la digitalización como apoyo a la mejora del proceso.
 
 ## 5.6 Análisis de construir o comprar
 
-Se compararon tres alternativas:
+Se analizaron tres alternativas:
 
-1. No hacer nada y mantener el proceso actual.
-2. Comprar un software comercial.
-3. Construir una aplicación propia con Scrum, Python, Streamlit y GitHub.
+| Alternativa | Característica principal |
+|---|---|
+| Mantener el proceso actual | Continuar con planillas físicas y consolidación en Excel. |
+| Comprar software | Utilizar una solución comercial para el seguimiento de producción. |
+| **Construir aplicación propia** | Desarrollar una solución a la medida utilizando Python, Streamlit y GitHub. |
 
-| Criterio | No hacer nada | Comprar software | Construir aplicación propia |
-|---|---|---|---|
-| Descripción | Planillas de papel y transcripción a Excel. | Software industrial comercial. | Aplicación web a la medida. |
-| Inversión inicial | $0 COP, pero con pérdidas operativas. | Superior a $25.000.000 COP. | Aproximadamente $6.000.000 COP. |
-| Costos recurrentes | Pérdidas por mermas e ineficiencias. | Suscripciones y soporte anual. | Bajos, con posibilidad de alojamiento local. |
-| Adaptación al proceso | Baja; no calcula automáticamente los tiempos muertos. | Puede ser rígida y exigir cambios en los procesos. | Adaptada a las etapas del proceso de producción. |
-| Disponibilidad de datos | Entre 8 y 12 horas después del turno. | En tiempo real después de una integración prolongada. | En tiempo real, en menos de 2 minutos después del registro. |
-| Cumplimiento académico | No resuelve el problema de ingeniería. | No cumple con el desarrollo propio requerido. | Cumple mediante código abierto y evidencia en GitHub. |
-| Decisión | Descartada. | Descartada. | Seleccionada. |
-
-### Alternativa seleccionada
-
-Se selecciona la construcción de una **aplicación web propia**, debido a que:
-
-- Se adapta a las necesidades específicas de la planta.
-- Tiene una inversión inicial moderada.
-- Permite controlar el código y las versiones en GitHub.
-- Facilita la incorporación de indicadores personalizados.
-- Cumple con las condiciones académicas del proyecto.
-- Permite consultar los datos en tiempo real.
+La alternativa considerada para el proyecto es la **construcción de una aplicación propia**, debido a que permite adaptar la solución al proceso estudiado, controlar el código y desarrollar los indicadores requeridos dentro del proyecto académico.
 
 ## 5.7 Estimación de beneficios
 
-Los beneficios se establecen comparando la situación actual con las metas esperadas después de implementar la aplicación.
+| Beneficio | Situación actual | Meta con la aplicación |
+|---|---|---|
+| Tiempo administrativo | 1,5 horas diarias por turno para transcripción y consolidación. | Menos de 15 minutos de captura por turno y reducción de al menos el 80 % del tiempo destinado a digitación y consolidación. |
+| Disponibilidad de información | Datos disponibles entre 8 y 12 horas después de la jornada. | Información disponible durante el turno, con registros visibles en menos de 2 minutos después del evento. |
+| Mermas | Estimación entre 4,5 % y 5 %. | Meta igual o inferior al 2,5 %. |
+| Paradas | Sin clasificación ni medición precisa. | Registro de causas y tiempos de inactividad. |
+| Toma de decisiones | Información del día anterior. | Consulta de información durante el turno. |
 
-| Beneficio | Situación actual | Meta con la aplicación | Indicador |
-|---|---|---|---|
-| Ahorro de tiempo administrativo | 1,5 horas diarias por turno para transcribir datos. | Menos de 15 minutos de captura por turno. | Reducción de al menos el 80 % del tiempo destinado a digitación y consolidación de los registros. |
-| Disponibilidad de información | Datos disponibles entre 8 y 12 horas después de la jornada. | Dashboard visible durante el turno. | Datos disponibles en menos de 2 minutos después del evento. |
-| Reducción de mermas | Merma estimada entre el 4,5 % y el 5 %. | Meta de merma igual o inferior al 2,5 %. | Porcentaje de merma sobre la masa preparada. |
-| Identificación de paradas | Paradas sin clasificación ni medición precisa. | Registro de causas mecánicas, eléctricas y operativas. | Minutos de inactividad y causas asignadas. |
-| Apoyo a decisiones gerenciales | Decisiones basadas en datos del día anterior. | Decisiones durante el turno con cálculo de OEE. | Frecuencia de consulta del dashboard. |
-
-Estas metas son estimaciones de prefactibilidad y deberán validarse durante el desarrollo, las pruebas y la implementación del proyecto.
+Estas metas son estimaciones de prefactibilidad y deberán validarse durante el desarrollo y las pruebas.
 
 ## 5.8 Criterios de éxito
 
-| Criterio | Indicador | Resultado esperado |
-|---|---|---|
-| Funcionamiento de la aplicación | Funcionalidades del Product Backlog implementadas. | 100 % de las funcionalidades del alcance operativas. |
-| Disponibilidad de indicadores | Indicadores de producción, paros, mermas y OEE. | Indicadores disponibles y dinámicos. |
-| Registro de información | Registros de producción ingresados correctamente. | Al menos 95 % de registros sin errores de validación. |
-| Uso de la aplicación | Usuarios capacitados y con acceso. | 100 % de los usuarios previstos capacitados. |
-| Reducción del tiempo de consolidación | Comparación del tiempo total de procesamiento y consolidación antes y después de la implementación. | Reducción mínima del 30 % del tiempo total de consolidación. |
-| Satisfacción de los usuarios | Encuesta de satisfacción y facilidad de uso. | Al menos 80 % de valoración positiva. |
+| Criterio | Resultado esperado |
+|---|---|
+| Funcionalidades del alcance | 100 % de las funcionalidades del Product Backlog implementadas. |
+| Indicadores | Indicadores definidos en el alcance disponibles y dinámicos. |
+| Calidad de los registros | Al menos 95 % de registros sin errores de validación. |
+| Capacitación | 100 % de los usuarios previstos capacitados. |
+| Reducción del tiempo de consolidación | Reducción mínima del 30 % del tiempo total de procesamiento y consolidación. |
+| Satisfacción | Al menos 80 % de valoración positiva de los usuarios. |
 
 # 8. GESTIÓN DEL PROYECTO BAJO EL MARCO DE TRABAJO SCRUM
 
-El desarrollo del proyecto se gestiona mediante el marco de trabajo Scrum. El repositorio utiliza GitHub para el control de versiones, la revisión de cambios y el seguimiento del trabajo.
+El proyecto se gestiona mediante el marco de trabajo **Scrum**, utilizando GitHub para el control de versiones, revisión de cambios y seguimiento del trabajo.
 
 ## 8.1 Equipo Scrum
 
@@ -360,9 +250,7 @@ El Product Owner corresponde al profesor de la asignatura, quien realiza la vali
 
 ## 8.2 Fuente de verdad del Product Backlog
 
-El Product Backlog vigente está conformado por las nueve historias de usuario almacenadas en la carpeta `Historias-de-Usuario`.
-
-Estas historias constituyen la fuente de verdad del alcance funcional del proyecto. La información del README debe mantenerse consistente con ellas.
+El Product Backlog vigente está conformado por las **nueve historias de usuario** almacenadas en la carpeta `Historias-de-Usuario`. Estas historias constituyen la fuente de verdad del alcance funcional del proyecto.
 
 | Orden | Historia | Descripción | Story Points |
 |---:|---|---|---:|
@@ -376,21 +264,19 @@ Estas historias constituyen la fuente de verdad del alcance funcional del proyec
 | 8 | HU-07 | Visualizar causas y tiempos de paro | 5 |
 | 9 | HU-08 | Visualizar unidades rechazadas | 3 |
 
-El orden del backlog se establece considerando las dependencias entre las historias. Primero se priorizan los registros necesarios para disponer de información y posteriormente las funcionalidades de consulta, comparación y análisis.
+El orden del backlog considera las dependencias entre las historias, priorizando primero el registro de información y posteriormente las funcionalidades de consulta, comparación y análisis.
 
 ## 8.3 Historia pivote y estimación
 
-La historia HU-05 se utiliza como historia pivote con una estimación de **5 Story Points**.
+La **HU-05** se utiliza como historia pivote con una estimación de **5 Story Points**.
 
-La estimación de las demás historias se realiza de manera relativa utilizando una escala de Fibonacci, considerando complejidad, esfuerzo y alcance.
-
-Las estimaciones vigentes son las registradas directamente en cada historia de usuario.
+Las demás historias se estiman de manera relativa utilizando una escala de Fibonacci, considerando complejidad, esfuerzo y alcance.
 
 ## 8.4 Sprint 1: Producto Mínimo Viable (MVP)
 
-**Periodo:** Inicio del proyecto hasta el 29/09/2026.
+**Periodo:** Inicio del proyecto hasta el **29/09/2026**.
 
-El Sprint 1 corresponde al primer incremento del proyecto y está orientado a la construcción del Producto Mínimo Viable (MVP).
+El Sprint 1 corresponde al primer incremento del proyecto y está orientado a la construcción del Producto Mínimo Viable.
 
 **Objetivo:** Digitalizar el registro de producción y paradas, permitiendo visualizar el cumplimiento del turno en tiempo real.
 
@@ -409,7 +295,7 @@ El Sprint 1 corresponde al primer incremento del proyecto y está orientado a la
 
 ## 8.5 Sprint 2: Analítica e indicadores
 
-**Fecha de cierre:** 30/10/2026, correspondiente a la segunda entrega del proyecto.
+**Fecha de cierre:** **30/10/2026**, correspondiente a la segunda entrega del proyecto.
 
 El Sprint 2 corresponde al segundo incremento del proyecto y está orientado a incorporar las capacidades de analítica e indicadores definidas para la versión final.
 
@@ -434,45 +320,39 @@ El Sprint 2 corresponde al segundo incremento del proyecto y está orientado a i
 
 Una historia de usuario se considera terminada cuando:
 
-1. La funcionalidad está desarrollada e integrada al proyecto.
-2. Cumple los criterios de aceptación definidos en la historia.
+1. La funcionalidad está desarrollada e integrada.
+2. Cumple sus criterios de aceptación.
 3. Se realizaron las pruebas correspondientes.
 4. Los datos se almacenan y procesan correctamente cuando aplique.
-5. No existen errores críticos que impidan utilizar la funcionalidad.
-6. La historia fue revisada por el responsable de QA.
-7. El código correspondiente está registrado en el repositorio mediante un commit.
+5. No existen errores críticos que impidan utilizarla.
+6. Fue revisada por QA.
+7. El código está registrado mediante un commit.
 8. La documentación necesaria fue actualizada.
 
 ## 8.7 Eventos Scrum
 
-Durante el desarrollo se consideran los siguientes eventos:
-
 | Evento | Aplicación |
 |---|---|
 | Sprint Planning | Definición del objetivo y selección de historias del Sprint. |
-| Daily Scrum | Seguimiento del trabajo realizado, trabajo pendiente e impedimentos. |
-| Sprint Review | Presentación del incremento desarrollado y recepción de retroalimentación. |
-| Sprint Retrospective | Identificación de aspectos positivos, dificultades y oportunidades de mejora. |
+| Daily Scrum | Seguimiento del trabajo, pendientes e impedimentos. |
+| Sprint Review | Presentación del incremento y recepción de retroalimentación. |
+| Sprint Retrospective | Identificación de dificultades y oportunidades de mejora. |
 
 ## 8.8 Seguimiento del trabajo
 
-El seguimiento del trabajo se realizará mediante GitHub Projects.
+El seguimiento se realizará mediante **GitHub Projects**.
 
-El tablero permitirá visualizar el estado de las historias de usuario y realizar seguimiento a su avance durante el desarrollo del proyecto.
-
-Las nueve historias de usuario vigentes estarán registradas en el tablero y su estado se actualizará conforme avance el trabajo.
-
-El tablero constituye una evidencia del seguimiento del Product Backlog y de la gestión del trabajo mediante Scrum.
+Las nueve historias de usuario estarán registradas en el tablero y su estado se actualizará conforme avance el trabajo. El tablero constituye evidencia del seguimiento del Product Backlog y de la gestión del trabajo mediante Scrum.
 
 ## 8.9 Estrategia de control de versiones
 
-GitHub será utilizado como repositorio central del proyecto.
+GitHub será utilizado como repositorio central:
 
-- `main`: versión integrada y estable del proyecto.
-- Ramas por historia: desarrollo de funcionalidades asociadas a cada HU.
-- Commits: cambios realizados durante el desarrollo.
-- Pull Requests: revisión e integración de cambios.
-- GitHub Projects: seguimiento del Product Backlog y de los Sprints.
+- `main`: versión integrada y estable.
+- **Ramas por historia:** desarrollo de funcionalidades asociadas a cada HU.
+- **Commits:** registro de los cambios realizados.
+- **Pull Requests:** revisión e integración de cambios.
+- **GitHub Projects:** seguimiento del Product Backlog y del trabajo.
 
 Cada cambio de código deberá relacionarse con la historia de usuario correspondiente para facilitar la trazabilidad del desarrollo.
 
@@ -480,266 +360,40 @@ Cada cambio de código deberá relacionarse con la historia de usuario correspon
 
 ## 9.1 Arquitectura de la solución
 
-La solución propuesta corresponde a una aplicación web orientada a la captura, almacenamiento, procesamiento y visualización de información del proceso productivo de **Arepas del Valle S.A.S.**
+La solución corresponde a una aplicación web orientada a la captura, almacenamiento, procesamiento y visualización de información del proceso productivo de **Arepas del Valle S.A.S.**
 
-La arquitectura se plantea en cuatro componentes principales:
+La arquitectura se organiza en cuatro componentes:
 
-### 1. Capa de presentación
+1. **Presentación:** interfaz web desarrollada en Streamlit para registrar información y consultar indicadores.
+2. **Lógica y procesamiento:** desarrollada en Python 3.11 para validar registros, procesar información y calcular indicadores.
+3. **Datos:** base de datos relacional. Durante el desarrollo se utilizará SQLite y PostgreSQL se contempla para escenarios multiusuario.
+4. **Control de versiones:** Git y GitHub para gestionar el desarrollo y mantener la trazabilidad de los cambios.
 
-Corresponde a la interfaz web desarrollada en **Streamlit**, desde la cual los usuarios podrán registrar información y consultar los indicadores.
+La estructura de datos contempla información de:
 
-Los principales usuarios de la aplicación serán los **supervisores de producción y la gerencia**, de acuerdo con la visión del producto definida previamente.
+| Entidad | Información principal |
+|---|---|
+| **Turnos** | Fecha, turno y línea de producción |
+| **Producción** | Kilogramos de masa, paquetes producidos y meta |
+| **Paradas** | Inicio, finalización, duración y causa |
+| **Mermas** | Masa residual, unidades no conformes y motivo |
+| **Usuarios** | Perfil y permisos para la versión final |
 
-### 2. Capa de lógica y procesamiento
-
-Será desarrollada en **Python 3.11** y tendrá como función validar los registros recibidos, procesar la información y calcular los indicadores establecidos para el proyecto.
-
-En esta capa se implementarán las reglas de negocio relacionadas con:
-
-* Producción real frente a meta.
-* Tiempos de paro.
-* Mermas.
-* Indicadores de calidad.
-* Disponibilidad, rendimiento y calidad.
-* OEE.
-* Filtros para análisis de información.
-
-### 3. Capa de datos
-
-La solución utilizará una **base de datos relacional**.
-
-Durante el desarrollo se utilizará **SQLite** para facilitar el trabajo local, mientras que **PostgreSQL** se contempla para escenarios de concurrencia multiusuario en una implementación dentro de la planta. Esta selección tecnológica ya se encuentra contemplada dentro de la viabilidad técnica del proyecto.
-
-La estructura de datos deberá almacenar, como mínimo, la información relacionada con:
-
-| Entidad        | Información principal                                  |
-| -------------- | ------------------------------------------------------ |
-| **Turnos**     | Fecha, turno y línea de producción                     |
-| **Producción** | Kilogramos de masa, paquetes producidos y meta         |
-| **Paradas**    | Hora de inicio, hora de finalización, duración y causa |
-| **Mermas**     | Masa residual, unidades no conformes y motivo          |
-| **Usuarios**   | Perfil y permisos de acceso para la versión final      |
-
-### 4. Control de versiones
-
-**Git y GitHub** serán utilizados para controlar el desarrollo, mantener el historial de cambios y relacionar las funcionalidades implementadas con cada Sprint.
-
-### Flujo general de la solución
-
-El funcionamiento de la arquitectura seguirá el siguiente flujo:
-
-**Usuario de planta → Interfaz web → Validación de datos → Base de datos → Procesamiento de indicadores → Dashboard → Toma de decisiones**
-
-El supervisor registra la información correspondiente al proceso; la aplicación valida los datos y los almacena; posteriormente, la lógica de negocio procesa la información para generar los indicadores y mostrarlos en los tableros correspondientes.
-
-La solución **no tendrá interacción directa con la maquinaria ni modificará físicamente el proceso productivo**. Su función será digitalizar y procesar el flujo de información generado por la operación.
-
----
-
-## 9.2 Prototipo v0 de la aplicación
-
-El prototipo v0 representa la estructura funcional inicial que será desarrollada durante los Sprints y permite visualizar la interacción principal entre los usuarios y la aplicación.
-
-### Vista 1. Registro de producción
-
-La primera pantalla permitirá al usuario registrar la información de cada turno o lote:
-
-* Fecha.
-* Turno.
-* Línea.
-* Kilogramos de masa procesada.
-* Paquetes de 5 unidades.
-* Paquetes de 10 unidades.
-* Meta de producción.
-
-El formulario contará con validaciones para evitar registros incompletos o inconsistentes.
-
-### Vista 2. Registro de paradas
-
-Esta vista permitirá registrar las interrupciones del proceso:
-
-* Fecha.
-* Turno.
-* Línea.
-* Causa de la parada.
-* Hora de inicio.
-* Hora de finalización.
-* Duración calculada.
-
-Las causas serán clasificadas de manera que posteriormente puedan analizarse por frecuencia y tiempo acumulado.
-
-### Vista 3. Dashboard operativo
-
-El primer dashboard permitirá al supervisor visualizar:
-
-* Producción real.
-* Meta de producción.
-* Porcentaje de cumplimiento.
-* Tiempo total de paro.
-* Tiempo de paro acumulado.
-* Comportamiento de la producción durante el turno.
-
-Esta vista constituye la **principal entrega del Sprint 1**.
-
-### Vista 4. Dashboard de mermas y calidad
-
-Durante el Sprint 2 se incorporará una vista destinada a:
-
-* Kilogramos de masa residual.
-* Unidades no conformes.
-* Porcentaje de merma.
-* Comportamiento de la merma a través del tiempo.
-* Principales causas de pérdida.
-
-### Vista 5. Dashboard de OEE
-
-La segunda etapa también incorporará:
-
-* Disponibilidad.
-* Rendimiento.
-* Calidad.
-* OEE general.
-* Comparación entre periodos.
-* Filtros por fecha, turno y línea.
-
-### Vista 6. Dashboard gerencial y reportes
-
-La versión final contará con una vista ejecutiva que consolide los principales indicadores y permita su consulta mediante filtros.
-
-Adicionalmente, se incorporará la funcionalidad de **exportación de reportes** para facilitar el análisis y la toma de decisiones gerenciales.
-
-### Evolución del prototipo
-
-El prototipo se desarrollará de manera incremental:
-
-**v0.1 → Estructura y formularios básicos**
-
-**v0.5 → MVP operativo con registro, base de datos y dashboard de planta**
-
-**v1.0 → Solución integral con mermas, OEE, dashboard gerencial, reportes y control de acceso**
-
-Esta evolución coincide con los incrementos definidos para los dos Sprints del proyecto.
-
----
-
-## 9.3 Fichas técnicas de los indicadores
-
-Para garantizar que los indicadores sean consistentes y puedan ser interpretados de la misma manera por los usuarios de la aplicación, cada indicador tendrá una ficha técnica.
-
-### 9.3.1 Indicador de cumplimiento de producción
-
-| Campo               | Definición                                                                                                        |
-| ------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| **Nombre**          | Cumplimiento de producción                                                                                        |
-| **Objetivo**        | Medir el grado de cumplimiento de la producción obtenida frente a la meta establecida para el turno.              |
-| **Fórmula**         | Producción real / Producción meta × 100                                                                           |
-| **Unidad**          | Porcentaje (%)                                                                                                    |
-| **Fuente de datos** | Registro operativo de producción                                                                                  |
-| **Frecuencia**      | Por turno y acumulado diario                                                                                      |
-| **Responsable**     | Supervisor de producción                                                                                          |
-| **Visualización**   | Tarjeta KPI y gráfico de tendencia                                                                                |
-| **Meta**            | Meta de producción establecida para cada turno                                                                    |
-| **Interpretación**  | Valores cercanos o superiores al 100 % indican cumplimiento de la meta; valores inferiores evidencian desviación. |
-
----
-
-### 9.3.2 Indicador de tiempo de paro
-
-| Campo               | Definición                                                                                                                                 |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Nombre**          | Tiempo total de paro                                                                                                                       |
-| **Objetivo**        | Cuantificar el tiempo durante el cual la línea permanece inactiva y facilitar la identificación de las principales causas de interrupción. |
-| **Fórmula**         | Σ duración de las paradas registradas                                                                                                      |
-| **Unidad**          | Minutos                                                                                                                                    |
-| **Fuente de datos** | Módulo de registro de paradas                                                                                                              |
-| **Frecuencia**      | Por turno, día y periodo seleccionado                                                                                                      |
-| **Responsable**     | Supervisor de producción                                                                                                                   |
-| **Visualización**   | Tarjeta KPI, gráfico temporal y Pareto por causa                                                                                           |
-| **Meta**            | Minimizar el tiempo de inactividad de acuerdo con las condiciones operativas de la planta                                                  |
-| **Interpretación**  | Un aumento del tiempo de paro indica pérdida de disponibilidad y requiere análisis de las causas predominantes.                            |
-
----
-
-### 9.3.3 Indicador de merma
-
-| Campo               | Definición                                                                                                 |
-| ------------------- | ---------------------------------------------------------------------------------------------------------- |
-| **Nombre**          | Porcentaje de merma de masa                                                                                |
-| **Objetivo**        | Identificar la proporción de masa que se pierde durante el proceso respecto a la cantidad total preparada. |
-| **Fórmula**         | Kilogramos de masa residual / Kilogramos de masa preparada × 100                                           |
-| **Unidad**          | Porcentaje (%)                                                                                             |
-| **Fuente de datos** | Módulo de control de mermas                                                                                |
-| **Frecuencia**      | Por lote, turno y periodo                                                                                  |
-| **Responsable**     | Supervisor de producción                                                                                   |
-| **Visualización**   | Tarjeta KPI y gráfico de tendencia                                                                         |
-| **Meta**            | Merma ≤ 2,5 %, de acuerdo con la meta establecida en el Business Case                                      |
-| **Interpretación**  | Valores superiores a la meta indican una desviación que debe analizarse según su causa.                    |
-
-El proyecto también registrará las **unidades no conformes** como variable complementaria de calidad, permitiendo analizar pérdidas asociadas a productos quemados, rotos o rechazados. La consulta de unidades rechazadas por período está respaldada por **HU-08**. El registro y análisis de masa residual se mantiene como una funcionalidad contemplada en el alcance del Sprint 2.
-
----
-
-### 9.3.4 Indicador OEE
-
-| Campo               | Definición                                                                                                                                             |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Nombre**          | OEE – Eficiencia Global del Equipo                                                                                                                     |
-| **Objetivo**        | Integrar en un solo indicador las dimensiones de disponibilidad, rendimiento y calidad del proceso productivo.                                         |
-| **Fórmula**         | OEE = Disponibilidad × Rendimiento × Calidad                                                                                                           |
-| **Unidad**          | Porcentaje (%)                                                                                                                                         |
-| **Fuente de datos** | Registros de producción, paradas y unidades no conformes                                                                                               |
-| **Frecuencia**      | Por turno, día y periodo seleccionado                                                                                                                  |
-| **Responsable**     | Supervisor / Gerencia de Operaciones                                                                                                                   |
-| **Visualización**   | Tarjeta KPI, tendencia temporal y desglose por componente                                                                                              |
-| **Meta**            | Meta de desempeño definida para el proceso                                                                                                             |
-| **Interpretación**  | El valor del OEE refleja el desempeño combinado del proceso y permite identificar cuál de sus componentes presenta la principal oportunidad de mejora. |
-
----
-
-### 9.3.5 Subindicadores del OEE
-
-Para permitir que el OEE pueda ser interpretado correctamente, la aplicación mostrará sus tres componentes:
-
-| Indicador          | Concepto                                                                                                        | Relación de cálculo                                               |
-| ------------------ | --------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| **Disponibilidad** | Representa la proporción del tiempo planificado en que el proceso estuvo disponible para producir.              | Tiempo de operación / Tiempo planificado × 100                    |
-| **Rendimiento**    | Representa el nivel de producción alcanzado con respecto a la capacidad teórica durante el tiempo de operación. | Producción real / Producción teórica para el tiempo operado × 100 |
-| **Calidad**        | Representa la proporción de unidades producidas que cumplen con los requisitos de calidad.                      | Unidades buenas / Unidades totales × 100                          |
-
-El motor analítico de estos indicadores se implementará durante el **Sprint 2**, de acuerdo con el alcance definido para este incremento del proyecto.
-
----
-
-## 9.4 Relación entre arquitectura, prototipo e indicadores
-
-La solución se diseña de forma integrada para que cada elemento técnico responda directamente al problema identificado en el proceso productivo.
-
-El funcionamiento esperado será:
+### Flujo general
 
 ```text
-Registro de producción y paradas
-                ↓
-Almacenamiento en base de datos
-                ↓
-Procesamiento y cálculo
-                ↓
-Indicadores de producción, paros, mermas y OEE
-                ↓
-Dashboard operativo y gerencial
-                ↓
-Información para la toma de decisiones
-```
-
-De esta manera, la arquitectura propuesta permite transformar los registros manuales y dispersos en información estructurada y visual.
-
-El prototipo representa la interfaz mediante la cual los datos serán capturados y consultados, mientras que las fichas técnicas establecen las reglas para calcular e interpretar los indicadores.
-
-La solución estará orientada a:
-
-* Reducir la demora actual de disponibilidad de información.
-* Mejorar la trazabilidad de los registros.
-* Facilitar la detección de desviaciones de producción.
-* Facilitar la detección de paros.
-* Facilitar la detección de mermas.
+Usuario de planta
+      ↓
+Interfaz web
+      ↓
+Validación de datos
+      ↓
+Base de datos
+      ↓
+Procesamiento de indicadores
+      ↓
+Dashboard
+      ↓
+Toma de decisiones
 
 Estos objetivos ya fueron establecidos en el diagnóstico y **Business Case** del proyecto.
