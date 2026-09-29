@@ -33,7 +33,7 @@ Actualmente, el registro de las principales variables del proceso productivo de 
 
 Esta situación genera:
 
-- **Retraso en la disponibilidad de la información:** La gerencia y los supervisores reciben los datos de producción entre 4 y 12 horas después de finalizar el turno, lo que limita su disponibilidad oportuna para la toma de decisiones.
+- **Retraso en la disponibilidad de la información:** La gerencia y los supervisores reciben los datos de producción entre 8 y 12 horas después de finalizar el turno, lo que limita su disponibilidad oportuna para la toma de decisiones.
 - **Baja trazabilidad y capacidad de reacción:** La actualización de la información no permite identificar oportunamente desviaciones durante el proceso, como fallas en la dosificación de la masa, descalibración de los equipos de precocción o paradas mecánicas.
 - **Detección tardía de mermas:** Las unidades quemadas, rotas o que presentan pérdidas durante el proceso pueden identificarse con retraso, dificultando el control de las mermas y generando mayores pérdidas de materia prima y producto terminado.
 
@@ -95,7 +95,7 @@ La solución no modifica físicamente las máquinas ni el producto, sino que dig
 
 ## 4.2 Ciclo de vida: metodología Scrum
 
-Se utilizará una metodología ágil basada en **Scrum**, dividida en dos Sprints de dos semanas cada uno. Esta estructura permite entregar valor rápidamente, recibir retroalimentación y controlar el alcance del proyecto.
+Se utilizará una metodología ágil basada en **Scrum**, organizada en dos Sprints relacionados con las fechas de entrega del proyecto.
 
 ### Sprint 1: Producto Mínimo Viable (MVP)
 
@@ -235,7 +235,7 @@ El proyecto será desarrollado por un equipo de tres estudiantes, organizado med
 - Los supervisores registrarán los datos de producción, lotes y paradas.
 - La gerencia consultará los dashboards y los indicadores consolidados.
 - El registro se diseñará mediante listas desplegables para facilitar el uso.
-- Se estima que el registro de cada lote tome menos de 40 segundos.
+- Se estima que el registro de cada lote tome menos de 40 segundos. Este tiempo corresponde al ingreso de un registro individual y no al tiempo total de captura y consolidación de la información durante el turno.
 - No será necesario contratar personal adicional.
 - Se contempla capacitación para supervisores y operarios.
 
@@ -330,7 +330,7 @@ Los beneficios se establecen comparando la situación actual con las metas esper
 
 | Beneficio | Situación actual | Meta con la aplicación | Indicador |
 |---|---|---|---|
-| Ahorro de tiempo administrativo | 1,5 horas diarias por turno para transcribir datos. | Menos de 15 minutos de captura por turno. | Reducción de al menos el 80 % del tiempo de digitación y consolidación. |
+| Ahorro de tiempo administrativo | 1,5 horas diarias por turno para transcribir datos. | Menos de 15 minutos de captura por turno. | Reducción de al menos el 80 % del tiempo destinado a digitación y consolidación de los registros. |
 | Disponibilidad de información | Datos disponibles entre 8 y 12 horas después de la jornada. | Dashboard visible durante el turno. | Datos disponibles en menos de 2 minutos después del evento. |
 | Reducción de mermas | Merma estimada entre el 4,5 % y el 5 %. | Meta de merma igual o inferior al 2,5 %. | Porcentaje de merma sobre la masa preparada. |
 | Identificación de paradas | Paradas sin clasificación ni medición precisa. | Registro de causas mecánicas, eléctricas y operativas. | Minutos de inactividad y causas asignadas. |
@@ -346,201 +346,140 @@ Estas metas son estimaciones de prefactibilidad y deberán validarse durante el 
 | Disponibilidad de indicadores | Indicadores de producción, paros, mermas y OEE. | Indicadores disponibles y dinámicos. |
 | Registro de información | Registros de producción ingresados correctamente. | Al menos 95 % de registros sin errores de validación. |
 | Uso de la aplicación | Usuarios capacitados y con acceso. | 100 % de los usuarios previstos capacitados. |
-| Reducción del tiempo de consolidación | Comparación del procesamiento antes y después. | Reducción mínima del 30 %. |
+| Reducción del tiempo de consolidación | Comparación del tiempo total de procesamiento y consolidación antes y después de la implementación. | Reducción mínima del 30 % del tiempo total de consolidación. |
 | Satisfacción de los usuarios | Encuesta de satisfacción y facilidad de uso. | Al menos 80 % de valoración positiva. |
 
 # 8. GESTIÓN DEL PROYECTO BAJO EL MARCO DE TRABAJO SCRUM
 
-Para el desarrollo de la aplicación web de monitoreo del proceso productivo de Arepas del Valle S.A.S. se adopta el marco de trabajo Scrum bajo un ciclo de vida adaptativo, definido en dos Sprints de dos semanas cada uno.
-
-El Sprint 1 corresponde a la construcción del Producto Mínimo Viable (MVP), orientado a la captura y visualización de información operativa. El Sprint 2 incorpora las funcionalidades analíticas y gerenciales necesarias para la versión final.
-
-Git y GitHub serán utilizados para el control de versiones, seguimiento del trabajo y trazabilidad de los avances realizados durante cada Sprint.
+El desarrollo del proyecto se gestiona mediante el marco de trabajo Scrum. El repositorio utiliza GitHub para el control de versiones, la revisión de cambios y el seguimiento del trabajo.
 
 ## 8.1 Equipo Scrum
 
-El proyecto será ejecutado por un equipo de tres estudiantes:
+| Integrante | Responsabilidad |
+|---|---|
+| Sayuri | Scrum Master |
+| Andrea | Developer |
+| Esteban | QA |
 
-| Integrante | Responsabilidad Scrum | Funciones principales |
-|---|---|---|
-| **Sayuri** | Scrum Master | Facilitar la aplicación de Scrum, coordinar Sprint Planning, Sprint Review y Retrospective, apoyar la solución de impedimentos y realizar seguimiento en GitHub Projects. |
-| **Andrea** | Developer | Diseñar y construir la solución web, desarrollar la aplicación en Python/Streamlit, configurar la base de datos, integrar funcionalidades y administrar ramas y commits. |
-| **Esteban** | QA / Aseguramiento de la calidad | Validar criterios de aceptación, realizar pruebas funcionales y de integridad de datos, verificar la Definition of Done y evaluar la usabilidad de los tableros. |
+El Product Owner corresponde al profesor de la asignatura, quien realiza la validación y retroalimentación del producto.
 
-El **Product Owner** corresponde al profesor de la asignatura, quien actúa como referente para la validación y retroalimentación del producto. No forma parte del equipo ejecutor de tres estudiantes.
+## 8.2 Fuente de verdad del Product Backlog
 
-## 8.2 Product Backlog priorizado
+El Product Backlog vigente está conformado por las nueve historias de usuario almacenadas en la carpeta `Historias-de-Usuario`.
 
-El Product Backlog contiene las funcionalidades que serán desarrolladas para cumplir la visión del producto. Las historias HU-01 a HU-08 se distribuyen entre los dos Sprints según su prioridad y dependencia funcional.
+Estas historias constituyen la fuente de verdad del alcance funcional del proyecto. La información del README debe mantenerse consistente con ellas.
 
-| Prioridad | Historia | Descripción | Sprint |
+| Orden | Historia | Descripción | Story Points |
 |---:|---|---|---:|
-| 1 | **HU-01** | Configuración del entorno y base de datos relacional | 1 |
-| 2 | **HU-02** | Formulario web para el registro operativo de producción | 1 |
-| 3 | **HU-03** | Registro de paradas de máquinas y causas | 1 |
-| 4 | **HU-04** | Dashboard operativo de producción, cumplimiento y tiempos de paro | 1 |
-| 5 | **HU-05** | Registro y control de mermas e indicadores de calidad | 2 |
-| 6 | **HU-06** | Cálculo automatizado del OEE | 2 |
-| 7 | **HU-07** | Dashboard ejecutivo/gerencial con filtros | 2 |
-| 8 | **HU-08** | Exportación de reportes y pruebas integrales | 2 |
+| 1 | HU-02 | Registrar unidades producidas | 2 |
+| 2 | HU-03 | Registrar unidades rechazadas | 2 |
+| 3 | HU-01 | Registrar tiempos y causas de paro | 3 |
+| 4 | HU-09 | Registrar metas de producción | 3 |
+| 5 | HU-04 | Consultar información por turno | 3 |
+| 6 | HU-05 | Consultar indicadores por período y turno | 5 |
+| 7 | HU-06 | Comparar resultados con las metas de producción | 5 |
+| 8 | HU-07 | Visualizar causas y tiempos de paro | 5 |
+| 9 | HU-08 | Visualizar unidades rechazadas | 3 |
 
-La prioridad responde a una lógica de dependencia: primero se desarrolla la infraestructura y captura de información y posteriormente los indicadores, análisis gerencial y reportes.
+El orden del backlog se establece considerando las dependencias entre las historias. Primero se priorizan los registros necesarios para disponer de información y posteriormente las funcionalidades de consulta, comparación y análisis.
 
-## 8.3 Estimación del trabajo
+## 8.3 Historia pivote y estimación
 
-La estimación inicial se realizará mediante **puntos de historia**, utilizando una escala relativa tipo Fibonacci. Los Developers podrán ajustar las estimaciones durante la Sprint Planning de acuerdo con la complejidad, incertidumbre y dependencias.
+La historia HU-05 se utiliza como historia pivote con una estimación de **5 Story Points**.
 
-| Historia | Estimación inicial | Sprint |
-|---|---:|---:|
-| HU-01 | 3 puntos | 1 |
-| HU-02 | 5 puntos | 1 |
-| HU-03 | 5 puntos | 1 |
-| HU-04 | 13 puntos | 1 |
-| HU-05 | 5 puntos | 2 |
-| HU-06 | 13 puntos | 2 |
-| HU-07 | 5 puntos | 2 |
-| HU-08 | 8 puntos | 2 |
+La estimación de las demás historias se realiza de manera relativa utilizando una escala de Fibonacci, considerando complejidad, esfuerzo y alcance.
 
-Durante la ejecución también se registrará el esfuerzo estimado y el esfuerzo real para evaluar la precisión de la planificación y generar aprendizaje para los siguientes Sprints.
+Las estimaciones vigentes son las registradas directamente en cada historia de usuario.
 
-## 8.4 Sprint 1 – Construcción del MVP
+## 8.4 Sprint 1: Producto Mínimo Viable (MVP)
 
-### Meta del Sprint
+**Periodo:** Inicio del proyecto hasta el 29/09/2026.
 
-Construir un MVP funcional que permita digitalizar el registro de producción y paradas, almacenar la información en una base de datos y visualizar el comportamiento operativo mediante un dashboard.
+El Sprint 1 corresponde al primer incremento del proyecto y está orientado a la construcción del Producto Mínimo Viable (MVP).
 
-### Sprint Backlog
+**Objetivo:** Digitalizar el registro de producción y paradas, permitiendo visualizar el cumplimiento del turno en tiempo real.
 
-| Historia | Actividades principales |
-|---|---|
-| **HU-01** | Configurar repositorio y entorno, establecer dependencias, crear estructura inicial, diseñar modelo relacional y configurar conexión con la base de datos. |
-| **HU-02** | Diseñar formulario de registro, incorporar turno, producción, kilogramos de masa y paquetes producidos, establecer validaciones, conectar con la base de datos y realizar pruebas. |
-| **HU-03** | Diseñar formulario de paradas, definir catálogo de causas, registrar inicio, finalización y duración, almacenar información y validar registros. |
-| **HU-04** | Construir dashboard operativo con producción real frente a meta, tiempo muerto y tiempo acumulado, integrando los datos almacenados. |
+**Funcionalidades principales:**
 
-**Actividades transversales:** integración del código, pruebas funcionales, revisión de criterios de aceptación, control de versiones y documentación.
+- Configuración del entorno y la base de datos relacional.
+- Formulario web para registrar:
+  - Kilos de masa.
+  - Paquetes de 5 y 10 unidades.
+  - Producción por hora y turno.
+- Registro de paradas de máquinas y sus causas.
+- Dashboard con comparación entre producción real y meta.
+- Visualización del tiempo muerto y acumulado.
 
-### Plan de trabajo del Sprint 1
+**Entregable:** Prototipo funcional de la aplicación web, con base de datos, repositorio Git y tablero operativo.
 
-| Periodo | Actividades | Resultado esperado |
-|---|---|---|
-| **Semana 1** | Sprint Planning, configuración del entorno y base de datos, desarrollo de HU-01 y avance de HU-02 y HU-03. | Infraestructura funcional y formularios iniciales. |
-| **Semana 2** | Finalización de HU-02 y HU-03, desarrollo de HU-04, integración, pruebas, revisión y retrospectiva. | MVP funcional v0.5. |
+## 8.5 Sprint 2: Analítica e indicadores
 
-### Incremento esperado
+**Fecha de cierre:** 30/10/2026, correspondiente a la segunda entrega del proyecto.
 
-Al finalizar el Sprint 1 se espera disponer del **Incremento 1 – Prototipo v0.5**, compuesto por:
+El Sprint 2 corresponde al segundo incremento del proyecto y está orientado a incorporar las capacidades de analítica e indicadores definidas para la versión final.
 
-- Aplicación web operativa.
-- Base de datos transaccional.
-- Dashboard de monitoreo de planta.
-- Repositorio Git con trazabilidad de cambios.
+**Objetivo:** Incorporar el análisis de mermas, el cálculo de OEE y los reportes gerenciales.
 
-El tablero permitirá consultar información de producción y paradas utilizando datos disponibles para las pruebas.
+**Funcionalidades principales:**
 
-## 8.5 Sprint 2 – Analítica y versión final
+- Módulo de control de mermas e indicadores de calidad.
+- Registro de masa residual y unidades no conformes.
+- Cálculo automático del OEE:
+  - Disponibilidad.
+  - Rendimiento.
+  - Calidad.
+- Dashboard gerencial con filtros por fecha, turno y línea.
+- Exportación de reportes ejecutivos.
+- Pruebas integrales de la aplicación.
+- Autenticación por roles y documentación técnica.
 
-### Meta del Sprint
-
-Incorporar el control de mermas, indicadores de calidad y OEE, funcionalidades de análisis gerencial y generación de reportes, junto con las pruebas necesarias para disponer de la versión final.
-
-### Sprint Backlog
-
-| Historia | Actividades principales |
-|---|---|
-| **HU-05** | Diseñar módulo de mermas, registrar masa residual y unidades no conformes, establecer cálculos y porcentajes e integrar los datos al dashboard. |
-| **HU-06** | Diseño de cálculo, calcular disponibilidad, rendimiento y calidad, consolidar el OEE y validar las fórmulas con datos de prueba. |
-| **HU-07** | Construir dashboard ejecutivo con filtros por fecha, turno y línea, mostrando producción, paros, mermas y OEE. |
-| **HU-08** | Implementar exportación de reportes, realizar pruebas integrales, corregir errores, comprobar criterios de aceptación y preparar la versión final. |
-
-**Actividades transversales:** integrar autenticación y control de acceso, consolidar código, realizar pruebas finales, validar la Definition of Done y preparar la entrega.
-
-La autenticación por roles será un requisito transversal de la versión **v1.0**. Los perfiles previstos son:
-
-- Operador
-- Supervisor
-- Administrador
-
-### Plan de trabajo del Sprint 2
-
-| Periodo | Actividades | Resultado esperado |
-|---|---|---|
-| **Semana 3** | Sprint Planning, desarrollo de HU-05 y HU-06, integración de cálculos y pruebas iniciales. | Módulos de mermas y OEE funcionales. |
-| **Semana 4** | Desarrollo de HU-07 y HU-08, integración final, pruebas integrales, revisión y retrospectiva. | Versión final v1.0. |
-
-### Incremento esperado
-
-El segundo incremento corresponde a la **versión final v1.0**, que integrará:
-
-- Captura de información.
-- Control de paradas.
-- Control de mermas.
-- Indicadores OEE.
-- Dashboard operativo.
-- Dashboard gerencial.
-- Exportación de reportes.
-- Control de acceso.
-- Documentación técnica.
+**Entregable:** Versión final de la solución web con dashboards operativos y gerenciales, módulo de sostenibilidad y control de acceso.
 
 ## 8.6 Definition of Done
 
-Una historia de usuario se considerará terminada cuando cumpla simultáneamente con los siguientes criterios:
+Una historia de usuario se considera terminada cuando:
 
 1. La funcionalidad está desarrollada e integrada al proyecto.
-2. Cumple todos los criterios de aceptación de la historia.
-3. Se realizaron las pruebas funcionales correspondientes.
-4. Los datos se almacenan y procesan correctamente.
+2. Cumple los criterios de aceptación definidos en la historia.
+3. Se realizaron las pruebas correspondientes.
+4. Los datos se almacenan y procesan correctamente cuando aplique.
 5. No existen errores críticos que impidan utilizar la funcionalidad.
-6. Fue revisada por el responsable de QA.
-7. El código está registrado en el repositorio mediante su respectivo commit.
-8. La documentación técnica necesaria fue actualizada.
-9. La tarjeta de GitHub Projects puede trasladarse al estado **Done**.
+6. La historia fue revisada por el responsable de QA.
+7. El código correspondiente está registrado en el repositorio mediante un commit.
+8. La documentación necesaria fue actualizada.
 
-Una historia que solamente tenga código desarrollado, pero no haya sido probada o validada, no se considerará terminada.
+## 8.7 Eventos Scrum
 
-## 8.7 Eventos Scrum considerados en el proyecto
+Durante el desarrollo se consideran los siguientes eventos:
 
-| Evento | Aplicación en el proyecto |
+| Evento | Aplicación |
 |---|---|
-| **Sprint Planning** | Al inicio de cada Sprint se establecerá la meta, se seleccionarán las historias y se definirá el plan de trabajo. |
-| **Sprint Review** | Al finalizar cada Sprint se presentará el incremento desarrollado y se recibirá retroalimentación. |
-| **Sprint Retrospective** | Después de la Review, el equipo analizará el proceso, dificultades y acciones de mejora. |
-| **Daily Scrum** | Se realizará durante la ejecución de cada Sprint y su evidencia será registrada mediante grabaciones. |
+| Sprint Planning | Definición del objetivo y selección de historias del Sprint. |
+| Daily Scrum | Seguimiento del trabajo realizado, trabajo pendiente e impedimentos. |
+| Sprint Review | Presentación del incremento desarrollado y recepción de retroalimentación. |
+| Sprint Retrospective | Identificación de aspectos positivos, dificultades y oportunidades de mejora. |
 
-Las grabaciones de los Daily Scrum serán incorporadas al repositorio de GitHub como evidencia de seguimiento y ejecución.
+## 8.8 Seguimiento del trabajo
 
-## 8.8 Tablero de seguimiento del proyecto
+El seguimiento del trabajo se realizará mediante GitHub Projects.
 
-El seguimiento visual se realizará mediante **GitHub Projects**.
+El tablero permitirá visualizar el estado de las historias de usuario y realizar seguimiento a su avance durante el desarrollo del proyecto.
 
-Flujo de estados:
+Las nueve historias de usuario vigentes estarán registradas en el tablero y su estado se actualizará conforme avance el trabajo.
 
-**Backlog → Por hacer → En desarrollo → En pruebas → Terminado**
+El tablero constituye una evidencia del seguimiento del Product Backlog y de la gestión del trabajo mediante Scrum.
 
-Cada tarjeta estará asociada a una historia de usuario y, cuando sea necesario, a las tareas técnicas requeridas.
+## 8.9 Estrategia de control de versiones
 
-El tablero permitirá:
+GitHub será utilizado como repositorio central del proyecto.
 
-- Visualizar el estado de cada historia.
-- Identificar trabajo pendiente.
-- Registrar responsables.
-- Asociar historias a un Sprint.
-- Realizar seguimiento a las pruebas.
-- Vincular cambios del código con el trabajo realizado.
+- `main`: versión integrada y estable del proyecto.
+- Ramas por historia: desarrollo de funcionalidades asociadas a cada HU.
+- Commits: cambios realizados durante el desarrollo.
+- Pull Requests: revisión e integración de cambios.
+- GitHub Projects: seguimiento del Product Backlog y de los Sprints.
 
-Las tarjetas utilizarán el identificador de la historia, por ejemplo: **HU-01, HU-02, HU-03**, etc.
-
-## 8.9 Estrategia de control de versiones en GitHub
-
-GitHub será utilizado como repositorio central del código fuente y documentación técnica.
-
-| Elemento | Uso |
-|---|---|
-| **main** | Versión estable del proyecto. |
-| **Ramas feature** | Desarrollo de funcionalidades asociadas a historias. |
-| **Commits** | Cada avance relevante estará asociado a una historia o tarea. |
-| **Pull Requests** | Integración de funcionalidades después de revisión y pruebas. |
-| **GitHub Projects** | Seguimiento del Product Backlog y Sprint Backlogs. |
+Cada cambio de código deberá relacionarse con la historia de usuario correspondiente para facilitar la trazabilidad del desarrollo.
 
 # 9. ARQUITECTURA DE LA SOLUCIÓN, PROTOTIPO V0 Y FICHAS TÉCNICAS DE LOS INDICADORES
 
@@ -741,7 +680,7 @@ Para garantizar que los indicadores sean consistentes y puedan ser interpretados
 | **Meta**            | Merma ≤ 2,5 %, de acuerdo con la meta establecida en el Business Case                                      |
 | **Interpretación**  | Valores superiores a la meta indican una desviación que debe analizarse según su causa.                    |
 
-El proyecto también registrará las **unidades no conformes** como variable complementaria de calidad, permitiendo analizar pérdidas asociadas a productos quemados, rotos o rechazados. Esta funcionalidad se encuentra contemplada dentro de **HU-05**.
+El proyecto también registrará las **unidades no conformes** como variable complementaria de calidad, permitiendo analizar pérdidas asociadas a productos quemados, rotos o rechazados. La consulta de unidades rechazadas por período está respaldada por **HU-08**. El registro y análisis de masa residual se mantiene como una funcionalidad contemplada en el alcance del Sprint 2.
 
 ---
 
@@ -772,7 +711,7 @@ Para permitir que el OEE pueda ser interpretado correctamente, la aplicación mo
 | **Rendimiento**    | Representa el nivel de producción alcanzado con respecto a la capacidad teórica durante el tiempo de operación. | Producción real / Producción teórica para el tiempo operado × 100 |
 | **Calidad**        | Representa la proporción de unidades producidas que cumplen con los requisitos de calidad.                      | Unidades buenas / Unidades totales × 100                          |
 
-El motor analítico de estos indicadores se implementará durante el **Sprint 2** a través de **HU-06**.
+El motor analítico de estos indicadores se implementará durante el **Sprint 2**, de acuerdo con el alcance definido para este incremento del proyecto.
 
 ---
 
