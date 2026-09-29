@@ -6,53 +6,48 @@
 
 **Integrantes:** Jerson Esteban Ceballlos Leal, Andrea Carolina Montes Barragan y Sayuri Alexandra Moreno Espinosa.
 
-# 1. INFORMACIÓN DE LA EMPRESA Y DEL PROCESO QUE LA APLICACIÓN VA A MONITOREAR (INCLUIDO EL SIPOC)
+# 1. INFORMACIÓN DE LA EMPRESA Y DEL PROCESO
 
-## 1.1 Información de la Empresa
+## 1.1 Información de la empresa
 
-Arepas del Valle S.A.S. es una empresa manufacturera de alimentos ubicada en el Valle de Aburrá (Antioquia, Colombia). Se dedica a la elaboración y comercialización a escala industrial de arepas empacadas listas para el consumo, dirigidas principalmente a canales mayoristas, cadenas de supermercados, minimercados locales y distribuidores del área metropolitana.
+**Arepas del Valle S.A.S.** es una empresa manufacturera de alimentos ubicada en el Valle de Aburrá (Antioquia, Colombia), dedicada a la elaboración y comercialización de arepas empacadas para consumo.
 
-- **Clasificación Industrial:** De acuerdo con la Clasificación Industrial Internacional Uniforme (CIIU Rev. 4 A.C.), la actividad se clasifica en la Clase 1081: Elaboración de productos de panadería y derivados del maíz.
-- **Producto seleccionado para el proyecto:** Arepa tradicional de maíz blanco precocida, empacada en bolsa plástica con atmósfera modificada y refrigerada (presentación paquete por 5 y 10 unidades).
+**Producto seleccionado:** arepa tradicional de maíz blanco precocida, empacada en presentaciones de 5 y 10 unidades.
 
-## 1.2 Proceso Objeto de Monitoreo y Problemática
+## 1.2 Proceso y problemática
 
-El proceso de producción objeto del monitoreo abarca desde la preparación de la materia prima hasta el empaquetado en cuarto frío:
+El proyecto monitorea el proceso productivo desde la preparación de materias primas hasta el almacenamiento refrigerado. Las principales etapas son:
 
-1. Recepción y preparación de materias primas (harina de maíz pregelatinizada/maíz trillado, agua potable, margarina/aceite, sal).
-2. Dosificación y mezclado industrial de masa.
-3. Formado, laminado y troquelado de las arepas.
-4. Precocción térmica en planchas de asado continúo.
-5. Túnel de enfriamiento rápido.
-6. Embolsado, termosellado y codificado/rotulado.
-7. Almacenamiento refrigerado (4°C).
+1. Preparación y dosificación de materias primas.
+2. Mezclado y formación de la masa.
+3. Formado y troquelado de las arepas.
+4. Precocción.
+5. Enfriamiento.
+6. Empaque y rotulado.
+7. Almacenamiento refrigerado.
 
-### La Problemática
+Actualmente, variables como producción, unidades rechazadas y tiempos de paro se registran manualmente y posteriormente se consolidan en hojas de cálculo. Esto ocasiona:
 
-Actualmente, el registro de las principales variables del proceso productivo de las arepas, como los kilogramos procesados, las unidades moldeadas, las unidades quemadas o rotas durante la etapa de precocción, los tiempos de paradas mecánicas y las unidades empacadas, se realiza de manera manual en planillas físicas diligenciadas por los operarios de línea. Posteriormente, al finalizar la jornada, esta información es digitada en hojas de cálculo de Excel para su consolidación y seguimiento.
+- Disponibilidad tardía de la información, entre 8 y 12 horas después del turno.
+- Baja trazabilidad de las variables del proceso.
+- Detección tardía de paradas y mermas.
+- Dificultades para realizar seguimiento oportuno al desempeño de la producción.
 
-Esta situación genera:
+## 1.3 Visión del producto
 
-- **Retraso en la disponibilidad de la información:** La gerencia y los supervisores reciben los datos de producción entre 8 y 12 horas después de finalizar el turno, lo que limita su disponibilidad oportuna para la toma de decisiones.
-- **Baja trazabilidad y capacidad de reacción:** La actualización de la información no permite identificar oportunamente desviaciones durante el proceso, como fallas en la dosificación de la masa, descalibración de los equipos de precocción o paradas mecánicas.
-- **Detección tardía de mermas:** Las unidades quemadas, rotas o que presentan pérdidas durante el proceso pueden identificarse con retraso, dificultando el control de las mermas y generando mayores pérdidas de materia prima y producto terminado.
+La aplicación web busca centralizar el registro de las variables de producción y facilitar la consulta de información e indicadores relacionados con producción, calidad y tiempos de paro.
 
-## 1.3 Visión Ágil del Producto (Product Vision)
+El producto está dirigido principalmente a los **Supervisores de Producción y la Gerencia de Operaciones**, quienes podrán consultar la información de manera organizada para apoyar el seguimiento del proceso y la toma de decisiones.
 
-Para los Supervisores de Producción y la Gerencia de Operaciones de Arepas del Valle S.A.S., que requieren realizar un seguimiento oportuno del desempeño del proceso productivo, la aplicación web de dashboard es una solución que centraliza el registro de las variables de producción y facilita el seguimiento de indicadores relacionados con la producción, calidad y tiempos de paro. A diferencia del manejo tradicional de la información mediante planillas físicas y hojas de cálculo, el producto permite consultar los datos de manera organizada y visual, facilitando el análisis del desempeño de la producción y la toma oportuna de decisiones.
-
-## 1.4 Diagrama SIPOC
+## 1.4 SIPOC
 
 | Proveedores | Entradas | Proceso | Salidas | Clientes |
 |---|---|---|---|---|
-| Materia prima | Harina de maíz | Inspección de la MP, preparación de la harina, dosificación de agua potable para mezclado con sal y aceite (formación de mezcla). | Masa cruda y homogénea | 1) Área de producción |
-|  | Agua potable |  |  | 2) Área de mezclado |
-|  | Aceite |  |  | 3) Área de formado |
-|  | Sal |  |  | 4) Área de precocción |
-| A. Precocción | Masa cruda y homogénea | Precocción de la masa | Arepas precocidas | Área de enfriamiento |
-| A. Enfriamiento | Arepas precocidas | Enfriamiento de las arepas precocidas | Arepas precocidas enfriadas, listas para empacar | Área de empaque |
-| Área de empaque | Material de empaque (bolsa) | Introducción, sellada y rotulado de las arepas (etiquetas) | Arepas empacadas | Almacenamiento |
-| A. Almacenamiento | Arepas empacadas | Almacenamiento refrigerado | Arepas refrigeradas | Supermercados, tiendas y distribuidores |
+| Materias primas | Harina de maíz, agua, aceite y sal | Preparación, mezclado y formado | Masa y arepas formadas | Áreas de producción y precocción |
+| Área de precocción | Arepas formadas | Precocción | Arepas precocidas | Área de enfriamiento |
+| Área de enfriamiento | Arepas precocidas | Enfriamiento | Arepas enfriadas | Área de empaque |
+| Área de empaque | Arepas enfriadas y material de empaque | Empaque, sellado y rotulado | Arepas empacadas | Almacenamiento y distribución |
+| Almacenamiento | Arepas empacadas | Almacenamiento refrigerado | Producto terminado | Supermercados, tiendas y distribuidores |
 
 # 2. DESCRIPCIÓN DETALLADA DE LA ESTRATEGIA CORPORATIVA Y A CUÁL OBJETIVO APORTA LA APLICACIÓN
 
