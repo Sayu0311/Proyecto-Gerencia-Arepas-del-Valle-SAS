@@ -1,5 +1,5 @@
 import sqlite3
-from datetime import date, datetime
+from datetime import datetime, date
 import streamlit as st
 
 
@@ -326,6 +326,25 @@ def consultar_rechazos():
     return registros
 
 
+def consultar_rechazos_turno(turno):
+    conexion = conectar_db()
+    cursor = conexion.cursor()
+
+    cursor.execute("""
+        SELECT unidades_rechazadas
+        FROM rechazos
+        WHERE turno = ?
+        ORDER BY id DESC
+        LIMIT 1
+    """, (turno,))
+
+    registro = cursor.fetchone()
+
+    conexion.close()
+
+    return registro
+
+
 # ============================================================
 # HU-01: PAROS
 # ============================================================
@@ -339,6 +358,8 @@ def guardar_paro(
 ):
     conexion = conectar_db()
     cursor = conexion.cursor()
+
+    fecha_registro = str(date.today())
 
     cursor.execute(
         """
@@ -358,7 +379,7 @@ def guardar_paro(
             hora_fin,
             duracion_minutos,
             causa,
-            str(date.today())
+            fecha_registro
         )
     )
 
@@ -412,6 +433,39 @@ def consultar_paros_turno(turno):
 
 
 # ============================================================
+# HU-07: CONSULTAR PRINCIPALES CAUSAS Y TIEMPOS DE PARO
+# ============================================================
+
+def consultar_paros_por_periodo(fecha):
+    conexion = conectar_db()
+    cursor = conexion.cursor()
+
+    # Tiempo total de paro del periodo
+    cursor.execute("""
+        SELECT COALESCE(SUM(duracion_minutos), 0)
+        FROM paros
+        WHERE fecha = ?
+    """, (fecha,))
+
+    tiempo_total = cursor.fetchone()[0]
+
+    # Causas y tiempo acumulado por causa
+    cursor.execute("""
+        SELECT causa, SUM(duracion_minutos) AS tiempo
+        FROM paros
+        WHERE fecha = ?
+        GROUP BY causa
+        ORDER BY tiempo DESC
+    """)
+
+    resultados = cursor.fetchall()
+
+    conexion.close()
+
+    return tiempo_total, resultados
+
+
+# ============================================================
 # INICIALIZACIÓN
 # ============================================================
 
@@ -440,6 +494,129 @@ turno = st.selectbox(
     index=None,
     placeholder="Seleccione un turno"
 )
+
+
+# ============================================================
+# CONSULTA DE INFORMACIÓN POR TURNO
+# ============================================================
+
+if st.button("Consultar información"):
+
+    if turno is None:
+
+        st.error("Debe seleccionar un turno.")
+
+    else:
+
+        produccion = consultar_produccion_turno(turno)
+        rechazos = consultar_rechazos_turno(turno)
+        paros = consultar_paros_turno(turno)
+
+        tiene_informacion = (
+            produccion is not None
+            or rechazos is not None
+            or len(paros) > 0
+        )
+
+        if not tiene_informacion:
+
+            st.info(
+                "No existen datos disponibles para el turno seleccionado."
+            )
+
+        else:
+
+            st.subheader(
+                f"Información registrada - {turno}"
+            )
+
+            st.write("### Unidades producidas")
+
+            if produccion is not None:
+
+                st.write(
+                    f"{produccion[0]} unidades producidas"
+                )
+
+            else:
+
+                st.warning(
+                    "No existen unidades producidas registradas "
+                    "para este turno."
+                )
+
+            st.write("### Unidades rechazadas")
+
+            if rechazos is not None:
+
+                st.write(
+                    f"{rechazos[0]} unidades rechazadas"
+                )
+
+            else:
+
+                st.warning(
+                    "No existen unidades rechazadas registradas "
+                    "para este turno."
+                )
+
+            st.write("### Tiempos y causas de paro")
+
+            if paros:
+
+                for (
+                    causa,
+                    hora_inicio,
+                    hora_fin,
+                    duracion
+                ) in paros:
+
+                    st.write(
+                        f"**Causa:** {causa} | "
+                        f"**Horario:** {hora_inicio} - {hora_fin} | "
+                        f"**Duración:** {duracion} minutos"
+                    )
+
+            else:
+
+                st.warning(
+                    "No existen tiempos de paro registrados "
+                    "para este turno."
+                )
+
+            st.write("### Verificación de consistencia")
+
+            informacion_faltante = []
+
+            if produccion is None:
+                informacion_faltante.append(
+                    "unidades producidas"
+                )
+
+            if rechazos is None:
+                informacion_faltante.append(
+                    "unidades rechazadas"
+                )
+
+            if not paros:
+                informacion_faltante.append(
+                    "tiempos de paro"
+                )
+
+            if informacion_faltante:
+
+                st.warning(
+                    "Información faltante para este turno: "
+                    + ", ".join(informacion_faltante)
+                    + "."
+                )
+
+            else:
+
+                st.success(
+                    "La información consultada corresponde "
+                    "al turno seleccionado."
+                )
 
 
 # ============================================================
@@ -745,6 +922,68 @@ else:
 
 
 # ============================================================
+# HU-07: CONSULTAR PRINCIPALES CAUSAS Y TIEMPOS DE PARO
+# ============================================================
+
+st.subheader("HU-07: Principales causas y tiempos de paro")
+
+st.write(
+    "Consulta las principales causas de paro y el tiempo acumulado "
+    "para un periodo seleccionado."
+)
+
+fecha_seleccionada = st.date_input(
+    "Seleccione el periodo",
+    value=date.today()
+)
+
+if st.button("Consultar causas y tiempos de paro"):
+
+    fecha_texto = str(fecha_seleccionada)
+
+    tiempo_total, resultados = consultar_paros_por_periodo(
+        fecha_texto
+    )
+
+    if not resultados:
+
+        st.warning(
+            "No existen datos de paros para el periodo seleccionado."
+        )
+
+    else:
+
+        st.subheader(
+            "Información de paros del periodo seleccionado"
+        )
+
+        st.metric(
+            "Tiempo total de paro",
+            f"{tiempo_total} minutos"
+        )
+
+        st.subheader("Causas y tiempo acumulado")
+
+        for causa, tiempo in resultados:
+
+            st.write(
+                f"**{causa}:** {tiempo} minutos"
+            )
+
+        causa_principal = resultados[0][0]
+        tiempo_principal = resultados[0][1]
+
+        st.info(
+            f"La causa con mayor tiempo acumulado es "
+            f"**{causa_principal}**, con {tiempo_principal} minutos."
+        )
+
+        st.success(
+            "Los datos corresponden únicamente al periodo seleccionado."
+        )
+
+
+# ============================================================
 # HU-05: CONSULTAR INDICADORES POR PERIODO Y TURNO
 # ============================================================
 
@@ -757,9 +996,10 @@ st.write(
     "para un periodo y turno seleccionados."
 )
 
-fecha_seleccionada = st.date_input(
-    "Seleccione el periodo",
-    value=date.today()
+fecha_indicadores = st.date_input(
+    "Seleccione el periodo para indicadores",
+    value=date.today(),
+    key="fecha_indicadores"
 )
 
 turno_indicadores = st.selectbox(
@@ -774,7 +1014,7 @@ if st.button("Consultar indicadores"):
         st.error("Debe seleccionar un turno.")
 
     else:
-        fecha_texto = str(fecha_seleccionada)
+        fecha_texto = str(fecha_indicadores)
 
         produccion, rechazadas, tiempo_paros = consultar_indicadores(
             fecha_texto,
