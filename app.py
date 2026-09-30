@@ -14,60 +14,55 @@ def preparar_bd():
     cur = conn.cursor()
 
     cur.execute("""
-        CREATE TABLE IF NOT EXISTS rechazos (
+        CREATE TABLE IF NOT EXISTS metas (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            turno TEXT UNIQUE NOT NULL,
-            unidades_rechazadas INTEGER NOT NULL
+            fecha TEXT NOT NULL,
+            turno TEXT NOT NULL,
+            meta INTEGER NOT NULL,
+            UNIQUE(fecha, turno)
         )
     """)
-
-    columnas = [
-        fila[1]
-        for fila in cur.execute("PRAGMA table_info(rechazos)")
-    ]
-
-    if "fecha" not in columnas:
-        cur.execute(
-            "ALTER TABLE rechazos ADD COLUMN fecha TEXT"
-        )
-
-    # Asociar los registros existentes de las pruebas
-    # a la fecha actual.
-    fecha_actual = str(date.today())
-
-    cur.execute(
-        "UPDATE rechazos SET fecha = ? WHERE fecha IS NULL",
-        (fecha_actual,)
-    )
 
     conn.commit()
     conn.close()
 
 
-def consultar_rechazos_por_periodo(fecha):
+def consultar_meta(fecha, turno):
     conn = conectar()
     cur = conn.cursor()
 
     cur.execute("""
-        SELECT COALESCE(SUM(unidades_rechazadas), 0)
-        FROM rechazos
-        WHERE fecha = ?
-    """, (fecha,))
+        SELECT meta
+        FROM metas
+        WHERE fecha = ? AND turno = ?
+    """, (fecha, turno))
 
-    total_rechazadas = cur.fetchone()[0]
+    resultado = cur.fetchone()
 
     conn.close()
 
-    return total_rechazadas
+    return resultado[0] if resultado else None
+
+
+def registrar_meta(fecha, turno, meta):
+    conn = conectar()
+    cur = conn.cursor()
+
+    cur.execute("""
+        INSERT INTO metas (fecha, turno, meta)
+        VALUES (?, ?, ?)
+    """, (fecha, turno, meta))
+
+    conn.commit()
+    conn.close()
 
 
 preparar_bd()
 
-st.title("HU-08: Consultar unidades rechazadas por periodo")
+st.title("HU-09: Registrar metas de producción por periodo")
 
 st.write(
-    "Consulta el total de unidades rechazadas registradas "
-    "para un periodo seleccionado."
+    "Registro de metas de producción para un periodo y turno seleccionados."
 )
 
 fecha_seleccionada = st.date_input(
@@ -75,30 +70,76 @@ fecha_seleccionada = st.date_input(
     value=date.today()
 )
 
-if st.button("Consultar unidades rechazadas"):
+turno = st.selectbox(
+    "Seleccione el turno",
+    ["", "Turno 1", "Turno 2", "Turno 3"]
+)
 
-    fecha_texto = str(fecha_seleccionada)
+meta_texto = st.text_input(
+    "Ingrese la meta de producción",
+    placeholder="Ejemplo: 100"
+)
 
-    total_rechazadas = consultar_rechazos_por_periodo(
-        fecha_texto
-    )
+if st.button("Registrar meta"):
 
-    if total_rechazadas == 0:
-        st.warning(
-            "No existen unidades rechazadas registradas para el periodo seleccionado."
-        )
+    if not turno:
+        st.error("Debe seleccionar un turno.")
+
+    elif not meta_texto.strip():
+        st.error("Debe ingresar una meta de producción.")
 
     else:
-        st.subheader(
-            "Unidades rechazadas del periodo seleccionado"
-        )
+        try:
+            meta = int(meta_texto)
 
-        st.metric(
-            "Total de unidades rechazadas",
-            f"{total_rechazadas} unidades"
-        )
+            if meta <= 0:
+                st.error(
+                    "La meta de producción debe ser un número entero mayor que cero."
+                )
 
-        st.success(
-            "El total corresponde a los registros almacenados "
-            "para el periodo seleccionado."
+            else:
+                fecha_texto = str(fecha_seleccionada)
+
+                meta_existente = consultar_meta(
+                    fecha_texto,
+                    turno
+                )
+
+                if meta_existente is not None:
+                    st.error(
+                        "Ya existe una meta registrada para el periodo y turno seleccionados."
+                    )
+
+                else:
+                    registrar_meta(
+                        fecha_texto,
+                        turno,
+                        meta
+                    )
+
+                    st.success(
+                        f"Meta de {meta} unidades registrada correctamente."
+                    )
+
+        except ValueError:
+            st.error(
+                "La meta debe ser un número entero válido."
+            )
+
+
+st.subheader("Meta registrada")
+
+if turno:
+    fecha_texto = str(fecha_seleccionada)
+
+    meta_actual = consultar_meta(
+        fecha_texto,
+        turno
+    )
+
+    if meta_actual is not None:
+        st.info(
+            f"Periodo: {fecha_texto} | "
+            f"Turno: {turno} | "
+            f"Meta: {meta_actual} unidades"
         )
