@@ -5,6 +5,7 @@ import streamlit as st
 
 DB_NAME = "produccion.db"
 
+
 CAUSAS_PARO = [
     "Falla de máquina",
     "Falta de materia prima",
@@ -35,6 +36,15 @@ def crear_tabla():
     """)
 
     cursor.execute("""
+        CREATE TABLE IF NOT EXISTS rechazos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            turno TEXT NOT NULL UNIQUE,
+            unidades_rechazadas INTEGER NOT NULL
+                CHECK (unidades_rechazadas >= 0)
+        )
+    """)
+
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS paros (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             turno TEXT NOT NULL,
@@ -48,6 +58,10 @@ def crear_tabla():
 
     conexion.commit()
     conexion.close()
+
+
+def crear_tablas():
+    crear_tabla()
 
 
 def guardar_produccion(turno, unidades):
@@ -82,6 +96,63 @@ def consultar_produccion():
     cursor.execute("""
         SELECT turno, unidades_producidas
         FROM produccion
+        ORDER BY turno
+    """)
+
+    registros = cursor.fetchall()
+    conexion.close()
+
+    return registros
+
+
+def consultar_produccion_turno(turno):
+    conexion = conectar_db()
+    cursor = conexion.cursor()
+
+    cursor.execute("""
+        SELECT unidades_producidas
+        FROM produccion
+        WHERE turno = ?
+    """, (turno,))
+
+    registro = cursor.fetchone()
+    conexion.close()
+
+    return registro
+
+
+def guardar_rechazo(turno, unidades_rechazadas):
+    conexion = conectar_db()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute(
+            """
+            INSERT INTO rechazos (turno, unidades_rechazadas)
+            VALUES (?, ?)
+            """,
+            (turno, unidades_rechazadas)
+        )
+
+        conexion.commit()
+        resultado = True
+
+    except sqlite3.IntegrityError:
+        resultado = False
+
+    finally:
+        conexion.close()
+
+    return resultado
+
+
+def consultar_rechazos():
+    conexion = conectar_db()
+    cursor = conexion.cursor()
+
+    cursor.execute("""
+        SELECT turno, unidades_rechazadas
+        FROM rechazos
         ORDER BY turno
     """)
 
@@ -146,12 +217,22 @@ def consultar_paros():
     return registros
 
 
+# ============================================================
+# INICIALIZACIÓN
+# ============================================================
+
 crear_tabla()
 
-st.title("Registro de producción y tiempos de paro")
+
+# ============================================================
+# TÍTULO PRINCIPAL
+# ============================================================
+
+st.title("Registro de información del proceso de producción")
 
 st.write(
-    "Registro de información del proceso de producción."
+    "Sistema de registro de unidades producidas, "
+    "unidades rechazadas y tiempos y causas de paro."
 )
 
 
@@ -236,6 +317,96 @@ else:
 
 
 # ============================================================
+# HU-03: REGISTRAR UNIDADES RECHAZADAS
+# ============================================================
+
+st.subheader("HU-03: Registrar unidades rechazadas por turno")
+
+rechazos_texto = st.text_input(
+    "Cantidad de unidades rechazadas"
+)
+
+if st.button("Guardar rechazo"):
+
+    if turno is None:
+        st.error("Debe seleccionar un turno.")
+
+    elif rechazos_texto.strip() == "":
+        st.error(
+            "Debe ingresar la cantidad de unidades rechazadas."
+        )
+
+    elif not rechazos_texto.strip().isdigit():
+        st.error(
+            "La cantidad de unidades rechazadas "
+            "debe ser un número entero."
+        )
+
+    else:
+        unidades_rechazadas = int(rechazos_texto)
+
+        if unidades_rechazadas < 0:
+            st.error(
+                "La cantidad de unidades rechazadas "
+                "no puede ser negativa."
+            )
+
+        else:
+            produccion = consultar_produccion_turno(turno)
+
+            if produccion is None:
+                st.error(
+                    "No existe un registro de unidades producidas "
+                    "para el turno seleccionado."
+                )
+
+            elif unidades_rechazadas > produccion[0]:
+                st.error(
+                    "Las unidades rechazadas no pueden ser "
+                    "superiores a las unidades producidas."
+                )
+
+            else:
+                guardado = guardar_rechazo(
+                    turno,
+                    unidades_rechazadas
+                )
+
+                if guardado:
+                    st.success(
+                        "Registro de rechazo guardado correctamente."
+                    )
+                else:
+                    st.error(
+                        "Ya existe un registro de rechazos "
+                        "para este turno."
+                    )
+
+
+st.subheader("Registros de rechazos almacenados")
+
+registros_rechazos = consultar_rechazos()
+
+if registros_rechazos:
+
+    for (
+        turno_registrado,
+        unidades_rechazadas_registradas
+    ) in registros_rechazos:
+
+        st.write(
+            f"**{turno_registrado}:** "
+            f"{unidades_rechazadas_registradas} "
+            f"unidades rechazadas"
+        )
+
+else:
+    st.info(
+        "No hay registros de rechazos almacenados."
+    )
+
+
+# ============================================================
 # HU-01: REGISTRAR TIEMPOS Y CAUSAS DE PARO
 # ============================================================
 
@@ -243,13 +414,16 @@ st.subheader(
     "HU-01: Registrar tiempos y causas de paro del proceso"
 )
 
+
 hora_inicio = st.time_input(
     "Hora de inicio del paro"
 )
 
+
 hora_fin = st.time_input(
     "Hora de finalización del paro"
 )
+
 
 causa = st.selectbox(
     "Seleccione la causa del paro",
@@ -257,6 +431,7 @@ causa = st.selectbox(
     index=None,
     placeholder="Seleccione una causa"
 )
+
 
 if st.button("Calcular duración"):
 
@@ -353,9 +528,9 @@ if st.button("Guardar registro de paro"):
 
 st.subheader("Registros de paros almacenados")
 
-registros = consultar_paros()
+registros_paros = consultar_paros()
 
-if registros:
+if registros_paros:
 
     for (
         turno_registrado,
@@ -363,7 +538,7 @@ if registros:
         fin_registrado,
         duracion_registrada,
         causa_registrada
-    ) in registros:
+    ) in registros_paros:
 
         st.write(
             f"**{turno_registrado}** | "
