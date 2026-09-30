@@ -21,7 +21,7 @@ def conectar_db():
     return sqlite3.connect(DB_NAME)
 
 
-def crear_tablas():
+def crear_tabla():
     conexion = conectar_db()
     cursor = conexion.cursor()
 
@@ -48,6 +48,47 @@ def crear_tablas():
 
     conexion.commit()
     conexion.close()
+
+
+def guardar_produccion(turno, unidades):
+    conexion = conectar_db()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute(
+            """
+            INSERT INTO produccion (turno, unidades_producidas)
+            VALUES (?, ?)
+            """,
+            (turno, unidades)
+        )
+
+        conexion.commit()
+        resultado = True
+
+    except sqlite3.IntegrityError:
+        resultado = False
+
+    finally:
+        conexion.close()
+
+    return resultado
+
+
+def consultar_produccion():
+    conexion = conectar_db()
+    cursor = conexion.cursor()
+
+    cursor.execute("""
+        SELECT turno, unidades_producidas
+        FROM produccion
+        ORDER BY turno
+    """)
+
+    registros = cursor.fetchall()
+    conexion.close()
+
+    return registros
 
 
 def guardar_paro(
@@ -105,19 +146,101 @@ def consultar_paros():
     return registros
 
 
-crear_tablas()
+crear_tabla()
 
-st.title("Registro de tiempos y causas de paro")
+st.title("Registro de producción y tiempos de paro")
 
 st.write(
-    "HU-01: Registrar tiempos y causas de paro del proceso"
+    "Registro de información del proceso de producción."
 )
+
+
+# ============================================================
+# SELECCIÓN DEL TURNO
+# ============================================================
 
 turno = st.selectbox(
     "Seleccione el turno",
     ["Turno 1", "Turno 2", "Turno 3"],
     index=None,
     placeholder="Seleccione un turno"
+)
+
+
+# ============================================================
+# HU-02: REGISTRAR UNIDADES PRODUCIDAS
+# ============================================================
+
+st.subheader("HU-02: Registrar unidades producidas por turno")
+
+unidades_texto = st.text_input(
+    "Cantidad de unidades producidas"
+)
+
+if st.button("Guardar producción"):
+
+    if turno is None:
+        st.error("Debe seleccionar un turno.")
+
+    elif unidades_texto.strip() == "":
+        st.error(
+            "Debe ingresar la cantidad de unidades producidas."
+        )
+
+    elif not unidades_texto.strip().isdigit():
+        st.error(
+            "La cantidad de unidades debe ser un número entero."
+        )
+
+    else:
+        unidades = int(unidades_texto)
+
+        if unidades <= 0:
+            st.error(
+                "La cantidad de unidades debe ser mayor que cero."
+            )
+
+        else:
+            guardado = guardar_produccion(
+                turno,
+                unidades
+            )
+
+            if guardado:
+                st.success(
+                    "Registro guardado correctamente."
+                )
+            else:
+                st.error(
+                    "Ya existe un registro para este turno."
+                )
+
+
+st.subheader("Registros de producción almacenados")
+
+registros = consultar_produccion()
+
+if registros:
+
+    for turno_registrado, unidades_registradas in registros:
+
+        st.write(
+            f"**{turno_registrado}:** "
+            f"{unidades_registradas} unidades"
+        )
+
+else:
+    st.info(
+        "No hay registros de producción almacenados."
+    )
+
+
+# ============================================================
+# HU-01: REGISTRAR TIEMPOS Y CAUSAS DE PARO
+# ============================================================
+
+st.subheader(
+    "HU-01: Registrar tiempos y causas de paro del proceso"
 )
 
 hora_inicio = st.time_input(
@@ -155,6 +278,7 @@ if st.button("Calcular duración"):
         )
 
         diferencia = fin - inicio
+
         duracion_minutos = int(
             diferencia.total_seconds() / 60
         )
@@ -174,7 +298,7 @@ if st.button("Calcular duración"):
             )
 
 
-if st.button("Guardar registro"):
+if st.button("Guardar registro de paro"):
 
     if turno is None:
         st.error("Debe seleccionar un turno.")
