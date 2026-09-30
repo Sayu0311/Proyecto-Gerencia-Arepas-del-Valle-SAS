@@ -19,6 +19,10 @@ CAUSAS_PARO = [
 ]
 
 
+# ============================================================
+# CONEXIÓN A BASE DE DATOS
+# ============================================================
+
 def conectar():
     return sqlite3.connect(DB)
 
@@ -26,6 +30,10 @@ def conectar():
 def conectar_db():
     return conectar()
 
+
+# ============================================================
+# PREPARACIÓN DE BASE DE DATOS
+# ============================================================
 
 def preparar_bd():
     conn = conectar()
@@ -282,6 +290,8 @@ def guardar_rechazo(turno, unidades_rechazadas):
     cursor = conexion.cursor()
 
     try:
+        fecha_actual = str(date.today())
+
         cursor.execute(
             """
             INSERT INTO rechazos (
@@ -294,7 +304,7 @@ def guardar_rechazo(turno, unidades_rechazadas):
             (
                 turno,
                 unidades_rechazadas,
-                str(date.today())
+                fecha_actual
             )
         )
 
@@ -343,6 +353,27 @@ def consultar_rechazos_turno(turno):
     conexion.close()
 
     return registro
+
+
+# ============================================================
+# HU-08: CONSULTAR UNIDADES RECHAZADAS POR PERIODO
+# ============================================================
+
+def consultar_rechazos_por_periodo(fecha):
+    conexion = conectar_db()
+    cursor = conexion.cursor()
+
+    cursor.execute("""
+        SELECT COALESCE(SUM(unidades_rechazadas), 0)
+        FROM rechazos
+        WHERE fecha = ?
+    """, (fecha,))
+
+    total_rechazadas = cursor.fetchone()[0]
+
+    conexion.close()
+
+    return total_rechazadas
 
 
 # ============================================================
@@ -456,7 +487,7 @@ def consultar_paros_por_periodo(fecha):
         WHERE fecha = ?
         GROUP BY causa
         ORDER BY tiempo DESC
-    """)
+    """, (fecha,))
 
     resultados = cursor.fetchall()
 
@@ -632,37 +663,46 @@ unidades_texto = st.text_input(
 if st.button("Guardar producción"):
 
     if turno is None:
+
         st.error("Debe seleccionar un turno.")
 
     elif unidades_texto.strip() == "":
+
         st.error(
             "Debe ingresar la cantidad de unidades producidas."
         )
 
     elif not unidades_texto.strip().isdigit():
+
         st.error(
             "La cantidad de unidades debe ser un número entero."
         )
 
     else:
+
         unidades = int(unidades_texto)
 
         if unidades <= 0:
+
             st.error(
                 "La cantidad de unidades debe ser mayor que cero."
             )
 
         else:
+
             guardado = guardar_produccion(
                 turno,
                 unidades
             )
 
             if guardado:
+
                 st.success(
                     "Registro guardado correctamente."
                 )
+
             else:
+
                 st.error(
                     "Ya existe un registro para este turno."
                 )
@@ -682,6 +722,7 @@ if registros:
         )
 
 else:
+
     st.info(
         "No hay registros de producción almacenados."
     )
@@ -700,54 +741,66 @@ rechazos_texto = st.text_input(
 if st.button("Guardar rechazo"):
 
     if turno is None:
+
         st.error("Debe seleccionar un turno.")
 
     elif rechazos_texto.strip() == "":
+
         st.error(
             "Debe ingresar la cantidad de unidades rechazadas."
         )
 
     elif not rechazos_texto.strip().isdigit():
+
         st.error(
             "La cantidad de unidades rechazadas "
             "debe ser un número entero."
         )
 
     else:
+
         unidades_rechazadas = int(rechazos_texto)
 
         if unidades_rechazadas < 0:
+
             st.error(
                 "La cantidad de unidades rechazadas "
                 "no puede ser negativa."
             )
 
         else:
+
             produccion = consultar_produccion_turno(turno)
 
             if produccion is None:
+
                 st.error(
                     "No existe un registro de unidades producidas "
                     "para el turno seleccionado."
                 )
 
             elif unidades_rechazadas > produccion[0]:
+
                 st.error(
                     "Las unidades rechazadas no pueden ser "
                     "superiores a las unidades producidas."
                 )
 
             else:
+
                 guardado = guardar_rechazo(
                     turno,
                     unidades_rechazadas
                 )
 
                 if guardado:
+
                     st.success(
                         "Registro de rechazo guardado correctamente."
                     )
+
                 else:
+
                     st.error(
                         "Ya existe un registro de rechazos "
                         "para este turno."
@@ -772,6 +825,7 @@ if registros_rechazos:
         )
 
 else:
+
     st.info(
         "No hay registros de rechazos almacenados."
     )
@@ -804,12 +858,15 @@ causa = st.selectbox(
 if st.button("Calcular duración"):
 
     if turno is None:
+
         st.error("Debe seleccionar un turno.")
 
     elif causa is None:
+
         st.error("Debe seleccionar una causa de paro.")
 
     else:
+
         inicio = datetime.combine(
             datetime.today(),
             hora_inicio
@@ -827,12 +884,14 @@ if st.button("Calcular duración"):
         )
 
         if duracion_minutos < 0:
+
             st.error(
                 "La hora de finalización no puede ser "
                 "anterior a la hora de inicio."
             )
 
         else:
+
             st.session_state["duracion_paro"] = duracion_minutos
 
             st.success(
@@ -844,17 +903,21 @@ if st.button("Calcular duración"):
 if st.button("Guardar registro de paro"):
 
     if turno is None:
+
         st.error("Debe seleccionar un turno.")
 
     elif causa is None:
+
         st.error("Debe seleccionar una causa de paro.")
 
     elif "duracion_paro" not in st.session_state:
+
         st.error(
             "Debe calcular la duración antes de guardar."
         )
 
     else:
+
         inicio = datetime.combine(
             datetime.today(),
             hora_inicio
@@ -870,12 +933,14 @@ if st.button("Guardar registro de paro"):
         )
 
         if duracion_minutos < 0:
+
             st.error(
                 "La hora de finalización no puede ser "
                 "anterior a la hora de inicio."
             )
 
         else:
+
             guardar_paro(
                 turno,
                 hora_inicio.strftime("%H:%M"),
@@ -916,19 +981,22 @@ if registros_paros:
         )
 
 else:
+
     st.info(
         "No hay registros de paros almacenados."
     )
 
 
 # ============================================================
-# HU-07: CONSULTAR PRINCIPALES CAUSAS Y TIEMPOS DE PARO
+# HU-08: CONSULTAR UNIDADES RECHAZADAS POR PERIODO
 # ============================================================
 
-st.subheader("HU-07: Principales causas y tiempos de paro")
+st.subheader(
+    "HU-08: Consultar unidades rechazadas por periodo"
+)
 
 st.write(
-    "Consulta las principales causas de paro y el tiempo acumulado "
+    "Consulta el total de unidades rechazadas "
     "para un periodo seleccionado."
 )
 
@@ -937,9 +1005,56 @@ fecha_seleccionada = st.date_input(
     value=date.today()
 )
 
-if st.button("Consultar causas y tiempos de paro"):
+if st.button("Consultar unidades rechazadas"):
 
     fecha_texto = str(fecha_seleccionada)
+
+    total_rechazadas = consultar_rechazos_por_periodo(
+        fecha_texto
+    )
+
+    st.metric(
+        "Unidades rechazadas",
+        total_rechazadas
+    )
+
+    if total_rechazadas == 0:
+
+        st.info(
+            "No existen unidades rechazadas registradas "
+            "para el periodo seleccionado."
+        )
+
+    else:
+
+        st.success(
+            f"Se registraron {total_rechazadas} "
+            "unidades rechazadas en el periodo seleccionado."
+        )
+
+
+# ============================================================
+# HU-07: CONSULTAR PRINCIPALES CAUSAS Y TIEMPOS DE PARO
+# ============================================================
+
+st.subheader(
+    "HU-07: Principales causas y tiempos de paro"
+)
+
+st.write(
+    "Consulta las principales causas de paro y el tiempo acumulado "
+    "para un periodo seleccionado."
+)
+
+fecha_paros = st.date_input(
+    "Seleccione el periodo para consultar paros",
+    value=date.today(),
+    key="fecha_paros"
+)
+
+if st.button("Consultar causas y tiempos de paro"):
+
+    fecha_texto = str(fecha_paros)
 
     tiempo_total, resultados = consultar_paros_por_periodo(
         fecha_texto
@@ -964,10 +1079,10 @@ if st.button("Consultar causas y tiempos de paro"):
 
         st.subheader("Causas y tiempo acumulado")
 
-        for causa, tiempo in resultados:
+        for causa_paro, tiempo in resultados:
 
             st.write(
-                f"**{causa}:** {tiempo} minutos"
+                f"**{causa_paro}:** {tiempo} minutos"
             )
 
         causa_principal = resultados[0][0]
@@ -975,7 +1090,8 @@ if st.button("Consultar causas y tiempos de paro"):
 
         st.info(
             f"La causa con mayor tiempo acumulado es "
-            f"**{causa_principal}**, con {tiempo_principal} minutos."
+            f"**{causa_principal}**, con "
+            f"{tiempo_principal} minutos."
         )
 
         st.success(
@@ -1011,9 +1127,11 @@ turno_indicadores = st.selectbox(
 if st.button("Consultar indicadores"):
 
     if not turno_indicadores:
+
         st.error("Debe seleccionar un turno.")
 
     else:
+
         fecha_texto = str(fecha_indicadores)
 
         produccion, rechazadas, tiempo_paros = consultar_indicadores(
@@ -1030,7 +1148,8 @@ if st.button("Consultar indicadores"):
         if not hay_datos:
 
             st.warning(
-                "No existen datos disponibles para el periodo y turno seleccionados."
+                "No existen datos disponibles para el periodo "
+                "y turno seleccionados."
             )
 
         else:
@@ -1042,23 +1161,27 @@ if st.button("Consultar indicadores"):
             col1, col2, col3 = st.columns(3)
 
             with col1:
+
                 st.metric(
                     "Producción real",
                     f"{produccion} unidades"
                 )
 
             with col2:
+
                 st.metric(
                     "Unidades rechazadas",
                     f"{rechazadas} unidades"
                 )
 
             with col3:
+
                 st.metric(
                     "Tiempo de paro",
                     f"{tiempo_paros} minutos"
                 )
 
             st.success(
-                "Los indicadores corresponden al periodo y turno seleccionados."
+                "Los indicadores corresponden al periodo "
+                "y turno seleccionados."
             )
