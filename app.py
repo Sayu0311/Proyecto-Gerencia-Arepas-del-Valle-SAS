@@ -3,7 +3,9 @@ from datetime import datetime, date
 import streamlit as st
 
 
+DB = "produccion.db"
 DB_NAME = "produccion.db"
+
 
 CAUSAS_PARO = [
     "Falla de máquina",
@@ -17,34 +19,50 @@ CAUSAS_PARO = [
 ]
 
 
+# ============================================================
+# CONEXIÓN A BASE DE DATOS
+# ============================================================
+
+def conectar():
+    return sqlite3.connect(DB)
+
+
 def conectar_db():
-    return sqlite3.connect(DB_NAME)
+    return conectar()
 
 
-def crear_tabla():
-    conexion = conectar_db()
-    cursor = conexion.cursor()
+# ============================================================
+# PREPARACIÓN DE BASE DE DATOS
+# ============================================================
 
-    cursor.execute("""
+def preparar_bd():
+    conn = conectar()
+    cur = conn.cursor()
+
+    # Tabla de producción
+    cur.execute("""
         CREATE TABLE IF NOT EXISTS produccion (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            turno TEXT NOT NULL UNIQUE,
+            turno TEXT UNIQUE NOT NULL,
             unidades_producidas INTEGER NOT NULL
-                CHECK (unidades_producidas > 0)
+                CHECK (unidades_producidas > 0),
+            fecha TEXT
         )
     """)
 
-    cursor.execute("""
+    # Tabla de unidades rechazadas
+    cur.execute("""
         CREATE TABLE IF NOT EXISTS rechazos (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            turno TEXT NOT NULL UNIQUE,
+            turno TEXT UNIQUE NOT NULL,
             unidades_rechazadas INTEGER NOT NULL
                 CHECK (unidades_rechazadas >= 0),
             fecha TEXT
         )
     """)
 
-    cursor.execute("""
+    # Tabla de paros
+    cur.execute("""
         CREATE TABLE IF NOT EXISTS paros (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             turno TEXT NOT NULL,
@@ -52,41 +70,147 @@ def crear_tabla():
             hora_fin TEXT NOT NULL,
             duracion_minutos INTEGER NOT NULL
                 CHECK (duracion_minutos >= 0),
-            causa TEXT NOT NULL
+            causa TEXT NOT NULL,
+            fecha TEXT
         )
     """)
 
-    # Verificar si la tabla rechazos ya tiene la columna fecha
-    columnas = [
-        fila[1]
-        for fila in cursor.execute(
-            "PRAGMA table_info(rechazos)"
+    # Tabla de metas
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS metas (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            fecha TEXT NOT NULL,
+            turno TEXT NOT NULL,
+            meta INTEGER NOT NULL
+                CHECK (meta >= 0)
         )
-    ]
+    """)
 
-    if "fecha" not in columnas:
-        cursor.execute(
-            "ALTER TABLE rechazos ADD COLUMN fecha TEXT"
-        )
+    # Agregar fecha a tablas existentes si todavía no existe
+    for tabla in ["produccion", "rechazos", "paros"]:
 
-    # Asignar fecha actual a registros antiguos
+        columnas = [
+            fila[1]
+            for fila in cur.execute(
+                f"PRAGMA table_info({tabla})"
+            )
+        ]
+
+        if "fecha" not in columnas:
+            cur.execute(
+                f"ALTER TABLE {tabla} ADD COLUMN fecha TEXT"
+            )
+
+    # Asociar registros anteriores a la fecha actual
     fecha_actual = str(date.today())
 
-    cursor.execute(
+    cur.execute(
+        "UPDATE produccion SET fecha = ? WHERE fecha IS NULL",
+        (fecha_actual,)
+    )
+
+    cur.execute(
         "UPDATE rechazos SET fecha = ? WHERE fecha IS NULL",
         (fecha_actual,)
     )
 
-    conexion.commit()
-    conexion.close()
+    cur.execute(
+        "UPDATE paros SET fecha = ? WHERE fecha IS NULL",
+        (fecha_actual,)
+    )
+
+    conn.commit()
+    conn.close()
+
+
+def crear_tabla():
+    preparar_bd()
 
 
 def crear_tablas():
-    crear_tabla()
+    preparar_bd()
 
 
 # ============================================================
-# HU-02: REGISTRAR UNIDADES PRODUCIDAS
+# HU-05: INDICADORES
+# ============================================================
+
+def consultar_indicadores(fecha, turno):
+    conn = conectar()
+    cur = conn.cursor()
+
+    # Producción real
+    cur.execute("""
+        SELECT COALESCE(SUM(unidades_producidas), 0)
+        FROM produccion
+        WHERE fecha = ? AND turno = ?
+    """, (fecha, turno))
+
+    produccion = cur.fetchone()[0]
+
+    # Unidades rechazadas
+    cur.execute("""
+        SELECT COALESCE(SUM(unidades_rechazadas), 0)
+        FROM rechazos
+        WHERE fecha = ? AND turno = ?
+    """, (fecha, turno))
+
+    rechazadas = cur.fetchone()[0]
+
+    # Tiempo acumulado de paro
+    cur.execute("""
+        SELECT COALESCE(SUM(duracion_minutos), 0)
+        FROM paros
+        WHERE fecha = ? AND turno = ?
+    """, (fecha, turno))
+
+    tiempo_paros = cur.fetchone()[0]
+
+    conn.close()
+
+    return produccion, rechazadas, tiempo_paros
+
+
+# ============================================================
+# CONSULTA DE COMPARACIÓN
+# ============================================================
+
+def consultar_comparacion(fecha, turno):
+    conexion = conectar_db()
+    cursor = conexion.cursor()
+
+    # Producción real
+    cursor.execute("""
+        SELECT COALESCE(SUM(unidades_producidas), 0)
+        FROM produccion
+        WHERE fecha = ? AND turno = ?
+    """, (fecha, turno))
+
+    produccion_real = cursor.fetchone()[0]
+
+    # Meta establecida
+    cursor.execute("""
+        SELECT meta
+        FROM metas
+        WHERE fecha = ? AND turno = ?
+        ORDER BY id DESC
+        LIMIT 1
+    """, (fecha, turno))
+
+    resultado_meta = cursor.fetchone()
+
+    conexion.close()
+
+    if resultado_meta is None:
+        meta = None
+    else:
+        meta = resultado_meta[0]
+
+    return produccion_real, meta
+
+
+# ============================================================
+# HU-02: PRODUCCIÓN
 # ============================================================
 
 def guardar_produccion(turno, unidades):
@@ -96,10 +220,18 @@ def guardar_produccion(turno, unidades):
     try:
         cursor.execute(
             """
-            INSERT INTO produccion (turno, unidades_producidas)
-            VALUES (?, ?)
+            INSERT INTO produccion (
+                turno,
+                unidades_producidas,
+                fecha
+            )
+            VALUES (?, ?, ?)
             """,
-            (turno, unidades)
+            (
+                turno,
+                unidades,
+                str(date.today())
+            )
         )
 
         conexion.commit()
@@ -134,23 +266,23 @@ def consultar_produccion_turno(turno):
     conexion = conectar_db()
     cursor = conexion.cursor()
 
-    cursor.execute(
-        """
+    cursor.execute("""
         SELECT unidades_producidas
         FROM produccion
         WHERE turno = ?
-        """,
-        (turno,)
-    )
+        ORDER BY id DESC
+        LIMIT 1
+    """, (turno,))
 
     registro = cursor.fetchone()
+
     conexion.close()
 
     return registro
 
 
 # ============================================================
-# HU-03: REGISTRAR UNIDADES RECHAZADAS
+# HU-03: RECHAZOS
 # ============================================================
 
 def guardar_rechazo(turno, unidades_rechazadas):
@@ -208,16 +340,16 @@ def consultar_rechazos_turno(turno):
     conexion = conectar_db()
     cursor = conexion.cursor()
 
-    cursor.execute(
-        """
+    cursor.execute("""
         SELECT unidades_rechazadas
         FROM rechazos
         WHERE turno = ?
-        """,
-        (turno,)
-    )
+        ORDER BY id DESC
+        LIMIT 1
+    """, (turno,))
 
     registro = cursor.fetchone()
+
     conexion.close()
 
     return registro
@@ -245,7 +377,7 @@ def consultar_rechazos_por_periodo(fecha):
 
 
 # ============================================================
-# HU-01: REGISTRAR TIEMPOS Y CAUSAS DE PARO
+# HU-01: PAROS
 # ============================================================
 
 def guardar_paro(
@@ -258,6 +390,8 @@ def guardar_paro(
     conexion = conectar_db()
     cursor = conexion.cursor()
 
+    fecha_registro = str(date.today())
+
     cursor.execute(
         """
         INSERT INTO paros (
@@ -265,16 +399,18 @@ def guardar_paro(
             hora_inicio,
             hora_fin,
             duracion_minutos,
-            causa
+            causa,
+            fecha
         )
-        VALUES (?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?)
         """,
         (
             turno,
             hora_inicio,
             hora_fin,
             duracion_minutos,
-            causa
+            causa,
+            fecha_registro
         )
     )
 
@@ -328,30 +464,72 @@ def consultar_paros_turno(turno):
 
 
 # ============================================================
+# HU-07: CONSULTAR PRINCIPALES CAUSAS Y TIEMPOS DE PARO
+# ============================================================
+
+def consultar_paros_por_periodo(fecha):
+    conexion = conectar_db()
+    cursor = conexion.cursor()
+
+    # Tiempo total de paro del periodo
+    cursor.execute("""
+        SELECT COALESCE(SUM(duracion_minutos), 0)
+        FROM paros
+        WHERE fecha = ?
+    """, (fecha,))
+
+    tiempo_total = cursor.fetchone()[0]
+
+    # Causas y tiempo acumulado por causa
+    cursor.execute("""
+        SELECT causa, SUM(duracion_minutos) AS tiempo
+        FROM paros
+        WHERE fecha = ?
+        GROUP BY causa
+        ORDER BY tiempo DESC
+    """, (fecha,))
+
+    resultados = cursor.fetchall()
+
+    conexion.close()
+
+    return tiempo_total, resultados
+
+
+# ============================================================
 # INICIALIZACIÓN
 # ============================================================
 
-crear_tablas()
+preparar_bd()
 
 
 # ============================================================
-# HU-04: CONSULTAR INFORMACIÓN POR TURNO
+# TÍTULO PRINCIPAL
 # ============================================================
 
-st.title("Consulta de información por turno")
+st.title("Registro de información del proceso de producción")
 
 st.write(
-    "HU-04: Consultar información registrada por turno"
+    "Sistema de registro de unidades producidas, "
+    "unidades rechazadas y tiempos y causas de paro."
 )
 
 
+# ============================================================
+# SELECCIÓN DEL TURNO
+# ============================================================
+
 turno = st.selectbox(
-    "Seleccione el turno que desea consultar",
+    "Seleccione el turno",
     ["Turno 1", "Turno 2", "Turno 3"],
     index=None,
     placeholder="Seleccione un turno"
 )
 
+
+# ============================================================
+# CONSULTA DE INFORMACIÓN POR TURNO
+# ============================================================
 
 if st.button("Consultar información"):
 
@@ -398,7 +576,6 @@ if st.button("Consultar información"):
                     "para este turno."
                 )
 
-
             st.write("### Unidades rechazadas")
 
             if rechazos is not None:
@@ -413,7 +590,6 @@ if st.button("Consultar información"):
                     "No existen unidades rechazadas registradas "
                     "para este turno."
                 )
-
 
             st.write("### Tiempos y causas de paro")
 
@@ -439,25 +615,21 @@ if st.button("Consultar información"):
                     "para este turno."
                 )
 
-
             st.write("### Verificación de consistencia")
 
             informacion_faltante = []
 
             if produccion is None:
-
                 informacion_faltante.append(
                     "unidades producidas"
                 )
 
             if rechazos is None:
-
                 informacion_faltante.append(
                     "unidades rechazadas"
                 )
 
             if not paros:
-
                 informacion_faltante.append(
                     "tiempos de paro"
                 )
@@ -487,7 +659,6 @@ st.subheader("HU-02: Registrar unidades producidas por turno")
 unidades_texto = st.text_input(
     "Cantidad de unidades producidas"
 )
-
 
 if st.button("Guardar producción"):
 
@@ -566,7 +737,6 @@ st.subheader("HU-03: Registrar unidades rechazadas por turno")
 rechazos_texto = st.text_input(
     "Cantidad de unidades rechazadas"
 )
-
 
 if st.button("Guardar rechazo"):
 
@@ -835,7 +1005,6 @@ fecha_seleccionada = st.date_input(
     value=date.today()
 )
 
-
 if st.button("Consultar unidades rechazadas"):
 
     fecha_texto = str(fecha_seleccionada)
@@ -862,3 +1031,157 @@ if st.button("Consultar unidades rechazadas"):
             f"Se registraron {total_rechazadas} "
             "unidades rechazadas en el periodo seleccionado."
         )
+
+
+# ============================================================
+# HU-07: CONSULTAR PRINCIPALES CAUSAS Y TIEMPOS DE PARO
+# ============================================================
+
+st.subheader(
+    "HU-07: Principales causas y tiempos de paro"
+)
+
+st.write(
+    "Consulta las principales causas de paro y el tiempo acumulado "
+    "para un periodo seleccionado."
+)
+
+fecha_paros = st.date_input(
+    "Seleccione el periodo para consultar paros",
+    value=date.today(),
+    key="fecha_paros"
+)
+
+if st.button("Consultar causas y tiempos de paro"):
+
+    fecha_texto = str(fecha_paros)
+
+    tiempo_total, resultados = consultar_paros_por_periodo(
+        fecha_texto
+    )
+
+    if not resultados:
+
+        st.warning(
+            "No existen datos de paros para el periodo seleccionado."
+        )
+
+    else:
+
+        st.subheader(
+            "Información de paros del periodo seleccionado"
+        )
+
+        st.metric(
+            "Tiempo total de paro",
+            f"{tiempo_total} minutos"
+        )
+
+        st.subheader("Causas y tiempo acumulado")
+
+        for causa_paro, tiempo in resultados:
+
+            st.write(
+                f"**{causa_paro}:** {tiempo} minutos"
+            )
+
+        causa_principal = resultados[0][0]
+        tiempo_principal = resultados[0][1]
+
+        st.info(
+            f"La causa con mayor tiempo acumulado es "
+            f"**{causa_principal}**, con "
+            f"{tiempo_principal} minutos."
+        )
+
+        st.success(
+            "Los datos corresponden únicamente al periodo seleccionado."
+        )
+
+
+# ============================================================
+# HU-05: CONSULTAR INDICADORES POR PERIODO Y TURNO
+# ============================================================
+
+st.subheader(
+    "HU-05: Indicadores de producción por periodo y turno"
+)
+
+st.write(
+    "Consulta de producción, unidades rechazadas y tiempo de paro "
+    "para un periodo y turno seleccionados."
+)
+
+fecha_indicadores = st.date_input(
+    "Seleccione el periodo para indicadores",
+    value=date.today(),
+    key="fecha_indicadores"
+)
+
+turno_indicadores = st.selectbox(
+    "Seleccione el turno para consultar indicadores",
+    ["", "Turno 1", "Turno 2", "Turno 3"],
+    key="turno_indicadores"
+)
+
+if st.button("Consultar indicadores"):
+
+    if not turno_indicadores:
+
+        st.error("Debe seleccionar un turno.")
+
+    else:
+
+        fecha_texto = str(fecha_indicadores)
+
+        produccion, rechazadas, tiempo_paros = consultar_indicadores(
+            fecha_texto,
+            turno_indicadores
+        )
+
+        hay_datos = (
+            produccion > 0
+            or rechazadas > 0
+            or tiempo_paros > 0
+        )
+
+        if not hay_datos:
+
+            st.warning(
+                "No existen datos disponibles para el periodo "
+                "y turno seleccionados."
+            )
+
+        else:
+
+            st.subheader(
+                "Indicadores del periodo y turno seleccionado"
+            )
+
+            col1, col2, col3 = st.columns(3)
+
+            with col1:
+
+                st.metric(
+                    "Producción real",
+                    f"{produccion} unidades"
+                )
+
+            with col2:
+
+                st.metric(
+                    "Unidades rechazadas",
+                    f"{rechazadas} unidades"
+                )
+
+            with col3:
+
+                st.metric(
+                    "Tiempo de paro",
+                    f"{tiempo_paros} minutos"
+                )
+
+            st.success(
+                "Los indicadores corresponden al periodo "
+                "y turno seleccionados."
+            )
