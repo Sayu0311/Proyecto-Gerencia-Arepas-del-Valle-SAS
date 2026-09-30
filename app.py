@@ -67,6 +67,17 @@ def preparar_bd():
         )
     """)
 
+    # Tabla de metas
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS metas (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            fecha TEXT NOT NULL,
+            turno TEXT NOT NULL,
+            meta INTEGER NOT NULL
+                CHECK (meta >= 0)
+        )
+    """)
+
     # Agregar fecha a tablas existentes si todavía no existe
     for tabla in ["produccion", "rechazos", "paros"]:
 
@@ -153,6 +164,44 @@ def consultar_indicadores(fecha, turno):
 
 
 # ============================================================
+# CONSULTA DE COMPARACIÓN
+# ============================================================
+
+def consultar_comparacion(fecha, turno):
+    conexion = conectar_db()
+    cursor = conexion.cursor()
+
+    # Producción real
+    cursor.execute("""
+        SELECT COALESCE(SUM(unidades_producidas), 0)
+        FROM produccion
+        WHERE fecha = ? AND turno = ?
+    """, (fecha, turno))
+
+    produccion_real = cursor.fetchone()[0]
+
+    # Meta establecida
+    cursor.execute("""
+        SELECT meta
+        FROM metas
+        WHERE fecha = ? AND turno = ?
+        ORDER BY id DESC
+        LIMIT 1
+    """, (fecha, turno))
+
+    resultado_meta = cursor.fetchone()
+
+    conexion.close()
+
+    if resultado_meta is None:
+        meta = None
+    else:
+        meta = resultado_meta[0]
+
+    return produccion_real, meta
+
+
+# ============================================================
 # HU-02: PRODUCCIÓN
 # ============================================================
 
@@ -213,9 +262,12 @@ def consultar_produccion_turno(turno):
         SELECT unidades_producidas
         FROM produccion
         WHERE turno = ?
+        ORDER BY id DESC
+        LIMIT 1
     """, (turno,))
 
     registro = cursor.fetchone()
+
     conexion.close()
 
     return registro
@@ -328,6 +380,30 @@ def consultar_paros():
         FROM paros
         ORDER BY id
     """)
+
+    registros = cursor.fetchall()
+    conexion.close()
+
+    return registros
+
+
+def consultar_paros_turno(turno):
+    conexion = conectar_db()
+    cursor = conexion.cursor()
+
+    cursor.execute(
+        """
+        SELECT
+            causa,
+            hora_inicio,
+            hora_fin,
+            duracion_minutos
+        FROM paros
+        WHERE turno = ?
+        ORDER BY id
+        """,
+        (turno,)
+    )
 
     registros = cursor.fetchall()
     conexion.close()
