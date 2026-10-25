@@ -1,4 +1,3 @@
-cat > Historias-de-Usuario/Pruebas-HU-09.md <<'EOF'
 # Pruebas HU-09: Registrar metas de producción por periodo
 
 ## Objetivo
@@ -22,4 +21,3 @@ Verificar que el sistema permita registrar metas de producción por periodo y tu
 La HU-09 permite registrar una meta positiva asociada a un periodo y turno, evita registros duplicados y muestra la meta registrada para verificar su asociación.
 
 Las pruebas realizadas corresponden a las validaciones definidas en la historia de usuario.
-EOF

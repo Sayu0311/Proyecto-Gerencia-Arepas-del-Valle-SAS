@@ -1,4 +1,3 @@
-cat > Historias-de-Usuario/Pruebas-HU-08.md <<'EOF'
 # Pruebas HU-08: Consultar unidades rechazadas por periodo
 
 ## Historia de Usuario
@@ -21,4 +20,3 @@ HU-08: Consultar unidades rechazadas por periodo.
 ## Observación
 
 Las pruebas utilizaron los registros generados durante la prueba de HU-03.
-EOF

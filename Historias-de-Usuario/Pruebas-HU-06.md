@@ -1,4 +1,3 @@
-cat > Historias-de-Usuario/Pruebas-HU-06.md <<'EOF'
 # Pruebas HU-06: Comparar producción real con metas establecidas
 
 ## Historia de Usuario
@@ -27,4 +26,3 @@ HU-06: Comparar producción real con metas establecidas.
 ## Observación
 
 Las metas utilizadas para las pruebas fueron datos de prueba registrados temporalmente en la tabla de metas. El registro de metas corresponde a la HU-09.
-EOF

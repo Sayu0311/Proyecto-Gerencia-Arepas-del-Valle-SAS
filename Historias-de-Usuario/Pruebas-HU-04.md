@@ -1,4 +1,3 @@
-cat > Historias-de-Usuario/Pruebas-HU-04.md <<'EOF'
 # Pruebas HU-04: Consultar información registrada por turno
 
 ## Historia de Usuario
@@ -25,4 +24,3 @@ HU-04: Consultar información registrada por turno.
 ## Observación
 
 En la prueba del Turno 1 se observaron dos registros de paro con la causa "Falla de máquina". Esto corresponde a los registros utilizados durante las pruebas de HU-01 y no representa una mezcla de información entre turnos.
-EOF

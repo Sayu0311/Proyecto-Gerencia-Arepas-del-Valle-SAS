@@ -1,4 +1,3 @@
-cat > Historias-de-Usuario/Pruebas-HU-05.md <<'EOF'
 # Pruebas HU-05: Consultar indicadores de producción por periodo y turno
 
 ## Historia de Usuario
@@ -27,4 +26,3 @@ HU-05: Consultar indicadores de producción por periodo y turno.
 ## Observación
 
 Las pruebas utilizaron los registros generados durante las pruebas de HU-01, HU-02 y HU-03. Los datos existentes fueron asociados a la fecha de prueba 29/09/2026 para permitir la consulta por periodo.
-EOF

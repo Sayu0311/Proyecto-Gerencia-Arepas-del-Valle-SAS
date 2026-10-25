@@ -1,4 +1,3 @@
-cat > Historias-de-Usuario/Pruebas-HU-07.md <<'EOF'
 # Pruebas HU-07: Consultar principales causas y tiempos de paro
 
 ## Historia de Usuario
@@ -24,4 +23,3 @@ HU-07: Consultar principales causas y tiempos de paro.
 ## Observación
 
 Las pruebas utilizaron los registros de paros generados durante las pruebas de HU-01.
-EOF
