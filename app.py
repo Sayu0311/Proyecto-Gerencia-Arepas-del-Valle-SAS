@@ -45,10 +45,11 @@ def preparar_bd():
     cur.execute("""
         CREATE TABLE IF NOT EXISTS produccion (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            turno TEXT UNIQUE NOT NULL,
+            turno TEXT NOT NULL,
             unidades_producidas INTEGER NOT NULL
                 CHECK (unidades_producidas > 0),
-            fecha TEXT
+            fecha TEXT NOT NULL,
+            UNIQUE(fecha, turno)
         )
     """)
 
@@ -58,10 +59,11 @@ def preparar_bd():
     cur.execute("""
         CREATE TABLE IF NOT EXISTS rechazos (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            turno TEXT UNIQUE NOT NULL,
+            turno TEXT NOT NULL,
             unidades_rechazadas INTEGER NOT NULL
                 CHECK (unidades_rechazadas >= 0),
-            fecha TEXT
+            fecha TEXT NOT NULL,
+            UNIQUE(fecha, turno)
         )
     """)
 
@@ -143,6 +145,33 @@ def preparar_bd():
         """,
         (fecha_actual,)
     )
+
+    # Migrar tablas antiguas que tenían UNIQUE(turno) a UNIQUE(fecha, turno).
+    # Se reconstruyen dentro de una transacción y se preservan los registros.
+    for tabla, columna_valor, restriccion in [
+        ("produccion", "unidades_producidas", "CHECK (unidades_producidas > 0)"),
+        ("rechazos", "unidades_rechazadas", "CHECK (unidades_rechazadas >= 0)"),
+    ]:
+        sql_tabla = cur.execute(
+            "SELECT sql FROM sqlite_master WHERE type='table' AND name=?", (tabla,)
+        ).fetchone()[0]
+        if "turno TEXT UNIQUE" in sql_tabla or "turno TEXT UNIQUE NOT NULL" in sql_tabla:
+            temporal = f"{tabla}_nueva"
+            cur.execute(f"DROP TABLE IF EXISTS {temporal}")
+            cur.execute(f"""CREATE TABLE {temporal} (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                turno TEXT NOT NULL,
+                {columna_valor} INTEGER NOT NULL {restriccion},
+                fecha TEXT NOT NULL,
+                UNIQUE(fecha, turno)
+            )""")
+            cur.execute(
+                f"INSERT INTO {temporal} (id, turno, {columna_valor}, fecha) "
+                f"SELECT id, turno, {columna_valor}, COALESCE(fecha, ?) FROM {tabla}",
+                (fecha_actual,),
+            )
+            cur.execute(f"DROP TABLE {tabla}")
+            cur.execute(f"ALTER TABLE {temporal} RENAME TO {tabla}")
 
     conn.commit()
     conn.close()
@@ -238,37 +267,19 @@ def consultar_comparacion(fecha, turno):
 # HU-02: PRODUCCIÓN
 # ============================================================
 
-def guardar_produccion(turno, unidades):
-    conexion = conectar_db()
-    cursor = conexion.cursor()
-
-    try:
-        cursor.execute(
-            """
-            INSERT INTO produccion (
-                turno,
-                unidades_producidas,
-                fecha
+def guardar_produccion(turno, unidades, fecha=None):
+    fecha = str(fecha or date.today())
+    with conectar_db() as conexion:
+        try:
+            conexion.execute(
+                "INSERT INTO produccion (turno, unidades_producidas, fecha) VALUES (?, ?, ?)",
+                (turno, unidades, fecha),
             )
-            VALUES (?, ?, ?)
-            """,
-            (
-                turno,
-                unidades,
-                str(date.today())
-            )
-        )
+            conexion.commit()
+            return True
+        except sqlite3.IntegrityError:
+            return False
 
-        conexion.commit()
-        resultado = True
-
-    except sqlite3.IntegrityError:
-        resultado = False
-
-    finally:
-        conexion.close()
-
-    return resultado
 
 
 def consultar_produccion():
@@ -276,9 +287,9 @@ def consultar_produccion():
     cursor = conexion.cursor()
 
     cursor.execute("""
-        SELECT turno, unidades_producidas
+        SELECT fecha, turno, unidades_producidas
         FROM produccion
-        ORDER BY turno
+        ORDER BY fecha DESC, turno
     """)
 
     registros = cursor.fetchall()
@@ -287,62 +298,29 @@ def consultar_produccion():
     return registros
 
 
-def consultar_produccion_turno(turno):
-    conexion = conectar_db()
-    cursor = conexion.cursor()
-
-    cursor.execute("""
-        SELECT unidades_producidas
-        FROM produccion
-        WHERE turno = ?
-        ORDER BY id DESC
-        LIMIT 1
-    """, (turno,))
-
-    registro = cursor.fetchone()
-
-    conexion.close()
-
-    return registro
+def consultar_produccion_turno(turno, fecha=None):
+    fecha = str(fecha or date.today())
+    with conectar_db() as conexion:
+        return conexion.execute(
+            "SELECT unidades_producidas FROM produccion WHERE turno = ? AND fecha = ? ORDER BY id DESC LIMIT 1",
+            (turno, fecha),
+        ).fetchone()
 
 
-# ============================================================
-# HU-03: RECHAZOS
-# ============================================================
 
-def guardar_rechazo(turno, unidades_rechazadas):
-    conexion = conectar_db()
-    cursor = conexion.cursor()
-
-    try:
-        fecha_actual = str(date.today())
-
-        cursor.execute(
-            """
-            INSERT INTO rechazos (
-                turno,
-                unidades_rechazadas,
-                fecha
+def guardar_rechazo(turno, unidades_rechazadas, fecha=None):
+    fecha = str(fecha or date.today())
+    with conectar_db() as conexion:
+        try:
+            conexion.execute(
+                "INSERT INTO rechazos (turno, unidades_rechazadas, fecha) VALUES (?, ?, ?)",
+                (turno, unidades_rechazadas, fecha),
             )
-            VALUES (?, ?, ?)
-            """,
-            (
-                turno,
-                unidades_rechazadas,
-                fecha_actual
-            )
-        )
+            conexion.commit()
+            return True
+        except sqlite3.IntegrityError:
+            return False
 
-        conexion.commit()
-        resultado = True
-
-    except sqlite3.IntegrityError:
-        resultado = False
-
-    finally:
-        conexion.close()
-
-    return resultado
 
 
 def consultar_rechazos():
@@ -350,9 +328,9 @@ def consultar_rechazos():
     cursor = conexion.cursor()
 
     cursor.execute("""
-        SELECT turno, unidades_rechazadas
+        SELECT fecha, turno, unidades_rechazadas
         FROM rechazos
-        ORDER BY turno
+        ORDER BY fecha DESC, turno
     """)
 
     registros = cursor.fetchall()
@@ -361,28 +339,15 @@ def consultar_rechazos():
     return registros
 
 
-def consultar_rechazos_turno(turno):
-    conexion = conectar_db()
-    cursor = conexion.cursor()
-
-    cursor.execute("""
-        SELECT unidades_rechazadas
-        FROM rechazos
-        WHERE turno = ?
-        ORDER BY id DESC
-        LIMIT 1
-    """, (turno,))
-
-    registro = cursor.fetchone()
-
-    conexion.close()
-
-    return registro
+def consultar_rechazos_turno(turno, fecha=None):
+    fecha = str(fecha or date.today())
+    with conectar_db() as conexion:
+        return conexion.execute(
+            "SELECT unidades_rechazadas FROM rechazos WHERE turno = ? AND fecha = ? ORDER BY id DESC LIMIT 1",
+            (turno, fecha),
+        ).fetchone()
 
 
-# ============================================================
-# HU-08: CONSULTAR UNIDADES RECHAZADAS POR PERIODO
-# ============================================================
 
 def consultar_rechazos_por_periodo(fecha):
     conexion = conectar_db()
@@ -410,12 +375,13 @@ def guardar_paro(
     hora_inicio,
     hora_fin,
     duracion_minutos,
-    causa
+    causa,
+    fecha=None
 ):
     conexion = conectar_db()
     cursor = conexion.cursor()
 
-    fecha_registro = str(date.today())
+    fecha_registro = str(fecha or date.today())
 
     cursor.execute(
         """
@@ -453,9 +419,10 @@ def consultar_paros():
             hora_inicio,
             hora_fin,
             duracion_minutos,
-            causa
+            causa,
+            fecha
         FROM paros
-        ORDER BY id
+        ORDER BY fecha DESC, id DESC
     """)
 
     registros = cursor.fetchall()
@@ -464,7 +431,7 @@ def consultar_paros():
     return registros
 
 
-def consultar_paros_turno(turno):
+def consultar_paros_turno(turno, fecha=None):
     conexion = conectar_db()
     cursor = conexion.cursor()
 
@@ -476,10 +443,10 @@ def consultar_paros_turno(turno):
             hora_fin,
             duracion_minutos
         FROM paros
-        WHERE turno = ?
+        WHERE turno = ? AND fecha = ?
         ORDER BY id
         """,
-        (turno,)
+        (turno, str(fecha or date.today()))
     )
 
     registros = cursor.fetchall()
@@ -612,6 +579,11 @@ turno = st.selectbox(
 )
 
 
+fecha_operacion = st.date_input(
+    "Fecha del registro de producción", value=date.today(), key="fecha_operacion"
+)
+fecha_operacion_texto = str(fecha_operacion)
+
 # ============================================================
 # CONSULTA DE INFORMACIÓN POR TURNO
 # ============================================================
@@ -626,9 +598,9 @@ if st.button("Consultar información"):
 
     else:
 
-        produccion = consultar_produccion_turno(turno)
-        rechazos = consultar_rechazos_turno(turno)
-        paros = consultar_paros_turno(turno)
+        produccion = consultar_produccion_turno(turno, fecha_operacion_texto)
+        rechazos = consultar_rechazos_turno(turno, fecha_operacion_texto)
+        paros = consultar_paros_turno(turno, fecha_operacion_texto)
 
         tiene_informacion = (
             produccion is not None
@@ -814,7 +786,8 @@ if st.button("Guardar producción"):
 
             guardado = guardar_produccion(
                 turno,
-                unidades
+                unidades,
+                fecha_operacion_texto
             )
 
             if guardado:
@@ -838,13 +811,9 @@ registros = consultar_produccion()
 
 if registros:
 
-    for (
-        turno_registrado,
-        unidades_registradas
-    ) in registros:
-
+    for fecha_registrada, turno_registrado, unidades_registradas in registros:
         st.write(
-            f"**{turno_registrado}:** "
+            f"**{fecha_registrada} | {turno_registrado}:** "
             f"{unidades_registradas} unidades"
         )
 
@@ -905,7 +874,8 @@ if st.button("Guardar rechazo"):
         else:
 
             produccion = consultar_produccion_turno(
-                turno
+                turno,
+                fecha_operacion_texto
             )
 
             if produccion is None:
@@ -926,7 +896,8 @@ if st.button("Guardar rechazo"):
 
                 guardado = guardar_rechazo(
                     turno,
-                    unidades_rechazadas
+                    unidades_rechazadas,
+                    fecha_operacion_texto
                 )
 
                 if guardado:
@@ -951,10 +922,16 @@ registros_rechazos = consultar_rechazos()
 
 if registros_rechazos:
 
-    for (
-        turno_registrado,
-        unidades_rechazadas_registradas
-    ) in registros_rechazos:
+    
+    for registro_rechazo in registros_rechazos:
+
+        fecha_registrada, turno_registrado, unidades_rechazadas_registradas = registro_rechazo
+
+        st.write(
+            f"**{fecha_registrada} - {turno_registrado}:** "
+            f"{unidades_rechazadas_registradas} "
+            f"unidades rechazadas"
+        )
 
         st.write(
             f"**{turno_registrado}:** "
@@ -1102,7 +1079,8 @@ if st.button("Guardar registro de paro"):
                 hora_inicio.strftime("%H:%M"),
                 hora_fin.strftime("%H:%M"),
                 duracion_minutos,
-                causa
+                causa,
+                fecha_operacion_texto
             )
 
             st.success(
@@ -1132,11 +1110,12 @@ if registros_paros:
         inicio_registrado,
         fin_registrado,
         duracion_registrada,
-        causa_registrada
+        causa_registrada,
+        fecha_paro_registrada
     ) in registros_paros:
 
         st.write(
-            f"**{turno_registrado}** | "
+            f"**{fecha_paro_registrada} | {turno_registrado}** | "
             f"{causa_registrada} | "
             f"{inicio_registrado} - {fin_registrado} | "
             f"{duracion_registrada} minutos"
@@ -1511,3 +1490,157 @@ if st.button(
                 "Los indicadores corresponden al periodo "
                 "y turno seleccionados."
             )
+
+# ============================================================
+# HU-06: COMPARAR PRODUCCIÓN REAL CON META
+# ============================================================
+st.subheader("HU-06: Comparar producción real con meta")
+st.write("Compara la producción registrada con la meta definida para la misma fecha y turno.")
+fecha_comparacion = st.date_input("Fecha para comparar producción y meta", value=date.today(), key="fecha_comparacion")
+turno_comparacion = st.selectbox("Turno para comparar producción y meta", ["", "Turno 1", "Turno 2", "Turno 3"], key="turno_comparacion")
+if st.button("Consultar comparación HU-06"):
+    if not turno_comparacion:
+        st.error("Debe seleccionar un turno.")
+    else:
+        produccion_real, meta = consultar_comparacion(str(fecha_comparacion), turno_comparacion)
+        col1, col2, col3 = st.columns(3)
+        col1.metric("Producción real", f"{produccion_real} unidades")
+        col2.metric("Meta", f"{meta} unidades" if meta is not None else "Sin meta")
+        if meta is None:
+            st.warning("No hay una meta registrada para la fecha y turno seleccionados.")
+        else:
+            diferencia = produccion_real - meta
+            col3.metric("Diferencia frente a la meta", f"{diferencia:+d} unidades")
+            if produccion_real >= meta:
+                st.success("Se alcanzó o superó la meta de producción.")
+            else:
+                st.warning(f"Faltan {meta - produccion_real} unidades para alcanzar la meta.")
+
+# ============================================================
+# DASHBOARD GENERAL - DATOS REALES DE SQLITE
+# ============================================================
+
+st.divider()
+st.header("Dashboard general de producción")
+st.write(
+    "Resumen de producción, rechazos y tiempos de paro "
+    "a partir de los registros almacenados."
+)
+
+try:
+    conexion_dashboard = conectar_db()
+
+    produccion_dashboard = conexion_dashboard.execute("""
+        SELECT fecha, SUM(unidades_producidas)
+        FROM produccion
+        GROUP BY fecha
+        ORDER BY fecha
+    """).fetchall()
+    metas_dashboard = conexion_dashboard.execute("""
+        SELECT fecha, SUM(meta)
+        FROM metas
+        GROUP BY fecha
+        ORDER BY fecha
+    """).fetchall()
+    rechazos_dashboard = conexion_dashboard.execute("""
+        SELECT fecha, SUM(unidades_rechazadas)
+        FROM rechazos
+        GROUP BY fecha
+        ORDER BY fecha
+    """).fetchall()
+
+    paros_dashboard = conexion_dashboard.execute("""
+        SELECT fecha, SUM(duracion_minutos)
+        FROM paros
+        GROUP BY fecha
+        ORDER BY fecha
+    """).fetchall()
+
+    
+
+    conexion_dashboard.close()
+
+
+    if (
+        not produccion_dashboard
+        and not rechazos_dashboard
+        and not paros_dashboard
+        and not metas_dashboard
+    ):
+        st.info("Todavía no hay datos suficientes para mostrar gráficos.")
+    else:
+
+        fechas_dashboard = sorted(set(
+            [str(fila[0]) for fila in produccion_dashboard]
+            + [str(fila[0]) for fila in rechazos_dashboard]
+            + [str(fila[0]) for fila in paros_dashboard]
+        ))
+
+        mapa_produccion = {
+            str(fecha): cantidad
+            for fecha, cantidad in produccion_dashboard
+        }
+        mapa_metas = {
+            str(fecha): cantidad
+            for fecha, cantidad in metas_dashboard
+        }
+        mapa_rechazos = {
+            str(fecha): cantidad
+            for fecha, cantidad in rechazos_dashboard
+        }
+        mapa_paros = {
+            str(fecha): cantidad
+            for fecha, cantidad in paros_dashboard
+        }
+
+        datos_dashboard = {
+            "Fecha": fechas_dashboard,
+            "Unidades producidas": [
+                mapa_produccion.get(fecha, 0)
+                for fecha in fechas_dashboard
+            ],
+            "Meta de producción": [
+                mapa_metas.get(fecha, 0)
+                for fecha in fechas_dashboard
+            ],
+            "Unidades rechazadas": [
+                mapa_rechazos.get(fecha, 0)
+                for fecha in fechas_dashboard
+            ],
+            "Minutos de paro": [
+                mapa_paros.get(fecha, 0)
+                for fecha in fechas_dashboard
+            ],
+        }
+
+
+        st.subheader("Producción real frente a la meta")
+        st.bar_chart(
+            datos_dashboard,
+            x="Fecha",
+            y=["Unidades producidas", "Meta de producción"]
+        )
+
+
+        st.subheader("Rechazos por fecha")
+        st.bar_chart(
+            datos_dashboard,
+            x="Fecha",
+            y="Unidades rechazadas"
+        )
+
+        st.subheader("Tiempo de paro por fecha")
+        st.bar_chart(
+            datos_dashboard,
+            x="Fecha",
+            y="Minutos de paro"
+        )
+
+        st.subheader("Datos utilizados en el dashboard")
+        st.dataframe(datos_dashboard, use_container_width=True)
+
+except Exception as error_dashboard:
+    st.error(
+        "No fue posible generar el dashboard. "
+        f"Detalle técnico: {error_dashboard}"
+    )
