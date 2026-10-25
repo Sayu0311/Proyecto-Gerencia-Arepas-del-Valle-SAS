@@ -1,0 +1,7 @@
+# Archivos temporales de Python
+__pycache__/
+*.py[cod]
+
+# Base de datos local
+produccion.db
+*.db-journal
