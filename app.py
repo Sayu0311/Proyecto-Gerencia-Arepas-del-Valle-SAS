@@ -1000,29 +1000,37 @@ if st.button("Calcular duración"):
             hora_fin
         )
 
-        diferencia = fin - inicio
+diferencia = fin - inicio
 
-        duracion_minutos = int(
-            diferencia.total_seconds() / 60
-        )
+duracion_minutos = int(
+    diferencia.total_seconds() / 60
+)
 
-        if duracion_minutos < 0:
+if duracion_minutos <= 0:
+    st.error(
+        "La hora de finalización debe ser posterior "
+        "a la hora de inicio."
+    )
 
-            st.error(
-                "La hora de finalización no puede "
-                "ser anterior a la hora de inicio."
-            )
+    st.session_state.pop(
+        "duracion_paro",
+        None
+    )
 
-        else:
+else:
+    st.session_state["duracion_paro"] = (
+        duracion_minutos
+    )
 
-            st.session_state[
-                "duracion_paro"
-            ] = duracion_minutos
+    st.session_state["horas_paro_calculadas"] = (
+        hora_inicio.strftime("%H:%M"),
+        hora_fin.strftime("%H:%M")
+    )
 
-            st.success(
-                f"Duración del paro: "
-                f"{duracion_minutos} minutos."
-            )
+    st.success(
+        f"Duración del paro: "
+        f"{duracion_minutos} minutos."
+    )
 
 
 # ============================================================
@@ -1032,48 +1040,46 @@ if st.button("Calcular duración"):
 if st.button("Guardar registro de paro"):
 
     if turno is None:
-
-        st.error(
-            "Debe seleccionar un turno."
-        )
+        st.error("Debe seleccionar un turno.")
 
     elif causa is None:
-
-        st.error(
-            "Debe seleccionar una causa de paro."
-        )
+        st.error("Debe seleccionar una causa de paro.")
 
     elif "duracion_paro" not in st.session_state:
+        st.error("Debe calcular la duración antes de guardar.")
+
+    elif st.session_state.get("horas_paro_calculadas") != (
+        hora_inicio.strftime("%H:%M"),
+        hora_fin.strftime("%H:%M")
+    ):
+        st.session_state.pop("duracion_paro", None)
+        st.session_state.pop("horas_paro_calculadas", None)
 
         st.error(
-            "Debe calcular la duración antes de guardar."
+            "Las horas cambiaron. Calcule nuevamente "
+            "la duración antes de guardar."
         )
 
     else:
-
-        inicio = datetime.combine(
-            datetime.today(),
-            hora_inicio
-        )
-
-        fin = datetime.combine(
-            datetime.today(),
-            hora_fin
+        diferencia = (
+            datetime.combine(datetime.today(), hora_fin)
+            - datetime.combine(datetime.today(), hora_inicio)
         )
 
         duracion_minutos = int(
-            (fin - inicio).total_seconds() / 60
+            diferencia.total_seconds() / 60
         )
 
-        if duracion_minutos < 0:
-
+        if duracion_minutos <= 0:
             st.error(
-                "La hora de finalización no puede "
-                "ser anterior a la hora de inicio."
+                "La hora de finalización debe ser posterior "
+                "a la hora de inicio."
             )
 
-        else:
+            st.session_state.pop("duracion_paro", None)
+            st.session_state.pop("horas_paro_calculadas", None)
 
+        else:
             guardar_paro(
                 turno,
                 hora_inicio.strftime("%H:%M"),
@@ -1087,11 +1093,8 @@ if st.button("Guardar registro de paro"):
                 "Registro de paro guardado correctamente."
             )
 
-            st.session_state.pop(
-                "duracion_paro",
-                None
-            )
-
+            st.session_state.pop("duracion_paro", None)
+            st.session_state.pop("horas_paro_calculadas", None)
 
 # ============================================================
 # REGISTROS DE PAROS

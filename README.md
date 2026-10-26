@@ -66,13 +66,16 @@ El proyecto se relaciona con el **ODS 12: Producción y Consumo Responsables**, 
 
 # 3. PORTAFOLIO, PROGRAMA Y PROYECTO
 
-El proyecto se ubica dentro de una estructura jerárquica de iniciativas de modernización y digitalización de los procesos productivos de Arepas del Valle S.A.S.:
+El proyecto hace parte de una propuesta académica de modernización operacional y transformación digital para Arepas del Valle S.A.S. La estructura distingue el portafolio, los programas que agrupan iniciativas relacionadas y los proyectos que pueden desarrollarse de manera independiente.
 
-| Nivel | Nombre propuesto | Relación con el proyecto |
+| Nivel | Nombre propuesto | Iniciativas incluidas |
 |---|---|---|
-| **Portafolio** | **Portafolio de Modernización Operacional y Transformación Digital** | Orienta las iniciativas relacionadas con la modernización y transformación digital de la empresa. |
-| **Programa** | **Programa de Digitalización y Eficiencia de Procesos Productivos** | Agrupa iniciativas orientadas a mejorar y digitalizar los procesos productivos. |
-| **Proyecto** | **Desarrollo de una aplicación web de Dashboard para el monitoreo de indicadores del proceso de producción de arepas** | Es el proyecto desarrollado por el equipo y tiene como objetivo centralizar el registro y seguimiento de información de producción, calidad y tiempos de paro. |
+| **Portafolio** | Portafolio de Modernización Operacional y Transformación Digital | Agrupa iniciativas orientadas a mejorar la eficiencia, la calidad y el uso de información en la empresa. |
+| **Programa 1** | Programa de Digitalización y Eficiencia de Procesos Productivos | Incluye el proyecto de dashboard de producción y una iniciativa propuesta para digitalizar la programación y el seguimiento de órdenes de producción. |
+| **Programa 2** | Programa de Calidad y Reducción de Desperdicios | Incluye una iniciativa propuesta para registrar y analizar causas de rechazo, así como un proyecto futuro para medir el consumo de materias primas y las mermas por periodo. |
+| **Proyecto desarrollado** | Aplicación web de dashboard para el monitoreo de indicadores de producción de arepas | Solución desarrollada en este trabajo para registrar producción, unidades rechazadas, tiempos de paro y metas, y consultar indicadores y gráficos. |
+
+Las iniciativas adicionales mencionadas en los programas son **propuestas de portafolio y no proyectos implementados ni validados**. El alcance efectivamente desarrollado en este trabajo corresponde a la aplicación web descrita en la arquitectura y en las historias de usuario.
 
 # 4. ELECCIÓN Y CLASIFICACIÓN DEL PROYECTO
 
@@ -88,39 +91,35 @@ Se utilizará una metodología ágil basada en **Scrum**, organizada en dos Spri
 
 ### Sprint 1: Producto Mínimo Viable (MVP)
 
-**Objetivo:** Digitalizar el registro de producción y paradas, permitiendo visualizar el cumplimiento del turno en tiempo real.
+**Objetivo:** Implementar el registro de producción, unidades rechazadas, tiempos de paro y metas de producción por fecha y turno.
 
 **Funcionalidades principales:**
 
-- Configuración del entorno y la base de datos relacional.
-- Formulario web para registrar:
-  - Kilos de masa.
-  - Paquetes de 5 y 10 unidades.
-  - Producción por hora y turno.
-- Registro de paradas de máquinas y sus causas.
-- Dashboard con comparación entre producción real y meta.
-- Visualización del tiempo muerto y acumulado.
+- Configuración del entorno de desarrollo y de la base de datos SQLite.
+- Registro de unidades producidas por fecha y turno.
+- Registro de unidades rechazadas por fecha y turno.
+- Registro de tiempos de paro, duración y causa.
+- Registro de metas de producción por fecha y turno.
+- Validación para evitar registros duplicados de producción y unidades rechazadas para la misma fecha y turno.
 
-**Entregable:** Prototipo funcional de la aplicación web, con base de datos, repositorio Git y tablero operativo.
+**Entregable:** Primera versión funcional de la aplicación web con formularios de registro y almacenamiento local de la información.
 
-### Sprint 2: Analítica e indicadores
+### Sprint 2: Indicadores, comparación y visualización
 
-**Objetivo:** Incorporar el análisis de mermas, el cálculo de OEE y los reportes gerenciales.
+**Objetivo:** Facilitar la consulta de los registros y comparar los resultados de producción con las metas establecidas.
 
 **Funcionalidades principales:**
 
-- Módulo de control de mermas e indicadores de calidad.
-- Registro de masa residual y unidades no conformes.
-- Cálculo automático del OEE:
-  - Disponibilidad.
-  - Rendimiento.
-  - Calidad.
-- Dashboard gerencial con filtros por fecha, turno y línea.
-- Exportación de reportes ejecutivos.
-- Pruebas integrales de la aplicación.
-- Autenticación por roles y documentación técnica.
+- Consulta de indicadores de producción, unidades rechazadas y tiempos de paro.
+- Comparación de producción real frente a la meta por fecha y turno.
+- Visualización de gráficos de producción, metas, unidades rechazadas y tiempos de paro.
+- Consulta de información de diferentes fechas y turnos.
+- Carga de archivos CSV y Excel para previsualizar los datos y validar las columnas requeridas.
+- Documentación de pruebas funcionales y correcciones realizadas.
 
-**Entregable:** Versión final de la solución web con dashboards operativos y gerenciales, módulo de sostenibilidad y control de acceso.
+**Entregable:** Versión integrada de la aplicación con registros, consultas, indicadores, gráficos y previsualización de archivos CSV y Excel.
+
+**Alcance y limitaciones:** La versión actual trabaja con unidades producidas y rechazadas, tiempos de paro y metas. No implementa todavía el cálculo de OEE, el registro de kilogramos de masa, las presentaciones de paquetes de 5 y 10 unidades, la autenticación por roles ni la importación automática de archivos a la base de datos. Estas funcionalidades no se presentan como terminadas.
 
 ## 4.3 Relación con el ODS 12
 
@@ -159,19 +158,30 @@ La aplicación estará orientada a la captura, procesamiento y monitoreo de info
 
 ## 5.2 Viabilidad económica
 
-La inversión inicial estimada para el desarrollo del proyecto es de **$6.000.000 COP**, correspondiente a desarrollo, base de datos, diseño, pruebas, capacitación y mantenimiento inicial.
+La viabilidad económica del proyecto se evalúa de manera preliminar. La inversión inicial de **$6.000.000 COP** corresponde a una estimación académica y no a un costo ejecutado y verificado. Para validar la viabilidad será necesario documentar las horas de desarrollo, los costos de operación, la capacitación y el mantenimiento.
 
-Los beneficios económicos estimados son:
+### Estimaciones de beneficios
 
-| Beneficio | Estimación mensual |
-|---|---:|
-| Ahorro de tiempo de supervisión | $750.000 COP |
-| Disminución de mermas de masa | $1.900.000 COP |
-| **Beneficio mensual estimado** | **$2.650.000 COP** |
+En esta etapa no se dispone de registros reales suficientes para comprobar un ahorro mensual por reducción del tiempo de supervisión ni por disminución de mermas. Por lo tanto, los valores económicos mencionados en versiones anteriores se consideran hipótesis de trabajo y no resultados demostrados.
 
-Con estas estimaciones, el período de recuperación preliminar de la inversión es de aproximadamente **2,3 meses**.
+Para estimar los beneficios cuando se disponga de datos, se utilizarán los siguientes cálculos:
 
-> Los valores corresponden a estimaciones académicas de prefactibilidad y deberán validarse durante el desarrollo y las pruebas del proyecto.
+- **Ahorro por tiempo administrativo:** horas efectivamente ahorradas al mes × costo laboral por hora.
+- **Ahorro por reducción de mermas:** kilogramos de materia prima cuya pérdida se evita al mes × costo de materia prima por kilogramo.
+- **Beneficio neto mensual:** beneficios económicos verificables − costos adicionales mensuales de operación y mantenimiento.
+- **Periodo de recuperación:** inversión inicial ÷ beneficio neto mensual, siempre que este último sea positivo.
+
+### Datos requeridos para validar el caso de negocio
+
+Para sustentar el cálculo se deberán recopilar registros del proceso real, incluyendo:
+
+- Tiempo dedicado actualmente a registrar y consolidar la información de producción.
+- Costo laboral por hora de las personas que realizan estas actividades.
+- Cantidad de materia prima procesada y cantidad de merma por periodo.
+- Costo de la materia prima por kilogramo.
+- Costos de implementación, operación, capacitación y mantenimiento de la aplicación.
+
+Hasta contar con estos datos, **no se afirma que el proyecto genere un ahorro mensual de $2.650.000 COP ni que recupere la inversión en 2,3 meses**. Esos resultados solo podrán calcularse después de validar los supuestos con información documentada.
 
 ## 5.3 Viabilidad operativa
 
@@ -201,27 +211,44 @@ Se contempla la participación del personal durante las pruebas y capacitación,
 
 ## 5.6 Análisis de construir o comprar
 
-Se analizaron tres alternativas:
+Se consideran tres alternativas para atender la necesidad de registrar y consultar información del proceso productivo.
 
-| Alternativa | Característica principal |
-|---|---|
-| Mantener el proceso actual | Continuar con planillas físicas y consolidación en Excel. |
-| Comprar software | Utilizar una solución comercial para el seguimiento de producción. |
-| **Construir aplicación propia** | Desarrollar una solución a la medida utilizando Python, Streamlit y GitHub. |
+| Alternativa | Ventajas | Limitaciones y costos por verificar |
+|---|---|---|
+| Mantener el proceso actual con planillas y hojas de cálculo | No requiere adquirir una nueva aplicación. El personal ya conoce el procedimiento. | Continúa dependiendo del registro manual y de la consolidación de información. Deben medirse las horas dedicadas y los costos laborales asociados. |
+| Comprar una solución comercial de gestión de producción | Puede ofrecer funciones integradas de producción, inventario, calidad y reportes, según el producto contratado. | Es necesario solicitar cotizaciones y verificar licencias, implementación, capacitación, soporte y compatibilidad con el proceso de la empresa. No se dispone de cotizaciones verificadas para establecer un costo comparable en este estudio. |
+| Construir una aplicación propia | Permite adaptar las funciones al alcance académico, controlar el código y realizar cambios de acuerdo con las necesidades identificadas. | Requiere tiempo de desarrollo, pruebas, mantenimiento, documentación y capacitación. La estimación académica de inversión de $6.000.000 COP debe validarse con un desglose de costos. |
 
-La alternativa considerada para el proyecto es la **construcción de una aplicación propia**, debido a que permite adaptar la solución al proceso estudiado, controlar el código y desarrollar los indicadores requeridos dentro del proyecto académico.
+### Criterio de selección
+
+Para este proyecto académico se seleccionó la construcción de una aplicación propia con Python, Streamlit y SQLite, debido a que permite implementar y demostrar las funciones definidas en las historias de usuario sin asumir el costo de una licencia comercial durante el desarrollo.
+
+Esta selección no demuestra por sí sola que construir sea más económico que comprar. Para establecer cuál alternativa ofrece el menor costo total, sería necesario comparar cotizaciones comerciales verificables y estimar los costos de desarrollo, operación y mantenimiento durante un mismo periodo.
+
+### Información pendiente para una comparación económica
+
+- Cotizaciones de al menos dos soluciones comerciales adecuadas para pequeñas empresas manufactureras.
+- Costos de licencias, implementación, soporte y capacitación.
+- Desglose de las horas de desarrollo y de los costos de mantenimiento de la aplicación propia.
+- Estimación del costo actual de registrar y consolidar manualmente los datos.
+
+Hasta obtener esta información, no se asignan precios inventados a las soluciones comerciales ni se afirma que la alternativa elegida sea la más económica en todos los escenarios.
 
 ## 5.7 Estimación de beneficios
 
-| Beneficio | Situación actual | Meta con la aplicación |
-|---|---|---|
-| Tiempo administrativo | 1,5 horas diarias por turno para transcripción y consolidación. | Menos de 15 minutos de captura por turno y reducción de al menos el 80 % del tiempo destinado a digitación y consolidación. |
-| Disponibilidad de información | Datos disponibles entre 8 y 12 horas después de la jornada. | Información disponible durante el turno, con registros visibles en menos de 2 minutos después del evento. |
-| Mermas | Estimación entre 4,5 % y 5 %. | Meta igual o inferior al 2,5 %. |
-| Paradas | Sin clasificación ni medición precisa. | Registro de causas y tiempos de inactividad. |
-| Toma de decisiones | Información del día anterior. | Consulta de información durante el turno. |
+En esta etapa, los beneficios se consideran objetivos esperados y no resultados medidos en la operación real. No se dispone de una línea base documentada que permita confirmar los tiempos actuales de registro, los porcentajes de merma o el retraso en la disponibilidad de información.
 
-Estas metas son estimaciones de prefactibilidad y deberán validarse durante el desarrollo y las pruebas.
+| Aspecto | Situación de referencia | Resultado esperado con la aplicación | Evidencia necesaria |
+|---|---|---|---|
+| Tiempo administrativo | Debe medirse el tiempo real dedicado a registrar y consolidar información. | Reducir el tiempo de digitación y consulta. | Medición del tiempo antes y después de utilizar la aplicación. |
+| Disponibilidad de información | Debe documentarse cuánto tarda actualmente la información en quedar disponible. | Facilitar la consulta de los registros guardados en la aplicación. | Comparación de marcas de tiempo de los registros y del proceso actual. |
+| Unidades rechazadas | Deben recopilarse registros reales por fecha y turno. | Consultar cantidades registradas e identificar variaciones. | Registros históricos y validación con el responsable de producción. |
+| Tiempos de paro | Deben recopilarse la duración y las causas de los paros reales. | Consultar los tiempos registrados y sus causas. | Bitácoras de producción o registros de los responsables. |
+| Cumplimiento de metas | Deben definirse metas aprobadas por fecha y turno. | Comparar las unidades producidas con la meta registrada. | Metas documentadas y registros de producción correspondientes. |
+
+La aplicación permite registrar y consultar información operativa, pero esto no demuestra por sí solo que se hayan reducido los tiempos administrativos, las mermas o los costos. Para comprobar esos beneficios se requiere comparar datos reales de un periodo anterior con los obtenidos después de implementar la solución.
+
+Los porcentajes y tiempos que se propongan como objetivos deberán identificarse expresamente como metas de mejora y contar con un método de medición definido.
 
 ## 5.8 Criterios de éxito
 
@@ -274,47 +301,39 @@ Las demás historias se estiman de manera relativa utilizando una escala de Fibo
 
 ## 8.4 Sprint 1: Producto Mínimo Viable (MVP)
 
-**Periodo:** Inicio del proyecto hasta el **29/09/2026**.
+**Periodo:** Inicio del proyecto hasta el 29/09/2026.
 
-El Sprint 1 corresponde al primer incremento del proyecto y está orientado a la construcción del Producto Mínimo Viable.
-
-**Objetivo:** Digitalizar el registro de producción y paradas, permitiendo visualizar el cumplimiento del turno en tiempo real.
+**Objetivo:** Implementar el registro de producción, unidades rechazadas, tiempos de paro y metas por fecha y turno.
 
 **Funcionalidades principales:**
 
-- Configuración del entorno y la base de datos relacional.
-- Formulario web para registrar:
-  - Kilos de masa.
-  - Paquetes de 5 y 10 unidades.
-  - Producción por hora y turno.
-- Registro de paradas de máquinas y sus causas.
-- Dashboard con comparación entre producción real y meta.
-- Visualización del tiempo muerto y acumulado.
+- Configuración del entorno y de la base de datos SQLite.
+- Registro de unidades producidas por fecha y turno.
+- Registro de unidades rechazadas por fecha y turno.
+- Registro de tiempos de paro, duración y causa.
+- Registro de metas de producción por fecha y turno.
+- Validación de registros duplicados de producción y unidades rechazadas para la misma fecha y turno.
 
-**Entregable:** Prototipo funcional de la aplicación web, con base de datos, repositorio Git y tablero operativo.
+**Entregable:** Primera versión funcional de la aplicación web con formularios de registro y almacenamiento local.
 
-## 8.5 Sprint 2: Analítica e indicadores
+## 8.5 Sprint 2: Indicadores, comparación y visualización
 
-**Fecha de cierre:** **30/10/2026**, correspondiente a la segunda entrega del proyecto.
+**Fecha de cierre:** 30/10/2026, correspondiente a la segunda entrega del proyecto.
 
-El Sprint 2 corresponde al segundo incremento del proyecto y está orientado a incorporar las capacidades de analítica e indicadores definidas para la versión final.
-
-**Objetivo:** Incorporar el análisis de mermas, el cálculo de OEE y los reportes gerenciales.
+**Objetivo:** Facilitar la consulta de registros y comparar la producción real con las metas establecidas.
 
 **Funcionalidades principales:**
 
-- Módulo de control de mermas e indicadores de calidad.
-- Registro de masa residual y unidades no conformes.
-- Cálculo automático del OEE:
-  - Disponibilidad.
-  - Rendimiento.
-  - Calidad.
-- Dashboard gerencial con filtros por fecha, turno y línea.
-- Exportación de reportes ejecutivos.
-- Pruebas integrales de la aplicación.
-- Autenticación por roles y documentación técnica.
+- Consulta de indicadores de producción, unidades rechazadas y tiempos de paro.
+- Comparación de producción real frente a la meta por fecha y turno.
+- Gráficos de producción, metas, unidades rechazadas y tiempos de paro.
+- Consulta de información de diferentes fechas y turnos.
+- Carga de archivos CSV y Excel para previsualizar los datos y validar las columnas requeridas.
+- Documentación de pruebas funcionales y correcciones realizadas.
 
-**Entregable:** Versión final de la solución web con dashboards operativos y gerenciales, módulo de sostenibilidad y control de acceso.
+**Entregable:** Versión integrada de la aplicación con registros, consultas, indicadores, gráficos y previsualización de archivos CSV y Excel.
+
+**Alcance y limitaciones:** La versión actual no implementa el cálculo de OEE, el registro de kilogramos de masa, las presentaciones de paquetes de 5 y 10 unidades, la autenticación por roles ni la importación automática de archivos a la base de datos. Estas funcionalidades no se consideran terminadas.
 
 ## 8.6 Definition of Done
 
@@ -360,40 +379,45 @@ Cada cambio de código deberá relacionarse con la historia de usuario correspon
 
 ## 9.1 Arquitectura de la solución
 
-La solución corresponde a una aplicación web orientada a la captura, almacenamiento, procesamiento y visualización de información del proceso productivo de **Arepas del Valle S.A.S.**
+La solución implementada es una aplicación web desarrollada con Streamlit y Python. Permite registrar información de producción, unidades rechazadas, tiempos de paro y metas de producción, almacenarla localmente en SQLite y consultar indicadores y gráficos por fecha y turno.
 
-La arquitectura se organiza en cuatro componentes:
+La arquitectura actual está compuesta por los siguientes elementos:
 
-1. **Presentación:** interfaz web desarrollada en Streamlit para registrar información y consultar indicadores.
-2. **Lógica y procesamiento:** desarrollada en Python 3.11 para validar registros, procesar información y calcular indicadores.
-3. **Datos:** base de datos relacional. Durante el desarrollo se utilizará SQLite y PostgreSQL se contempla para escenarios multiusuario.
-4. **Control de versiones:** Git y GitHub para gestionar el desarrollo y mantener la trazabilidad de los cambios.
+1. **Interfaz de usuario:** Streamlit presenta los formularios de registro, las consultas, los indicadores y los gráficos.
+2. **Lógica de aplicación:** Python procesa las solicitudes, valida los datos y ejecuta las consultas.
+3. **Persistencia de datos:** SQLite almacena los registros operativos de la aplicación.
+4. **Visualización:** los indicadores y gráficos permiten comparar la producción registrada con las metas y consultar unidades rechazadas y tiempos de paro.
+5. **Validación de archivos externos:** la aplicación permite cargar archivos CSV y Excel para previsualizar su contenido y comprobar las columnas requeridas. Esta función no importa automáticamente los datos a la base SQLite.
+6. **Control de versiones:** Git y GitHub permiten mantener el historial de cambios del código y colaborar en su desarrollo.
 
-La estructura de datos contempla información de:
+### Estructura de información
 
-| Entidad | Información principal |
+| Tipo de registro | Información principal |
 |---|---|
-| **Turnos** | Fecha, turno y línea de producción |
-| **Producción** | Kilogramos de masa, paquetes producidos y meta |
-| **Paradas** | Inicio, finalización, duración y causa |
-| **Mermas** | Masa residual, unidades no conformes y motivo |
-| **Usuarios** | Perfil y permisos para la versión final |
+| Producción | Fecha, turno y unidades producidas |
+| Unidades rechazadas | Fecha, turno y cantidad de unidades rechazadas |
+| Tiempos de paro | Fecha, turno, hora de inicio, hora de finalización, duración y causa |
+| Metas de producción | Fecha, turno y meta de unidades |
+
+La aplicación valida que no se registren duplicados de producción o de unidades rechazadas para una misma fecha y turno.
+
+**Limitaciones de la versión actual:** la solución no implementa una base de datos PostgreSQL, autenticación por roles, registro de kilogramos de masa, presentaciones de paquetes de 5 y 10 unidades, cálculo de OEE ni importación automática de archivos. Estas funcionalidades no forman parte de las capacidades implementadas y verificadas en esta versión.
 
 ### Flujo general
 
 ```text
-Usuario de planta
-      ↓
-Interfaz web
-      ↓
-Validación de datos
-      ↓
-Base de datos
-      ↓
-Procesamiento de indicadores
-      ↓
-Dashboard
-      ↓
-Toma de decisiones
+Usuario
+   ↓
+Interfaz web desarrollada con Streamlit
+   ↓
+Funciones Python y validaciones
+   ↓
+Base de datos local SQLite
+   ↓
+Consultas de producción, rechazos, paradas y metas
+   ↓
+Indicadores, comparación con metas y gráficos
+   ↓
+Apoyo a la toma de decisiones
 
 Estos objetivos ya fueron establecidos en el diagnóstico y **Business Case** del proyecto.
