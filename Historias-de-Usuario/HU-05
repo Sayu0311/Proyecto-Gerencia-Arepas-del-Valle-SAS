@@ -12,7 +12,7 @@ Como gerente, quiero consultar los indicadores por período y turno, para analiz
 ## Criterios de aceptación
 
 1.	El gerente puede seleccionar el período que desea consultar.
-2.	El gerente puede seleccionar un turno específico o consultar los datos correspondientes a los turnos disponibles dentro del período seleccionado.
+2. El gerente debe seleccionar un turno específico para consultar los indicadores de la fecha elegida.
 3.	Los indicadores mostrados corresponden exclusivamente al período y turno seleccionados.
 4.	La consulta permite visualizar, como mínimo, la producción real, unidades rechazadas y tiempos de paro registrados.
 5.	El sistema actualiza los indicadores cuando el gerente modifica los filtros de período o turno.
