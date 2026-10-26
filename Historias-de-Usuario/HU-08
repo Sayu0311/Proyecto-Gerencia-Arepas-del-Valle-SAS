@@ -11,11 +11,11 @@ Como gerente, quiero visualizar la cantidad de unidades rechazadas, para identif
 
 ## Criterios de aceptación
 
-1.	El gerente puede seleccionar el período que desea consultar.
+1.	El gerente puede seleccionar una fecha y un turno para consultar los indicadores.
 2.	El sistema muestra el total de unidades rechazadas correspondientes al período seleccionado.
 3.	El indicador utiliza los registros de unidades rechazadas realizados por los supervisores.
 4.	El gerente puede consultar la cantidad de unidades rechazadas correspondiente a diferentes períodos.
 5.	La información mostrada corresponde únicamente al período seleccionado.
-6.	Si no existen registros de unidades rechazadas para el período seleccionado, el sistema informa que no hay datos disponibles.
+6.	Si no existen datos de producción, unidades rechazadas ni tiempos de paro para la fecha y el turno seleccionados, el sistema informa que no hay datos disponibles.
 7.	El sistema no permite que los registros de unidades rechazadas utilizados para el indicador contengan cantidades negativas.
 8.	El indicador se actualiza cuando existen nuevos registros de unidades rechazadas correspondientes al período consultado.
