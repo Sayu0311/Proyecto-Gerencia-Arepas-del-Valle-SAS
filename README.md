@@ -421,3 +421,59 @@ Indicadores, comparación con metas y gráficos
 Apoyo a la toma de decisiones
 
 Estos objetivos ya fueron establecidos en el diagnóstico y **Business Case** del proyecto.
+
+cat >> README.md <<'EOF'
+
+## 10. MATRIZ DE RIESGOS 5×5
+
+La matriz permite identificar y priorizar riesgos del proyecto según su probabilidad e impacto. Las valoraciones son estimaciones cualitativas del equipo académico y deben revisarse durante cada Sprint.
+
+### Escalas de valoración
+
+| Valor | Probabilidad | Impacto |
+|---:|---|---|
+| 1 | Muy baja | Insignificante |
+| 2 | Baja | Menor |
+| 3 | Media | Moderado |
+| 4 | Alta | Grave |
+| 5 | Muy alta | Crítico |
+
+**Nivel de riesgo = Probabilidad × Impacto**
+
+| Puntaje | Nivel | Tratamiento |
+|---:|---|---|
+| 1–4 | Bajo | Monitorear |
+| 5–9 | Moderado | Definir acciones preventivas |
+| 10–16 | Alto | Priorizar mitigación y seguimiento |
+| 17–25 | Crítico | Atención inmediata |
+
+### Registro de riesgos
+
+| ID | Riesgo | Probabilidad | Impacto | Puntaje | Nivel | Acción de mitigación |
+|---|---|---:|---:|---:|---|---|
+| R1 | Pérdida o corrupción de la base de datos SQLite | 3 | 5 | 15 | Alto | Crear copias de seguridad y probar su recuperación. |
+| R2 | Errores en los datos ingresados por los usuarios | 4 | 4 | 16 | Alto | Validar campos, rangos y duplicados; ejecutar pruebas funcionales. |
+| R3 | Retrasos en el desarrollo de historias de usuario | 3 | 4 | 12 | Alto | Priorizar el Product Backlog y revisar avances en las reuniones del equipo. |
+| R4 | Indicadores incorrectos por errores de cálculo o consulta | 3 | 5 | 15 | Alto | Comparar resultados con cálculos manuales y documentar casos de prueba. |
+| R5 | Archivos CSV o Excel con columnas o formatos incorrectos | 4 | 3 | 12 | Alto | Validar las columnas requeridas y mostrar mensajes claros al usuario. |
+| R6 | Falta de evidencias o revisión independiente de QA | 4 | 3 | 12 | Alto | Asignar responsable, registrar fecha y adjuntar capturas reales de las pruebas. |
+| R7 | Beneficios económicos estimados sin datos reales suficientes | 4 | 4 | 16 | Alto | Obtener registros reales de producción, mermas, tiempos y costos antes de afirmar ahorros. |
+| R8 | Pérdida de cambios o integración defectuosa en el repositorio | 2 | 4 | 8 | Moderado | Usar commits frecuentes, ramas y revisión de cambios antes de integrar. |
+
+### Matriz de probabilidad e impacto
+
+Las filas representan el impacto y las columnas la probabilidad. Cada celda muestra el producto de ambos valores.
+
+| Impacto \ Probabilidad | 1 | 2 | 3 | 4 | 5 |
+|---|---:|---:|---:|---:|---:|
+| **5 – Crítico** | 5 | 10 | 15 | 20 | 25 |
+| **4 – Grave** | 4 | 8 | 12 | 16 | 20 |
+| **3 – Moderado** | 3 | 6 | 9 | 12 | 15 |
+| **2 – Menor** | 2 | 4 | 6 | 8 | 10 |
+| **1 – Insignificante** | 1 | 2 | 3 | 4 | 5 |
+
+### Seguimiento
+
+El equipo revisará los riesgos al inicio y cierre de cada Sprint. Se actualizarán las valoraciones cuando aparezcan nuevos riesgos o cambien las condiciones del proyecto. Los puntajes representan una valoración inicial del equipo, no mediciones estadísticas.
+
+EOF
