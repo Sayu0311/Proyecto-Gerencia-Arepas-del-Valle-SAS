@@ -11,11 +11,11 @@ Como gerente, quiero comparar los resultados obtenidos con las metas de producci
 
 ## Criterios de aceptación
 
-1.	El gerente puede seleccionar el período que desea analizar.
+1. El gerente puede seleccionar una fecha y un turno específicos para analizar la producción.
 2.	El sistema muestra la meta de producción registrada para el período seleccionado.
 3.	El sistema muestra la producción real registrada para el mismo período.
 4.	El sistema calcula y muestra la diferencia entre la producción real y la meta establecida.
 5.	El sistema permite identificar si la producción está por debajo, igual o por encima de la meta.
 6.	Si el período seleccionado no tiene una meta registrada, el sistema informa que no existe una meta disponible para realizar la comparación.
 7.	La comparación utiliza únicamente los datos correspondientes al mismo período.
-8.	El sistema no permite presentar una comparación como válida cuando falta alguno de los dos valores necesarios: meta o producción real.
+8. Si no existe una meta registrada, el sistema informa que no puede realizar la comparación.
