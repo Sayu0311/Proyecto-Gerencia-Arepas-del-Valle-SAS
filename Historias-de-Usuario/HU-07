@@ -11,7 +11,7 @@ Como gerente, quiero visualizar las principales causas y tiempos de paro, para i
 
 ## Criterios de aceptación
 
-1.	El gerente puede seleccionar el período que desea consultar.
+1.	El gerente puede seleccionar la fecha específica que desea consultar.
 2.	El sistema muestra el tiempo acumulado de paro del período seleccionado, expresado en minutos.
 3.	El sistema muestra las causas de paro registradas durante el período.
 4.	El sistema muestra el tiempo acumulado asociado a cada causa.
