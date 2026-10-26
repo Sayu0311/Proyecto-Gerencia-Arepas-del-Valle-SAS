@@ -1,7 +1,7 @@
 import sqlite3
 from datetime import datetime, date
 import streamlit as st
-
+import pandas as pd
 
 DB = "produccion.db"
 DB_NAME = "produccion.db"
@@ -1644,3 +1644,81 @@ except Exception as error_dashboard:
         "No fue posible generar el dashboard. "
         f"Detalle técnico: {error_dashboard}"
     )
+
+# ============================================================
+# CARGA Y VALIDACION DE ARCHIVOS CSV Y EXCEL
+# ============================================================
+
+st.divider()
+st.header("Carga de archivo externo")
+
+st.write(
+    "Carga un archivo CSV o Excel para visualizar sus datos "
+    "y validar que tenga las columnas requeridas. "
+    "Esta función no modifica la base de datos."
+)
+
+archivo_cargado = st.file_uploader(
+    "Selecciona un archivo CSV o Excel",
+    type=["csv", "xlsx"],
+    key="archivo_externo_dashboard"
+)
+
+if archivo_cargado is not None:
+    try:
+        nombre = archivo_cargado.name.lower()
+
+        if nombre.endswith(".csv"):
+            datos_archivo = pd.read_csv(archivo_cargado)
+        else:
+            datos_archivo = pd.read_excel(archivo_cargado)
+
+        if datos_archivo.empty:
+            st.warning("El archivo no contiene registros.")
+        else:
+            st.subheader("Vista previa del archivo")
+            st.caption(f"Archivo: {archivo_cargado.name}")
+            st.write(f"Filas: {len(datos_archivo)}")
+            st.write(f"Columnas: {len(datos_archivo.columns)}")
+
+            st.dataframe(
+                datos_archivo.head(100),
+                use_container_width=True
+            )
+
+            requeridas = {
+                "fecha",
+                "turno",
+                "unidades_producidas",
+                "unidades_rechazadas",
+                "minutos_paro"
+            }
+
+            # Normaliza los nombres solo para la validación.
+            columnas = {
+                str(columna).strip().lower()
+                for columna in datos_archivo.columns
+            }
+
+            faltantes = requeridas - columnas
+
+            if faltantes:
+                st.warning(
+                    "Faltan columnas requeridas: "
+                    + ", ".join(sorted(faltantes))
+                )
+                st.info(
+                    "El archivo debe incluir: fecha, turno, "
+                    "unidades_producidas, unidades_rechazadas "
+                    "y minutos_paro."
+                )
+            else:
+                st.success(
+                    "El archivo contiene todas las columnas requeridas."
+                )
+
+    except Exception as error_archivo:
+        st.error(
+            "No fue posible leer el archivo. "
+            f"Verifica el formato. Detalle: {error_archivo}"
+        )
