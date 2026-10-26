@@ -25,3 +25,19 @@ También se verificó que el sistema no permite registrar más unidades rechazad
 ## Conclusión
 
 Las pruebas realizadas para HU-03 fueron satisfactorias para los criterios de aceptación implementados en esta versión.
+
+## Datos de ejecución
+
+- Fecha: 26/10/2026
+- Versión: rama `main`, posterior al Pull Request #29.
+- Ejecutor: completar con el nombre real de quien realizó las pruebas.
+- Evidencias: adjuntar capturas reales de los casos probados.
+- QA independiente: pendiente de confirmar.
+
+## Observación
+
+La validación de duplicados debe considerar la misma fecha y turno. Debe comprobarse también que se permita registrar el mismo turno en fechas diferentes.
+
+## Conclusión
+
+Los resultados documentados indican que las validaciones descritas funcionaron. La prueba queda pendiente de evidencia verificable y revisión independiente de QA.

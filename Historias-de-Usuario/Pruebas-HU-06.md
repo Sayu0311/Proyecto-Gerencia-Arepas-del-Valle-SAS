@@ -36,3 +36,15 @@ Las metas utilizadas para las pruebas fueron datos de prueba registrados tempora
 | 26/10/2026 | Producción: 60 unidades; meta: 80; diferencia: -20 | Verificado |
 
 En los tres casos, la aplicación mostró la producción real, la meta y la diferencia correspondiente al periodo y turno seleccionados. El 23/10/2026 se comprobó que no había registros para la selección consultada.
+
+## Datos de ejecución
+
+- Fecha de ejecución: completar con la fecha real.
+- Versión probada: rama `main`, posterior al Pull Request #29.
+- Ejecutor: completar con el nombre real.
+- Evidencias: adjuntar capturas reales de las comparaciones realizadas.
+- QA independiente: pendiente de confirmar.
+
+## Conclusión
+
+Las pruebas funcionales documentadas muestran comparaciones por debajo, iguales y por encima de la meta. La validación documental queda pendiente de incorporar las capturas y confirmar la revisión independiente de QA.

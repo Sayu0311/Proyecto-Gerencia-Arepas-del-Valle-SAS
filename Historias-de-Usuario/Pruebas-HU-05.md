@@ -26,3 +26,19 @@ HU-05: Consultar indicadores de producción por periodo y turno.
 ## Observación
 
 Las pruebas utilizaron los registros generados durante las pruebas de HU-01, HU-02 y HU-03. Los datos existentes fueron asociados a la fecha de prueba 29/09/2026 para permitir la consulta por periodo.
+
+## Datos de ejecución
+
+- Fecha de ejecución: completar con la fecha real.
+- Versión probada: rama `main`, posterior al Pull Request #29.
+- Ejecutor: completar con el nombre real.
+- Evidencias: adjuntar capturas reales del periodo y los turnos consultados.
+- QA independiente: pendiente de confirmar.
+
+## Observación
+
+Los datos de prueba deben identificarse como datos de prueba, no como datos reales de la empresa. Confirmar que la consulta filtre correctamente por fecha y turno.
+
+## Conclusión
+
+Los resultados registrados describen las consultas realizadas. La validación queda pendiente de completar con evidencias verificables y revisión independiente de QA.

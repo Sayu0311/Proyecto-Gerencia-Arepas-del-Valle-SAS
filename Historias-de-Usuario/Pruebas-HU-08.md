@@ -28,3 +28,15 @@ Las pruebas utilizaron los registros generados durante la prueba de HU-03.
 | 25/10/2026 | Consultar unidades rechazadas del turno seleccionado | Se mostraron 5 unidades rechazadas | Verificado |
 
 La consulta mostró el total de unidades rechazadas para el periodo y turno seleccionado.
+
+## Datos de ejecución
+
+- Fecha de ejecución: completar con la fecha real.
+- Versión probada: rama `main`, posterior al Pull Request #29.
+- Ejecutor: completar con el nombre real.
+- Evidencias: adjuntar capturas reales de las consultas realizadas.
+- QA independiente: pendiente de confirmar.
+
+## Conclusión
+
+Los resultados documentados muestran consultas de unidades rechazadas por periodo. La validación documental queda pendiente de adjuntar capturas y confirmar la revisión independiente de QA.

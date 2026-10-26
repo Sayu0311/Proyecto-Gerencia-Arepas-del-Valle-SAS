@@ -21,3 +21,15 @@ Verificar que el sistema permita registrar metas de producción por periodo y tu
 La HU-09 permite registrar una meta positiva asociada a un periodo y turno, evita registros duplicados y muestra la meta registrada para verificar su asociación.
 
 Las pruebas realizadas corresponden a las validaciones definidas en la historia de usuario.
+
+## Datos de ejecución
+
+- Fecha de ejecución: completar con la fecha real.
+- Versión probada: rama `main`, posterior al Pull Request #29.
+- Ejecutor: completar con el nombre real.
+- Evidencias: adjuntar capturas reales del registro y consulta de metas.
+- QA independiente: pendiente de confirmar.
+
+## Conclusión
+
+Las pruebas documentadas cubren el registro, la validación y la consulta de metas por periodo y turno. Queda pendiente adjuntar las capturas reales y confirmar la revisión independiente de QA.

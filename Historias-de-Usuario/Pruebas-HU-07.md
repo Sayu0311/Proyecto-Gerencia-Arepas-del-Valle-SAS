@@ -31,3 +31,15 @@ Las pruebas utilizaron los registros de paros generados durante las pruebas de H
 | 25/10/2026 | Consultar el tiempo y la causa del paro del turno seleccionado | Se mostró un paro de 30 minutos, de 10:00 a 10:30 | Verificado |
 
 La consulta mostró el tiempo y la causa del paro para el periodo y turno seleccionado.
+
+## Datos de ejecución
+
+- Fecha de ejecución: completar con la fecha real.
+- Versión probada: rama `main`, posterior al Pull Request #29.
+- Ejecutor: completar con el nombre real.
+- Evidencias: adjuntar capturas reales de las consultas realizadas.
+- QA independiente: pendiente de confirmar.
+
+## Conclusión
+
+Los resultados documentados muestran consultas de tiempos y causas de paro. La validación documental queda pendiente de adjuntar capturas y confirmar la revisión independiente de QA.

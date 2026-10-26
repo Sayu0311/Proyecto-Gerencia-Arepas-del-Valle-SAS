@@ -24,3 +24,19 @@ HU-04: Consultar información registrada por turno.
 ## Observación
 
 En la prueba del Turno 1 se observaron dos registros de paro con la causa "Falla de máquina". Esto corresponde a los registros utilizados durante las pruebas de HU-01 y no representa una mezcla de información entre turnos.
+
+## Datos de ejecución
+
+- Fecha: 26/10/2026
+- Versión: rama `main`, posterior al Pull Request #29.
+- Ejecutor: completar con el nombre real de quien realizó las pruebas.
+- Evidencias: adjuntar capturas reales de las consultas realizadas.
+- QA independiente: pendiente de confirmar.
+
+## Observación sobre el alcance
+
+La consulta documentada se describe por turno. La aplicación actual maneja registros por fecha y turno; completar las pruebas verificando que las consultas distingan también fechas diferentes.
+
+## Conclusión
+
+Los resultados documentados indican que las consultas por turno funcionaron en los casos descritos. La validación queda pendiente de adjuntar capturas y confirmar la revisión independiente de QA.
