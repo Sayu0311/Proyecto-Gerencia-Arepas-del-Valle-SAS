@@ -26,3 +26,13 @@ HU-06: Comparar producción real con metas establecidas.
 ## Observación
 
 Las metas utilizadas para las pruebas fueron datos de prueba registrados temporalmente en la tabla de metas. El registro de metas corresponde a la HU-09.
+
+## Pruebas funcionales recientes: octubre de 2026
+
+| Fecha | Resultado obtenido | Estado |
+|---|---|---|
+| 24/10/2026 | Producción: 80 unidades; meta: 100; diferencia: -20 | Verificado |
+| 25/10/2026 | Producción: 100 unidades; meta: 120; diferencia: -20 | Verificado |
+| 26/10/2026 | Producción: 60 unidades; meta: 80; diferencia: -20 | Verificado |
+
+En los tres casos, la aplicación mostró la producción real, la meta y la diferencia correspondiente al periodo y turno seleccionados. El 23/10/2026 se comprobó que no había registros para la selección consultada.

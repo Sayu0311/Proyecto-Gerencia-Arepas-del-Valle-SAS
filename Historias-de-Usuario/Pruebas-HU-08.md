@@ -20,3 +20,11 @@ HU-08: Consultar unidades rechazadas por periodo.
 ## Observación
 
 Las pruebas utilizaron los registros generados durante la prueba de HU-03.
+
+## Prueba funcional reciente: 25/10/2026
+
+| Fecha | Prueba | Resultado obtenido | Estado |
+|---|---|---|---|
+| 25/10/2026 | Consultar unidades rechazadas del turno seleccionado | Se mostraron 5 unidades rechazadas | Verificado |
+
+La consulta mostró el total de unidades rechazadas para el periodo y turno seleccionado.

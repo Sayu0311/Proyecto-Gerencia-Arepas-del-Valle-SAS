@@ -23,3 +23,11 @@ HU-07: Consultar principales causas y tiempos de paro.
 ## Observación
 
 Las pruebas utilizaron los registros de paros generados durante las pruebas de HU-01.
+
+## Prueba funcional reciente: 25/10/2026
+
+| Fecha | Prueba | Resultado obtenido | Estado |
+|---|---|---|---|
+| 25/10/2026 | Consultar el tiempo y la causa del paro del turno seleccionado | Se mostró un paro de 30 minutos, de 10:00 a 10:30 | Verificado |
+
+La consulta mostró el tiempo y la causa del paro para el periodo y turno seleccionado.
