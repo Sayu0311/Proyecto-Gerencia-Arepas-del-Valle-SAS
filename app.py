@@ -1000,38 +1000,37 @@ if st.button("Calcular duración"):
             hora_fin
         )
 
-diferencia = fin - inicio
+    diferencia = fin - inicio
 
-duracion_minutos = int(
-    diferencia.total_seconds() / 60
-)
-
-if duracion_minutos <= 0:
-    st.error(
-        "La hora de finalización debe ser posterior "
-        "a la hora de inicio."
+    duracion_minutos = int(
+        diferencia.total_seconds() / 60
     )
 
-    st.session_state.pop(
-        "duracion_paro",
-        None
-    )
+    if duracion_minutos <= 0:
+        st.error(
+            "La hora de finalización debe ser posterior "
+            "a la hora de inicio."
+        )
 
-else:
-    st.session_state["duracion_paro"] = (
-        duracion_minutos
-    )
+        st.session_state.pop(
+            "duracion_paro",
+            None
+        )
 
-    st.session_state["horas_paro_calculadas"] = (
-        hora_inicio.strftime("%H:%M"),
-        hora_fin.strftime("%H:%M")
-    )
+    else:
+        st.session_state["duracion_paro"] = (
+            duracion_minutos
+        )
 
-    st.success(
-        f"Duración del paro: "
-        f"{duracion_minutos} minutos."
-    )
+        st.session_state["horas_paro_calculadas"] = (
+            hora_inicio.strftime("%H:%M"),
+            hora_fin.strftime("%H:%M")
+        )
 
+        st.success(
+            f"Duración del paro: "
+            f"{duracion_minutos} minutos."
+        )
 
 # ============================================================
 # GUARDAR PARO
