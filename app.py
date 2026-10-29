@@ -1521,206 +1521,239 @@ if st.button("Consultar comparación HU-06"):
 # ============================================================
 # DASHBOARD GENERAL - DATOS REALES DE SQLITE
 # ============================================================
-
-st.divider()
 st.header("Dashboard general de producción")
-st.write(
-    "Resumen de producción, rechazos y tiempos de paro "
-    "a partir de los registros almacenados."
-)
 
 try:
-    conexion_dashboard = conectar_db()
+    conexion = sqlite3.connect("produccion.db")
+    produccion_df = pd.read_sql_query(
+        "SELECT fecha, turno, unidades_producidas "
+        "FROM produccion",
+        conexion
+    )
+    rechazos_df = pd.read_sql_query(
+        "SELECT fecha, turno, unidades_rechazadas "
+        "FROM rechazos",
+        conexion
+    )
+    paros_df = pd.read_sql_query(
+        "SELECT fecha, turno, duracion_minutos AS minutos_paro FROM paros",
+        conexion
+    )
+    metas_df = pd.read_sql_query(
+        "SELECT fecha, turno, meta AS meta_produccion FROM metas",
+        conexion
+    )
+finally:
+    if "conexion" in locals():
+        conexion.close()
 
-    produccion_dashboard = conexion_dashboard.execute("""
-        SELECT fecha, SUM(unidades_producidas)
-        FROM produccion
-        GROUP BY fecha
-        ORDER BY fecha
-    """).fetchall()
-    metas_dashboard = conexion_dashboard.execute("""
-        SELECT fecha, SUM(meta)
-        FROM metas
-        GROUP BY fecha
-        ORDER BY fecha
-    """).fetchall()
-    rechazos_dashboard = conexion_dashboard.execute("""
-        SELECT fecha, SUM(unidades_rechazadas)
-        FROM rechazos
-        GROUP BY fecha
-        ORDER BY fecha
-    """).fetchall()
+def preparar_fecha(df):
+    if not df.empty and "fecha" in df.columns:
+        df["fecha"] = pd.to_datetime(df["fecha"], errors="coerce")
+        df.dropna(subset=["fecha"], inplace=True)
+    return df
 
-    paros_dashboard = conexion_dashboard.execute("""
-        SELECT fecha, SUM(duracion_minutos)
-        FROM paros
-        GROUP BY fecha
-        ORDER BY fecha
-    """).fetchall()
+for df in (produccion_df, rechazos_df, paros_df, metas_df):
+    preparar_fecha(df)
 
-    
+if produccion_df.empty and rechazos_df.empty and paros_df.empty:
+    st.info("Todavía no hay registros para mostrar en el dashboard.")
+else:
+    def agrupar(df, columna):
+        if df.empty:
+            return pd.DataFrame(columns=["fecha", columna])
+        return df.groupby("fecha", as_index=False)[columna].sum()
 
-    conexion_dashboard.close()
+    prod_dia = agrupar(produccion_df, "unidades_producidas")
+    rech_dia = agrupar(rechazos_df, "unidades_rechazadas")
+    paros_dia = agrupar(paros_df, "minutos_paro")
+    meta_dia = agrupar(metas_df, "meta_produccion")
 
+    resumen = prod_dia.merge(rech_dia, on="fecha", how="outer")
+    resumen = resumen.merge(paros_dia, on="fecha", how="outer")
+    resumen = resumen.merge(meta_dia, on="fecha", how="outer")
+    resumen = resumen.fillna(0).sort_values("fecha")
+    resumen["fecha"] = resumen["fecha"].dt.strftime("%Y-%m-%d")
 
-    if (
-        not produccion_dashboard
-        and not rechazos_dashboard
-        and not paros_dashboard
-        and not metas_dashboard
-    ):
-        st.info("Todavía no hay datos suficientes para mostrar gráficos.")
-    else:
-
-        fechas_dashboard = sorted(set(
-            [str(fila[0]) for fila in produccion_dashboard]
-            + [str(fila[0]) for fila in rechazos_dashboard]
-            + [str(fila[0]) for fila in paros_dashboard]
-        ))
-
-        mapa_produccion = {
-            str(fecha): cantidad
-            for fecha, cantidad in produccion_dashboard
-        }
-        mapa_metas = {
-            str(fecha): cantidad
-            for fecha, cantidad in metas_dashboard
-        }
-        mapa_rechazos = {
-            str(fecha): cantidad
-            for fecha, cantidad in rechazos_dashboard
-        }
-        mapa_paros = {
-            str(fecha): cantidad
-            for fecha, cantidad in paros_dashboard
-        }
-
-        datos_dashboard = {
-            "Fecha": fechas_dashboard,
-            "Unidades producidas": [
-                mapa_produccion.get(fecha, 0)
-                for fecha in fechas_dashboard
-            ],
-            "Meta de producción": [
-                mapa_metas.get(fecha, 0)
-                for fecha in fechas_dashboard
-            ],
-            "Unidades rechazadas": [
-                mapa_rechazos.get(fecha, 0)
-                for fecha in fechas_dashboard
-            ],
-            "Minutos de paro": [
-                mapa_paros.get(fecha, 0)
-                for fecha in fechas_dashboard
-            ],
-        }
-
-
-        st.subheader("Producción real frente a la meta")
-        st.bar_chart(
-            datos_dashboard,
-            x="Fecha",
-            y=["Unidades producidas", "Meta de producción"]
-        )
-
-
-        st.subheader("Rechazos por fecha")
-        st.bar_chart(
-            datos_dashboard,
-            x="Fecha",
-            y="Unidades rechazadas"
-        )
-
-        st.subheader("Tiempo de paro por fecha")
-        st.bar_chart(
-            datos_dashboard,
-            x="Fecha",
-            y="Minutos de paro"
-        )
-
-        st.subheader("Datos utilizados en el dashboard")
-        st.dataframe(datos_dashboard, use_container_width=True)
-
-except Exception as error_dashboard:
-    st.error(
-        "No fue posible generar el dashboard. "
-        f"Detalle técnico: {error_dashboard}"
+    c1, c2, c3 = st.columns(3)
+    c1.metric(
+        "Unidades producidas",
+        f"{int(resumen['unidades_producidas'].sum()):,}"
+    )
+    c2.metric(
+        "Unidades rechazadas",
+        f"{int(resumen['unidades_rechazadas'].sum()):,}"
+    )
+    c3.metric(
+        "Minutos de paro",
+        f"{int(resumen['minutos_paro'].sum()):,}"
     )
 
-# ============================================================
-# CARGA Y VALIDACION DE ARCHIVOS CSV Y EXCEL
-# ============================================================
+    st.subheader("Producción por día")
+    graf_prod = resumen.set_index("fecha")[["unidades_producidas"]]
+    if "meta_produccion" in resumen.columns and resumen["meta_produccion"].sum() > 0:
+        graf_prod["meta_produccion"] = resumen["meta_produccion"].values
+    st.bar_chart(graf_prod)
 
-st.divider()
-st.header("Carga de archivo externo")
+    st.subheader("Unidades rechazadas por día")
+    st.bar_chart(resumen.set_index("fecha")[["unidades_rechazadas"]])
 
+    st.subheader("Minutos de paro por día")
+    st.bar_chart(resumen.set_index("fecha")[["minutos_paro"]])
+
+    with st.expander("Ver resumen de datos del dashboard"):
+        st.dataframe(resumen, use_container_width=True)
+
+
+# ============================================================
+# CARGA DE ARCHIVOS Y GENERACIÓN DE DASHBOARD
+# ============================================================
+st.header("Generar dashboard desde CSV o Excel")
 st.write(
-    "Carga un archivo CSV o Excel para visualizar sus datos "
-    "y validar que tenga las columnas requeridas. "
-    "Esta función no modifica la base de datos."
+    "Carga un archivo para construir gráficos a partir de sus datos. "
+    "Esta operación no modifica la base de datos."
 )
 
-archivo_cargado = st.file_uploader(
+archivo = st.file_uploader(
     "Selecciona un archivo CSV o Excel",
-    type=["csv", "xlsx"],
-    key="archivo_externo_dashboard"
+    type=["csv", "xlsx"]
 )
 
-if archivo_cargado is not None:
+if archivo is not None:
     try:
-        nombre = archivo_cargado.name.lower()
-
-        if nombre.endswith(".csv"):
-            datos_archivo = pd.read_csv(archivo_cargado)
+        if archivo.name.lower().endswith(".csv"):
+            datos = pd.read_csv(archivo)
         else:
-            datos_archivo = pd.read_excel(archivo_cargado)
+            datos = pd.read_excel(archivo)
 
-        if datos_archivo.empty:
-            st.warning("El archivo no contiene registros.")
-        else:
-            st.subheader("Vista previa del archivo")
-            st.caption(f"Archivo: {archivo_cargado.name}")
-            st.write(f"Filas: {len(datos_archivo)}")
-            st.write(f"Columnas: {len(datos_archivo.columns)}")
+        datos.columns = [
+            str(col).strip().lower() for col in datos.columns
+        ]
 
-            st.dataframe(
-                datos_archivo.head(100),
-                use_container_width=True
+        # Admitir nombres alternativos comunes para la meta.
+        alternativas_meta = [
+            "meta", "meta diaria", "meta de producción",
+            "meta de produccion", "unidades_meta"
+        ]
+        for nombre in alternativas_meta:
+            if nombre in datos.columns and "meta_produccion" not in datos.columns:
+                datos.rename(columns={nombre: "meta_produccion"}, inplace=True)
+                break
+
+        requeridas = [
+            "fecha", "turno", "unidades_producidas",
+            "unidades_rechazadas", "minutos_paro"
+        ]
+        faltantes = [col for col in requeridas if col not in datos.columns]
+
+        if faltantes:
+            st.error(
+                "Faltan columnas obligatorias: "
+                + ", ".join(faltantes)
             )
+            st.caption(
+                "El archivo debe incluir fecha, turno, "
+                "unidades_producidas, unidades_rechazadas y minutos_paro."
+            )
+        else:
+            datos["fecha"] = pd.to_datetime(
+                datos["fecha"], errors="coerce"
+            )
+            datos["turno"] = datos["turno"].astype(str).str.strip()
 
-            requeridas = {
-                "fecha",
-                "turno",
+            numericas = [
                 "unidades_producidas",
                 "unidades_rechazadas",
                 "minutos_paro"
-            }
+            ]
+            if "meta_produccion" in datos.columns:
+                numericas.append("meta_produccion")
 
-            # Normaliza los nombres solo para la validación.
-            columnas = {
-                str(columna).strip().lower()
-                for columna in datos_archivo.columns
-            }
+            for col in numericas:
+                datos[col] = pd.to_numeric(datos[col], errors="coerce")
 
-            faltantes = requeridas - columnas
+            invalidas = (
+                datos["fecha"].isna()
+                | datos["turno"].isin(["", "nan", "None"])
+            )
+            for col in numericas:
+                invalidas = invalidas | datos[col].isna() | (datos[col] < 0)
 
-            if faltantes:
+            filas_invalidas = int(invalidas.sum())
+            datos = datos.loc[~invalidas].copy()
+
+            if filas_invalidas:
                 st.warning(
-                    "Faltan columnas requeridas: "
-                    + ", ".join(sorted(faltantes))
+                    f"Se excluyeron {filas_invalidas} filas con "
+                    "fechas, turnos o valores numéricos inválidos."
                 )
-                st.info(
-                    "El archivo debe incluir: fecha, turno, "
-                    "unidades_producidas, unidades_rechazadas "
-                    "y minutos_paro."
-                )
+
+            if datos.empty:
+                st.error("No hay filas válidas para generar el dashboard.")
             else:
                 st.success(
-                    "El archivo contiene todas las columnas requeridas."
+                    f"Archivo leído correctamente: {len(datos)} filas válidas."
+                )
+                st.subheader("Vista previa del archivo")
+                st.dataframe(datos, use_container_width=True)
+
+                resumen_archivo = datos.groupby(
+                    "fecha", as_index=False
+                )[numericas].sum().sort_values("fecha")
+
+                resumen_archivo["fecha"] = (
+                    resumen_archivo["fecha"].dt.strftime("%Y-%m-%d")
                 )
 
-    except Exception as error_archivo:
-        st.error(
-            "No fue posible leer el archivo. "
-            f"Verifica el formato. Detalle: {error_archivo}"
-        )
+                a, b, c = st.columns(3)
+                a.metric(
+                    "Unidades producidas",
+                    f"{int(resumen_archivo['unidades_producidas'].sum()):,}"
+                )
+                b.metric(
+                    "Unidades rechazadas",
+                    f"{int(resumen_archivo['unidades_rechazadas'].sum()):,}"
+                )
+                c.metric(
+                    "Minutos de paro",
+                    f"{int(resumen_archivo['minutos_paro'].sum()):,}"
+                )
+
+                st.subheader("Producción del archivo por día")
+                grafico_archivo = resumen_archivo.set_index("fecha")[
+                    ["unidades_producidas"]
+                ]
+                if (
+                    "meta_produccion" in resumen_archivo.columns
+                    and resumen_archivo["meta_produccion"].sum() > 0
+                ):
+                    grafico_archivo["meta_produccion"] = (
+                        resumen_archivo["meta_produccion"].values
+                    )
+                st.bar_chart(grafico_archivo)
+
+                st.subheader("Rechazos del archivo por día")
+                st.bar_chart(
+                    resumen_archivo.set_index("fecha")[
+                        ["unidades_rechazadas"]
+                    ]
+                )
+
+                st.subheader("Paros del archivo por día")
+                st.bar_chart(
+                    resumen_archivo.set_index("fecha")[["minutos_paro"]]
+                )
+
+                st.subheader("Producción por turno")
+                por_turno = datos.groupby("turno")[
+                    ["unidades_producidas", "unidades_rechazadas"]
+                ].sum()
+                st.bar_chart(por_turno)
+
+                with st.expander("Ver resumen agrupado por día"):
+                    st.dataframe(
+                        resumen_archivo, use_container_width=True
+                    )
+
+    except Exception as error:
+        st.error(f"No fue posible procesar el archivo: {error}")
