@@ -4,8 +4,10 @@
 
 - **Revisor QA independiente:** Pendiente de asignación
 - **Fecha de revisión:** Pendiente
-- **Rama y versión revisada:** `main` — commit `570b913` (verificar que siga siendo la versión evaluada)
-- **Integrante que desarrolló la historia:** Pendiente de completar
+- **Rama y versión revisada:** `main` — commit `4850884`
+- **Modalidad de desarrollo:** Trabajo colaborativo entre `amontess` y `Sayu0311`.
+- **Distribución del trabajo:** Ambos integrantes participaron en el desarrollo. La gestión de ramas, commits e integración se distribuyó entre ellos.
+- **Autoría individual por historia:** No se puede determinar únicamente con el historial de Git.
 
 ## Resultado por historia
 
