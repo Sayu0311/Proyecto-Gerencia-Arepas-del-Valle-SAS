@@ -29,7 +29,7 @@ La revisión se realizará de forma cruzada entre los integrantes.
 | HU-01 | Sayu0311 | amontess | 30/10/2026 | APROBADA |7 de 7 casos aprobados. Se corrigió un error de indentación en el cálculo de duración y se repitió la prueba satisfactoriamente. |
 | HU-02 | Sayu0311 | amontess | 30/10/2026 | APROBADA | |
 | HU-03 | Sayu0311 | amontess |  30/10/2026  | APROBADA | 8 de 8 casos aprobados|
-| HU-04 | Pendiente | Pendiente | Pendiente | Pendiente | |
+| HU-04 | Sayu0311 | amontess | 30/10/2026 | APROBADA |4 de 4 casos aprobados|
 | HU-05 | Pendiente | Pendiente | Pendiente | Pendiente | |
 | HU-06 | Pendiente | Pendiente | Pendiente | Pendiente | |
 | HU-07 | Pendiente | Pendiente | Pendiente | Pendiente | |
