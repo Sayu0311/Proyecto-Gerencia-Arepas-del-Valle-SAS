@@ -4,7 +4,7 @@
 
 **Asignatura:** Gerencia de Proyectos (Periodo 2026-2)
 
-**Integrantes:** Jerson Esteban Ceballlos Leal, Andrea Carolina Montes Barragan y Sayuri Alexandra Moreno Espinosa.
+**Integrantes:** Andrea Carolina Montes Barragan y Sayuri Alexandra Moreno Espinosa.
 
 # 1. INFORMACIÓN DE LA EMPRESA Y DEL PROCESO
 
@@ -191,7 +191,7 @@ El proyecto será desarrollado mediante roles Scrum:
 |---|---|
 | Sayuri | Scrum Master |
 | Andrea | Developer |
-| Esteban | QA |
+
 
 Los supervisores registrarán la información operativa y la gerencia consultará los datos e indicadores mediante la aplicación.
 
@@ -271,7 +271,7 @@ El proyecto se gestiona mediante el marco de trabajo **Scrum**, utilizando GitHu
 |---|---|
 | Sayuri | Scrum Master |
 | Andrea | Developer |
-| Esteban | QA |
+
 
 El Product Owner corresponde al profesor de la asignatura, quien realiza la validación y retroalimentación del producto.
 
