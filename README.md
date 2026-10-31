@@ -403,7 +403,7 @@ La aplicación valida que no se registren duplicados de producción o de unidade
 
 **Limitaciones de la versión actual:** la solución no implementa una base de datos PostgreSQL, autenticación por roles, registro de kilogramos de masa, presentaciones de paquetes de 5 y 10 unidades, cálculo de OEE ni importación automática de archivos. Estas funcionalidades no forman parte de las capacidades implementadas y verificadas en esta versión.
 
-### Flujo general
+## Flujo general
 
 ```text
 Usuario
@@ -419,10 +419,11 @@ Consultas de producción, rechazos, paradas y metas
 Indicadores, comparación con metas y gráficos
    ↓
 Apoyo a la toma de decisiones
+```
 
 Estos objetivos ya fueron establecidos en el diagnóstico y **Business Case** del proyecto.
 
-cat >> README.md <<'EOF'
+
 
 ## 10. MATRIZ DE RIESGOS 5×5
 
