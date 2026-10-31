@@ -54,18 +54,15 @@ La revisión se realizará de forma cruzada entre los integrantes.
 |---|---|---|---|---|
 | Pendiente | | | | |
 
-Si no se encuentran defectos, registrar expresamente que no se identificaron durante la revisión.
+
 
 ## 7. Resultado final
 
-- **Historias aprobadas:** Pendiente.
-- **Historias rechazadas:** Pendiente.
-- **Historias pendientes:** 9.
-- **Estado general del QA:** Pendiente de ejecución de la revisión independiente.
+- **Historias aprobadas:** 9.
+- **Historias rechazadas:** 0.
+- **Historias pendientes:** 0.
+- **Estado general del QA:** APROBADA.
 
 ## 8. Observaciones
 
-Las capturas existentes en `Evidencias/QA/` constituyen evidencias funcionales iniciales. Su existencia no equivale a una aprobación independiente.
-
-Las pruebas y aprobaciones registradas en esta acta deberán corresponder a verificaciones realmente ejecutadas por los integrantes.
-
+La revisión independiente fue realizada por amontess y Sayu0311, quienes verificaron  las funcionalidades, los resultados de las pruebas y las evidencias de las nueve historias de usuario.
